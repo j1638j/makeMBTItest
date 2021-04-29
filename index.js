@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost/mbtitest', {useNewUrlParser: true, useUnif
 
 //ejs
 const ejsMate = require('ejs-mate')
+const path = require('path');
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,10 +24,25 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.render('home');
 })
 
 
+app.get('/login', (req, res) => {
+    res.render('users/login');
+})
+
+app.get('/signup', (req, res) => {
+    res.render('users/signup');
+})
+
+app.get('/makeTest', (req, res) => {
+    res.render('makeTest');
+})
+
+app.get('/myTests', (req, res) => {
+    res.render('users/myTests')
+})
 
 
 
