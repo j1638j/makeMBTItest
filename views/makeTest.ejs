@@ -1,5 +1,48 @@
 <% layout('layouts/boilerplate') %>
 
-<form action="/makeTest" method="POST" class="validated-form" novalidate>
+<!-- 1. 선호경향과 채점기준을 입력해 주세요. (예: 에너지 방향(E, I) 3점 미만 I, 3점 이상 E) -->
+<!-- 2. 질문과 선택지를 입력해 주세요. -->
+<!-- 3. 결과의 경우의 수를 입력해 주세요. -->
 
-</form>
+<h1>다음 문항들을 순서대로 완성해 주세요.</h1>
+
+<div>
+    <div class="mt-5 mb-3">
+        <h2>1. 선호경향과 채점기준을 입력해 주세요.</h2>
+        <h5 class="text-muted">예) 에너지 방향 3점 미만 I, 3점 이상 E</h6>
+    </div>
+    <form id="first-question" action="/makeTest" method="POST" class="validated-form" novalidate>
+        <input id="preference" type="text" placeholder="선호경향 예)에너지 방향">
+        <input id="criterion" type="number" placeholder="기준 점수"> 
+        <span>점 미만</span>
+        <input id="type1" type="text" placeholder="type1">
+        <span>, 이상</span>
+        <input id="type2" type="text" placeholder="type2">
+        <button class="btn btn-primary btn-sm" type="button">추가</button>
+    </form>
+
+    <div class="mt-5 mb-3">
+        <h2>2. 질문과 선택지를 입력해 주세요.</h2>
+        <h5 class="text-muted">예)</h6>
+    </div>
+    <form id="second-question" action="/makeTest" method="POST" class="validated-form" novalidate>
+        <div class="mb-2">
+            <h6>질문</h6>
+            <textarea name="question" id="question" cols="100" rows="2"></textarea>
+        </div>
+        <div>
+            <h6>선택지</h6>
+            <textarea name="option" id="option" cols="100" rows="2"></textarea>
+            <button class="btn btn-primary" type="button">선택지 추가</button>
+        </div>
+    </form>
+
+    <div class="mt-5 mb-3">
+        <h2>3. 결과의 모든 경우의 수를 입력해 주세요.</h2>
+        <h5 class="text-muted">예)</h5>
+    </div>
+    <form id="third-question" action="/makeTest" method="POST" class="validated-form" novalidate>
+        
+    </form>
+</div>
+
