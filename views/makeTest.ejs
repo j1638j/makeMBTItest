@@ -6,9 +6,33 @@
 
     <h1>다음 문항들을 순서대로 완성해 주세요.</h1>
 
+    <div class="mt-5 mb-3">
+        <h2>1. 질문과 선택지를 입력해 주세요.</h2>
+    </div>
+    <form id="second-question" action="/makeTest" method="POST" class="validated-form" novalidate>
+        <div class="container mb-2">
+            <div class="row">
+                <h6>질문 <span class="text-muted">예)중요한 일이 있을 때 나는...</span></h6>
+                <div class="col-9">
+                    <textarea class="col-8" name="question" id="question" cols="70%" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-2">
+            <div class="row">
+                <h6>선택지 <span class="text-muted">예)철저히 계획을 세운다.</span></h6>
+                <div class="col-9">
+                    <textarea class="col-8" name="option" id="option"></textarea>
+                    <button class="btn btn-primary align-text-bottom mb-1" type="button">선택지 추가</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
     <div>
         <div class="mt-5 mb-3">
-            <h2>1. 선호경향과 채점기준을 입력해 주세요.</h2>
+            <h2>2. 선호경향과 채점기준을 입력해 주세요.</h2>
             <h5 class="text-muted">예) 에너지 방향 3점 미만 I, 3점 이상 E</h6>
         </div>
         <div class="container">
@@ -24,30 +48,6 @@
                 </form>
             </div>
         </div>
-
-        <div class="mt-5 mb-3">
-            <h2>2. 질문과 선택지를 입력해 주세요.</h2>
-            <h5 class="text-muted">예)</h6>
-        </div>
-        <form id="second-question" action="/makeTest" method="POST" class="validated-form" novalidate>
-            <div class="container mb-2">
-                <div class="row">
-                    <h6>질문</h6>
-                    <div class="col-9">
-                        <textarea class="col-8" name="question" id="question" cols="70%" rows="2"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-2">
-                <div class="row">
-                    <h6>선택지</h6>
-                    <div class="col-9">
-                        <textarea class="col-8" name="option" id="option"></textarea>
-                        <button class="btn btn-primary align-text-bottom mb-1" type="button">선택지 추가</button>
-                    </div>
-                </div>
-            </div>
-        </form>
 
         <div class="mt-5 mb-3">
             <h2 class="mb-3">3. 결과의 모든 경우의 수를 입력해 주세요.</h2>
@@ -72,9 +72,18 @@
                             <input type="text" id="result-perfect-match-input" placeholder="별명 예)사교적인 외교관">
                             <div class="mt-2">
                                 <textarea name="result-perfect-match-textarea" id="result-perfect-match-textarea"
-                                    class="col-8" placeholder="설명 예)사교형 사람은 분위기를 좌지우지 하며..."></textarea>
+                                    class="col-8" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
                             </div>
                         </div>
+                        <div class="mb-3 col-9" id="result-worst-match-div">
+                            <h6>최악의 궁합 <span class="text-muted">(선택사항)</span></h6>
+                            <input type="text" id="result-worst-match-input" placeholder="별명 예)사교적인 외교관">
+                            <div class="mt-2">
+                                <textarea name="result-worst-match-textarea" id="result-worst-match-textarea"
+                                    class="col-8" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
