@@ -1,0 +1,62 @@
+<% layout('layouts/boilerplate') %>
+
+    <!-- 1. 선호경향과 채점기준을 입력해 주세요. (예: 에너지 방향(E, I) 3점 미만 I, 3점 이상 E) -->
+    <!-- 2. 질문과 선택지를 입력해 주세요. -->
+    <!-- 3. 결과의 경우의 수를 입력해 주세요. -->
+
+
+    <div class="container mb-5">
+        <div class="row">
+
+            <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-5 p-3">
+                <div class="mt-3 mb-5 text-center">
+                    <h3>결과의 모든 경우의 수를 입력해 주세요.</h3>
+                    <h5 class="text-muted">모든 경우의 수가 입력되지 않으면 오류가 생길 수 있습니다.</h6>
+                </div>
+
+                <div class="row">
+                    <div id="result-case" class="col-10 offset-1">
+                        <div id="result-type-div" class="mb-3">
+                            <h6>타입 <span class="text-muted">(선택사항) 예)ENTJ</span></h6>
+                            <input class="form-control" id="result-type-input" type="text">
+                        </div>
+                        <div id="result-name-div" class="mb-3">
+                            <h6>별명 <span class="text-muted">예)대담한 통솔자</span></h6>
+                            <input class="form-control" id="result-name-input" type="text" required>
+                        </div>
+                        <div class="mb-3" id="result-description-div">
+                            <h6>설명 <span class="text-muted">예)통솔자형 사람은 천성적으로 타고난 리더로...</span></h6>
+                            <textarea name="result-description-textarea" id="result-description-textarea"
+                                class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3" id="result-perfect-match-div">
+                            <h6>최고의 궁합 <span class="text-muted">(선택사항)</span></h6>
+                            <input class="form-control" type="text" id="result-perfect-match-input"
+                                placeholder="별명 예)사교적인 외교관">
+                            <div class="mt-2">
+                                <textarea name="result-perfect-match-textarea" id="result-perfect-match-textarea"
+                                    class="form-control" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="result-worst-match-div">
+                            <h6>최악의 궁합 <span class="text-muted">(선택사항)</span></h6>
+                            <input class="form-control" type="text" id="result-worst-match-input"
+                                placeholder="별명 예)사교적인 외교관">
+                            <div class="mt-2">
+                                <textarea name="result-worst-match-textarea" id="result-worst-match-textarea"
+                                    class="form-control" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
+                            <button class="btn btn-outline-primary text-wrap" type="button">결과 추가</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
+                <button id="before-button" class="btn btn-primary m-1">이전</button>
+                <button id="next-button" class="btn btn-primary m-1">다음</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 테스트 만들기</title>
+
+    <link type="text/css" rel="stylesheet" href="/makeTest.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+
+<body class="d-flex flex-column vh-100">
+
+    <!-- navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MBTI 테스트 만들기</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltM arkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/makeTest">새로운 테스트 만들기</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- contents -->
+    <!-- 1. 선호경향과 채점기준을 입력해 주세요. (예: 에너지 방향(E, I) 3점 미만 I, 3점 이상 E) -->
+    <!-- 2. 질문과 선택지를 입력해 주세요. -->
+    <!-- 3. 결과의 경우의 수를 입력해 주세요. -->
+
+
+    <div class="container mb-5 tab">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-5 p-3">
+                <div class="mb-3 text-center">
+                    <h3>테스트 이름을 입력해 주세요.</h3>
+                </div>
+                <form id="test-name-form" action="/makeTest" method="POST" class="mx-4 mt-4">
+                    <input class="form-control form-control-lg" id="test-name-input" type="text"
+                        placeholder="예) 나는 어떤 종류의 사람일까? ">
+                </form>
+                <div class="d-flex justify-content-between mt-4 px-4">
+                    <button id="before-button-1" class="btn btn-primary m-1" disabled>이전</button>
+                    <a id="next-button-1" class="btn btn-primary m-1" href="/makeTest2" type="submit">다음</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer bg-dark py-3 mt-auto">
+        <div class="mx-5">
+            <span class="text-muted">&copy; makeMBTItest</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <script src="/makeTest.js"></script>
+
+
+</body>
+
+</html>

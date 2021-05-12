@@ -4,91 +4,187 @@
     <!-- 2. 질문과 선택지를 입력해 주세요. -->
     <!-- 3. 결과의 경우의 수를 입력해 주세요. -->
 
-    <h1>다음 문항들을 순서대로 완성해 주세요.</h1>
-
-    <div class="mt-5 mb-3">
-        <h2>1. 질문과 선택지를 입력해 주세요.</h2>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
     </div>
-    <form id="second-question" action="/makeTest" method="POST" class="validated-form" novalidate>
-        <div class="container mb-2">
+
+
+    <form action="/makeTest" method="POST">
+        <!-- First Tab -->
+        <div class="container mb-5 tab">
             <div class="row">
-                <h6>질문 <span class="text-muted">예)중요한 일이 있을 때 나는...</span></h6>
-                <div class="col-9">
-                    <textarea class="col-8" name="question" id="question" cols="70%" rows="2"></textarea>
+                <div
+                    class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+                    <div class="mb-3 text-center">
+                        <h3>테스트 이름을 입력해 주세요.</h3>
+                    </div>
+                    <form id="test-name-form" action="/makeTest" method="POST" class="mx-4 mt-4">
+                        <input class="form-control form-control-lg" id="test-name-input" type="text"
+                            placeholder="예) 나는 어떤 종류의 사람일까? ">
+                    </form>
+                    <!-- <div class="d-flex justify-content-between mt-4 px-4">
+                    <button id="before-button-1" class="btn btn-primary m-1 disabled">이전</button>
+                    <button id="next-button-1" class="btn btn-primary m-1">다음</button>
+                </div> -->
                 </div>
             </div>
         </div>
-        <div class="container mb-2">
+
+
+        <!-- Second Tab -->
+        <div class="tab container mb-5">
             <div class="row">
-                <h6>선택지 <span class="text-muted">예)철저히 계획을 세운다.</span></h6>
-                <div class="col-9">
-                    <textarea class="col-8" name="option" id="option"></textarea>
-                    <button class="btn btn-primary align-text-bottom mb-1" type="button">선택지 추가</button>
+                <div
+                    class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+                    <div class="mt-3 mb-5 text-center">
+                        <h3>질문과 선택지를 입력해 주세요.</h3>
+                    </div>
+                    <div id="second-question">
+                        <div class="my-3 mx-4">
+                            <h6>질문 <span class="text-muted">예)중요한 일이 있을 때 나는...</span></h6>
+                            <textarea name="question" id="question" class="col-12" rows="2"></textarea>
+                        </div>
+                        <div class="my-3 mx-4">
+                            <h6>선택지 <span class="text-muted">예)철저히 계획을 세운다.</span></h6>
+                            <textarea name="option" id="option" class="col-12" rows="2"></textarea>
+                            <button class="btn btn-outline-primary align-text-bottom float-end mt-4 mb-3"
+                                type="button">선택지추가</button>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
+                <button id="before-button-2" class="btn btn-primary m-1">이전</button>
+                <button id="next-button-2" class="btn btn-primary m-1">다음</button>
+            </div> -->
+
+            </div>
+        </div>
+
+
+
+        <!-- Third Tab -->
+        <div class="tab container mb-5">
+            <div class="row">
+                <div
+                    class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+                    <div class="mt-3 mb-5 text-center">
+                        <h3>선호경향과 채점기준을 입력해 주세요.</h3>
+                        <h5 class="text-muted">예) 에너지 방향 기준점수 3점 미만 I, 3점 이상 E</h6>
+                    </div>
+                    <div id="third-question">
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>선호경향 <span class="text-muted">예)에너지 방향</span></h6>
+                                <input class="form-control" id="preference" type="text">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수</h6>
+                                <input class="form-control" id="criterion" type="number" min="0">
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수 미만</h6>
+                                <input class="form-control" id="type1" type="text" placeholder="type1">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수 이상</h6>
+                                <input class="form-control" id="type2" type="text" placeholder="type2">
+                            </div>
+                            <div class="col-10 offset-1 d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
+                                <button class="btn btn-outline-primary text-wrap" type="button">채점기준 추가</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
+                <button id="before-button" class="btn btn-primary m-1">이전</button>
+                <button id="next-button" class="btn btn-primary m-1">다음</button>
+            </div> -->
+
+            </div>
+        </div>
+
+
+
+
+        <!-- Fourth Tab -->
+        <div class="tab container mb-5">
+            <div class="row">
+
+                <div
+                    class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+                    <div class="mt-3 mb-5 text-center">
+                        <h3>결과의 모든 경우의 수를 입력해 주세요.</h3>
+                        <h5 class="text-muted">모든 경우의 수가 입력되지 않으면 오류가 생길 수 있습니다.</h6>
+                    </div>
+
+                    <div class="row">
+                        <div id="result-case" class="col-10 offset-1">
+                            <div id="result-type-div" class="mb-3">
+                                <h6>타입 <span class="text-muted">(선택사항) 예)ENTJ</span></h6>
+                                <input class="form-control" id="result-type-input" type="text">
+                            </div>
+                            <div id="result-name-div" class="mb-3">
+                                <h6>별명 <span class="text-muted">예)대담한 통솔자</span></h6>
+                                <input class="form-control" id="result-name-input" type="text" required>
+                            </div>
+                            <div class="mb-3" id="result-description-div">
+                                <h6>설명 <span class="text-muted">예)통솔자형 사람은 천성적으로 타고난 리더로...</span></h6>
+                                <textarea name="result-description-textarea" id="result-description-textarea"
+                                    class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3" id="result-perfect-match-div">
+                                <h6>최고의 궁합 <span class="text-muted">(선택사항)</span></h6>
+                                <input class="form-control" type="text" id="result-perfect-match-input"
+                                    placeholder="별명 예)사교적인 외교관">
+                                <div class="mt-2">
+                                    <textarea name="result-perfect-match-textarea" id="result-perfect-match-textarea"
+                                        class="form-control" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3" id="result-worst-match-div">
+                                <h6>최악의 궁합 <span class="text-muted">(선택사항)</span></h6>
+                                <input class="form-control" type="text" id="result-worst-match-input"
+                                    placeholder="별명 예)사교적인 외교관">
+                                <div class="mt-2">
+                                    <textarea name="result-worst-match-textarea" id="result-worst-match-textarea"
+                                        class="form-control" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
+                                <button class="btn btn-outline-primary text-wrap" type="button">결과 추가</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
+                <button id="before-button" class="btn btn-primary m-1">이전</button>
+                <button id="next-button" class="btn btn-primary m-1">다음</button>
+            </div> -->
             </div>
         </div>
     </form>
 
-
-    <div>
-        <div class="mt-5 mb-3">
-            <h2>2. 선호경향과 채점기준을 입력해 주세요.</h2>
-            <h5 class="text-muted">예) 에너지 방향 3점 미만 I, 3점 이상 E</h6>
-        </div>
-        <div class="container">
-            <div class="row">
-                <form id="first-question" action="/makeTest" method="POST" class="validated-form" novalidate>
-                    <input id="preference" type="text" placeholder="선호경향 예)에너지 방향">
-                    <input id="criterion" type="number" placeholder="기준 점수">
-                    <span>점 미만</span>
-                    <input id="type1" type="text" placeholder="type1">
-                    <span>, 이상</span>
-                    <input id="type2" type="text" placeholder="type2">
-                    <button class="btn btn-primary btn-sm" type="button">추가</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="mt-5 mb-3">
-            <h2 class="mb-3">3. 결과의 모든 경우의 수를 입력해 주세요.</h2>
-            <div class="container">
-                <div class="row">
-                    <form id="result-case" action="/makeTest" method="POST">
-                        <div id="result-type-div" class="mb-3">
-                            <h6>타입 <span class="text-muted">(선택사항) 예)ENTJ</span></h6>
-                            <input id="result-type-input" type="text">
-                        </div>
-                        <div id="result-name-div" class="mb-3">
-                            <h6>별명 <span class="text-muted">예)대담한 통솔자</span></h6>
-                            <input id="result-name-input" type="text">
-                        </div>
-                        <div class="mb-3 col-9" id="result-description-div">
-                            <h6>설명 <span class="text-muted">예)통솔자형 사람은 천성적으로 타고난 리더...</span></h6>
-                            <textarea name="result-description-textarea" id="result-description-textarea"
-                                class="col-8"></textarea>
-                        </div>
-                        <div class="mb-3 col-9" id="result-perfect-match-div">
-                            <h6>최고의 궁합 <span class="text-muted">(선택사항)</span></h6>
-                            <input type="text" id="result-perfect-match-input" placeholder="별명 예)사교적인 외교관">
-                            <div class="mt-2">
-                                <textarea name="result-perfect-match-textarea" id="result-perfect-match-textarea"
-                                    class="col-8" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
-                            </div>
-                        </div>
-                        <div class="mb-3 col-9" id="result-worst-match-div">
-                            <h6>최악의 궁합 <span class="text-muted">(선택사항)</span></h6>
-                            <input type="text" id="result-worst-match-input" placeholder="별명 예)사교적인 외교관">
-                            <div class="mt-2">
-                                <textarea name="result-worst-match-textarea" id="result-worst-match-textarea"
-                                    class="col-8" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."></textarea>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-        <form id="third-question" action="/makeTest" method="POST" class="validated-form" novalidate>
-
-        </form>
+    <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mb-3">
+        <button id="before-button" class="btn btn-primary m-1">이전</button>
+        <button id="next-button" class="btn btn-primary m-1">다음</button>
+        <a id="finish-button" class="btn btn-primary m-1" href="/makeTestFinished">테스트 완성</a>
     </div>
+
+
+
+    <script src="/makeTest.js"></script>
