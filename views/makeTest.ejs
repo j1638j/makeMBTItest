@@ -22,14 +22,8 @@
                     <div class="mb-3 text-center">
                         <h3>테스트 이름을 입력해 주세요.</h3>
                     </div>
-                    <form id="test-name-form" action="/makeTest" method="POST" class="mx-4 mt-4">
-                        <input class="form-control form-control-lg" id="test-name-input" type="text"
-                            placeholder="예) 나는 어떤 종류의 사람일까? ">
-                    </form>
-                    <!-- <div class="d-flex justify-content-between mt-4 px-4">
-                    <button id="before-button-1" class="btn btn-primary m-1 disabled">이전</button>
-                    <button id="next-button-1" class="btn btn-primary m-1">다음</button>
-                </div> -->
+                    <input class="form-control form-control-lg" id="test-name-input" type="text"
+                        placeholder="예) 나는 어떤 종류의 사람일까? " name="test[title]">
                 </div>
             </div>
         </div>
@@ -41,29 +35,71 @@
                 <div
                     class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
                     <div class="mt-3 mb-5 text-center">
-                        <h3>질문과 선택지를 입력해 주세요.</h3>
+                        <h3>선호경향과 채점기준을 입력해 주세요.</h3>
+                        <h5 class="text-muted">예) 에너지 방향 기준점수 3점 미만 I, 3점 이상 E</h6>
                     </div>
                     <div id="second-question">
-                        <div class="my-3 mx-4">
-                            <h6>질문 <span class="text-muted">예)중요한 일이 있을 때 나는...</span></h6>
-                            <textarea name="question" id="question" class="col-12" rows="2"></textarea>
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>선호경향 <span class="text-muted">예)에너지 방향</span></h6>
+                                <input class="form-control" id="criteria-preference" type="text" name="criteria[name]">
+                            </div>
                         </div>
-                        <div class="my-3 mx-4">
-                            <h6>선택지 <span class="text-muted">예)철저히 계획을 세운다.</span></h6>
-                            <textarea name="option" id="option" class="col-12" rows="2"></textarea>
-                            <button class="btn btn-outline-primary align-text-bottom float-end mt-4 mb-3"
-                                type="button">선택지추가</button>
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수</h6>
+                                <input class="form-control" id="criteria-standard-score" type="number" min="0"
+                                    name="criteria[standardScore]">
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수 미만</h6>
+                                <input class="form-control" id="criteria-below-standard-is" type="text"
+                                    placeholder="type1" name="criteria[belowStandardIs]">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-10 offset-1">
+                                <h6>기준점수 이상</h6>
+                                <input class="form-control" id="criteria-standard-and-above-is" type="text"
+                                    placeholder="type2" name="criteria[standardAndAboveIs]">
+                            </div>
+                            <div id="criteria-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                                style="display: none;" role="alert">
+                                모든 값을 입력한 후에 추가해 주세요.
+                            </div>
+                            <div id="criteria-same-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                                style="display: none;" role="alert">
+                                기준점수 미만과 기준점수 이상이 같은 값일 수 없습니다.
+                            </div>
+                            <div class="col-10 offset-1 d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
+                                <button id="add-criteria-button" class="btn btn-outline-primary text-wrap"
+                                    type="button">채점기준 추가</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
-                <button id="before-button-2" class="btn btn-primary m-1">이전</button>
-                <button id="next-button-2" class="btn btn-primary m-1">다음</button>
-            </div> -->
-
+                <div id="finished-criteria-div" class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 mt-5">
+                    <!-- <div id="finished-criteria-card" class="card border-2 my-2">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">에너지방향</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">기준점수 3점</h6>
+                                    <p class="card-text">기준점수 미만 I, 이상 E</p>
+                                </div>
+                                <button id="finished-criteria-card-close-button" type="button" class="btn-close"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
             </div>
         </div>
+
 
 
 
@@ -73,47 +109,27 @@
                 <div
                     class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
                     <div class="mt-3 mb-5 text-center">
-                        <h3>선호경향과 채점기준을 입력해 주세요.</h3>
-                        <h5 class="text-muted">예) 에너지 방향 기준점수 3점 미만 I, 3점 이상 E</h6>
+                        <h3>질문과 선택지를 입력해 주세요.</h3>
                     </div>
                     <div id="third-question">
-                        <div class="row mb-3">
-                            <div class="col-10 offset-1">
-                                <h6>선호경향 <span class="text-muted">예)에너지 방향</span></h6>
-                                <input class="form-control" id="preference" type="text">
-                            </div>
+                        <div class="my-3 mx-4">
+                            <h6>질문 <span class="text-muted">예)중요한 일이 있을 때 나는...</span></h6>
+                            <textarea name="question" id="question" class="col-12" rows="2"></textarea>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-10 offset-1">
-                                <h6>기준점수</h6>
-                                <input class="form-control" id="criterion" type="number" min="0">
-
-                            </div>
+                        <div class="my-3 mx-4">
+                            <h6>선택지1 <span class="text-muted">예)철저히 계획을 세운다.</span></h6>
+                            <textarea name="option" id="option" class="col-12" rows="2"></textarea>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-10 offset-1">
-                                <h6>기준점수 미만</h6>
-                                <input class="form-control" id="type1" type="text" placeholder="type1">
-                            </div>
+                        <div class="my-3 mx-4">
+                            <h6>선택지2 <span class="text-muted">예)미룰 수 있을 때까지 미룬다.</span></h6>
+                            <textarea name="option" id="option" class="col-12" rows="2"></textarea>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-10 offset-1">
-                                <h6>기준점수 이상</h6>
-                                <input class="form-control" id="type2" type="text" placeholder="type2">
-                            </div>
-                            <div class="col-10 offset-1 d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
-                                <button class="btn btn-outline-primary text-wrap" type="button">채점기준 추가</button>
-                            </div>
+                        <div class="my-3 mx-4">
+                            <button class="btn btn-outline-primary align-text-bottom float-end mt-4 mb-3"
+                                type="button">질문 추가</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
-                <button id="before-button" class="btn btn-primary m-1">이전</button>
-                <button id="next-button" class="btn btn-primary m-1">다음</button>
-            </div> -->
-
             </div>
         </div>
 
@@ -170,20 +186,17 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mt-4">
-                <button id="before-button" class="btn btn-primary m-1">이전</button>
-                <button id="next-button" class="btn btn-primary m-1">다음</button>
-            </div> -->
             </div>
         </div>
+
+        <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mb-3">
+            <button id="before-button" class="btn btn-primary m-1" type="button">이전</button>
+            <button id="next-button" class="btn btn-primary m-1" type="button">다음</button>
+            <button id="finish-button" class="btn btn-primary m-1" type="submit">테스트 완성</button>
+        </div>
+
     </form>
 
-    <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mb-3">
-        <button id="before-button" class="btn btn-primary m-1">이전</button>
-        <button id="next-button" class="btn btn-primary m-1">다음</button>
-        <a id="finish-button" class="btn btn-primary m-1" href="/makeTestFinished">테스트 완성</a>
-    </div>
 
 
 

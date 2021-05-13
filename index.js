@@ -23,7 +23,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('doms'));
 app.use(express.static('styles'));
 
-
+//urlencoded : a method inbuilt in express to recognize the incoming Request Object as strings or arrays.
+//parse req.body 
+app.use(express.urlencoded({ extended: true }))
 
 
 
@@ -46,6 +48,9 @@ app.get('/makeTest', async (req, res) => {
     res.render('makeTest');
 })
 
+app.post('/makeTest', async (req, res) => {
+    res.send(req.body)
+})
 
 app.get('/makeTestFinished', async (req, res) => {
     res.render('makeTestFinished');
