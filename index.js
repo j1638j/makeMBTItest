@@ -23,10 +23,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('doms'));
 app.use(express.static('styles'));
 
+
+app.use(express.json())
+
 //urlencoded : a method inbuilt in express to recognize the incoming Request Object as strings or arrays.
 //parse req.body 
 app.use(express.urlencoded({ extended: true }))
 
+//models
+const Test = require('./models/test');
 
 
 
@@ -49,20 +54,27 @@ app.get('/makeTest', async (req, res) => {
 })
 
 app.post('/makeTest', async (req, res) => {
-    res.send(req.body)
+    console.log('req.body is: ');
+    console.dir(req.body);
+    const test = new Test(req.body);
+    const testId = test._id;
+    // await test.save();
+    //pass the id to the url or use COOKIE OR SESSION******
+    res.redirect('/makeTestFinished')
 })
 
-app.get('/makeTestFinished', async (req, res) => {
+
+app.get(`/makeTestFinished`, async (req, res) => {
     res.render('makeTestFinished');
 })
 
-app.get('/question', async (req, res) => {
-    res.render('question')
-})
+// app.get('/question', async (req, res) => {
+//     res.render('question')
+// })
 
-app.get('/result', async (req, res) => {
-    res.render('result')
-})
+// app.get('/result', async (req, res) => {
+//     res.render('result')
+// })
 
 app.get('/:id', async (req, res) => {
     res.render('');
