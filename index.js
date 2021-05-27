@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cookieParser = require('cookie-parser');
 
 //mongoose
 const mongoose = require('mongoose');
@@ -20,11 +21,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //statics
-app.use(express.static('doms'));
+app.use(express.static('public'));
 app.use(express.static('styles'));
 
 
 app.use(express.json())
+app.use(cookieParser('secret'));
 
 //urlencoded : a method inbuilt in express to recognize the incoming Request Object as strings or arrays.
 //parse req.body 
@@ -58,6 +60,7 @@ app.post('/makeTest', async (req, res) => {
     console.dir(req.body);
     const test = new Test(req.body);
     const testId = test._id;
+    res.cookie('testId', { testId }, { signed: true });
     // await test.save();
     //pass the id to the url or use COOKIE OR SESSION******
     res.redirect('/makeTestFinished')
@@ -65,7 +68,8 @@ app.post('/makeTest', async (req, res) => {
 
 
 app.get(`/makeTestFinished`, async (req, res) => {
-    res.render('makeTestFinished');
+    const { testId } = req.signedCookies;
+    res.render('makeTestFinished', testId);
 })
 
 // app.get('/question', async (req, res) => {
