@@ -8,6 +8,7 @@ const finishButton = document.querySelector('#finish-button');
 const submitForm = document.querySelector('#submit-form');
 //test name
 const testNameInput = document.querySelector('#test-name-input');
+const testDescriptionInput = document.querySelector('#test-description-input');
 //criteria
 const addCriteriaButton = document.querySelector('#add-criteria-button');
 const criteriaPreference = document.querySelector('#criteria-preference');
@@ -99,6 +100,7 @@ finishButton.addEventListener('click', function (e) {
     //make JSON with test object
     const test = {
         title: testNameInput.value,
+        description: testDescriptionInput.value,
         questions: questionsArray,
         criteria: criteriaArray,
         result: resultsArray
@@ -114,7 +116,7 @@ finishButton.addEventListener('click', function (e) {
     //     alert('테스트 결과 수는 2^(채점기준의 수) 이상이어야 합니다. 테스트 결과를 추가해주세요.')
     // } else {
     //If everything goes well, send all the data thru axios.
-    axios('/makeTest', {
+    axios('/tests/created', {
         method: 'post',
         data: test,
         maxRedirects: 5
@@ -122,7 +124,7 @@ finishButton.addEventListener('click', function (e) {
         console.log('res.data is: ' + res.data);
         console.log('res.config is: ' + JSON.stringify(res.config));
         console.log('res.request is: ' + res.request);
-        return window.location = `/makeTestFinished`
+        return window.location = `/tests/created`
     }).catch(e => { console.log(e) })
     // }
 
@@ -158,7 +160,7 @@ addCriteriaButton.addEventListener('click', function () {
         //show criteria in card
         const newFinishedCriteriaCard = document.createElement('div');
         newFinishedCriteriaCard.innerHTML =
-            `<div id="finished-criteria-card" class="card border-2 my-2">
+            `<div id="finished-criteria-card-${criteriaArray.length - 1}" class="card border-2 my-2">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
@@ -330,9 +332,7 @@ addResultButton.addEventListener('click', function () {
     const resultEmptyInputAlert = document.querySelector('#result-empty-input-alert');
     const resultSameInputAlert = document.querySelector('#result-same-input-alert')
 
-    if (isAnyResultTypeEmpty() || !result.resultName || !result.description /* ||
-        !result.perfectMatch.resultName || !result.perfectMatch.description ||
-        !result.worstMatch.resultName || !result.worstMatch.description*/) {
+    if (isAnyResultTypeEmpty() || !result.resultName || !result.description) {
         //check if all the inputs are filled out
         resultEmptyInputAlert.style.display = 'block'
     } else if (result.perfectMatch.resultName !== "" && result.perfectMatch.resultName === result.worstMatch.resultName) {
@@ -345,7 +345,7 @@ addResultButton.addEventListener('click', function () {
         resultEmptyInputAlert.style.display = 'none'
         resultSameInputAlert.innerText = '최고의 궁합과 최악의 궁합의 값이 같을 수 없습니다.'
         resultSameInputAlert.style.display = 'block'
-    } else if (!resultsArray.find(el => el === result.resultName)) {
+    } else if (resultsArray.find(el => { return el === result.resultName })) {
         resultEmptyInputAlert.style.display = 'none'
         resultSameInputAlert.innerText = '같은 별명의 결과를 여러 개 만들 수 없습니다.'
         resultSameInputAlert.style.display = 'block'

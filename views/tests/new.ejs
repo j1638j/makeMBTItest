@@ -24,6 +24,11 @@
                     </div>
                     <input required class="form-control form-control-lg" id="test-name-input" type="text"
                         placeholder="예) 나는 어떤 종류의 사람일까? " name="test[title]">
+                    <div class="mt-5 mb-3 text-center">
+                        <h4>테스트 설명을 입력해 주세요. <span class="text-muted">(선택사항)</span> </h4>
+                    </div>
+                    <textarea required class="form-control" id="test-description-input" type="text"
+                        placeholder="예) 당신이 어떤 종류의 사람인지 테스트해보세요. " name="test[description]"></textarea>
                 </div>
             </div>
         </div>
@@ -118,14 +123,14 @@
                             <textarea name="option[option-1]" id="option1" class="col-12 p-2 form-control" rows="2"
                                 placeholder="예)먼저 말을 걸고 금방 친해진다."></textarea>
                             <input class="form-control mt-1" type="number" name="option[score]" id="option-score-1"
-                                placeholder="기준점수" min="0">
+                                placeholder="점수" min="0">
                         </div>
                         <div class="my-4 mx-4">
                             <h6>선택지2</h6>
                             <textarea name="option[option-2]" id="option2" class="col-12 p-2 form-control" rows="2"
                                 placeholder="예)먼저 다가가지 않는다."></textarea>
                             <input class="form-control mt-1" type="number" name="option[score]" id="option-score-2"
-                                placeholder="기준점수" min="0">
+                                placeholder="점수" min="0">
                         </div>
                         <div class="my-4 mx-4">
                             <div id="question-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
@@ -204,7 +209,8 @@
                                     최고의 궁합과 최악의 궁합의 값이 같을 수 없습니다.
                                 </div>
                                 <button id="add-result-button" class="btn btn-outline-primary text-wrap"
-                                    type="button">결과 추가</button>
+                                    type="button">결과
+                                    추가</button>
                             </div>
                         </div>
                     </div>
@@ -217,9 +223,7 @@
         <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 d-flex justify-content-between mb-3">
             <button id="before-button" class="btn btn-primary m-1" type="button">이전</button>
             <button id="next-button" class="btn btn-primary m-1" type="button">다음</button>
-            <!-- <form id="submit-form" action="/makeTest" method="post"> -->
             <button id="finish-button" class="btn btn-primary m-1" type="submit">테스트 완성</button>
-            <!-- </form> -->
         </div>
 
     </div>
@@ -227,4 +231,4 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/makeTest.js"></script>
+    <script src="/new.js"></script>

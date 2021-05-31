@@ -36,7 +36,6 @@ app.use(express.urlencoded({ extended: true }))
 const Test = require('./models/test');
 
 
-
 app.get('/', (req, res) => {
     res.render('home');
 })
@@ -51,37 +50,49 @@ app.get('/', (req, res) => {
 // })
 
 
-app.get('/makeTest', async (req, res) => {
-    res.render('makeTest');
+app.get('/tests/new', async (req, res) => {
+    res.render('tests/new');
 })
 
-app.post('/makeTest', async (req, res) => {
+
+app.get(`/tests/created`, async (req, res) => {
+    const { testId } = req.signedCookies;
+    res.render('tests/created', testId);
+})
+
+app.post('/tests/created', async (req, res) => {
     console.log('req.body is: ');
     console.dir(req.body);
     const test = new Test(req.body);
     const testId = test._id;
+    //pass the id to the cookie
     res.cookie('testId', { testId }, { signed: true });
-    // await test.save();
-    //pass the id to the url or use COOKIE OR SESSION******
-    res.redirect('/makeTestFinished')
+    await test.save();
+    res.redirect('/tests/created')
 })
 
-
-app.get(`/makeTestFinished`, async (req, res) => {
-    const { testId } = req.signedCookies;
-    res.render('makeTestFinished', testId);
+app.get('/tests/:id/start', async (req, res) => {
+    const test = await Test.findById(req.params.id).exec();
+    console.dir(test);
+    if (test === null) {
+        res.render('tests/noTest');
+    } else {
+        res.render('tests/start', { test })
+    }
 })
 
-// app.get('/question', async (req, res) => {
-//     res.render('question')
-// })
+app.get('/tests/:id/conduct', async (req, res) => {
+    const test = await Test.findById(req.params.id);
+    res.render('tests/conduct', { test })
+})
 
-// app.get('/result', async (req, res) => {
-//     res.render('result')
-// })
+app.get('/tests/:id/conduct/axios', async (req, res) => {
+    const test = await Test.findById(req.params.id);
+    res.json(test);
+})
 
-app.get('/:id', async (req, res) => {
-    res.render('');
+app.get('/tests/:id/result', async (req, res) => {
+    res.render('result');
 })
 
 app.listen(port, () => {

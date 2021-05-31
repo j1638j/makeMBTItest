@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container">
+        <div class="row">
+            <div
+                class="col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-5 p-3 mb-5">
+                <h2 class="text-center mt-3">
+                    <% if (test.title !==null) { %>
+                        <%= test.title %>
+                            <% } else { %>테스트 제목없음<% } %>
+                </h2>
+                <h5 class="text-center text-muted mt-4">
+                    <% if (test.description !==null) {%>
+                        <%= test.description %>
+                            <% } %>
+                </h5>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5">
+                    <a href="/tests/<%= test._id %>/conduct" id="start-test-button"
+                        class="btn btn-outline-primary m-1 btn-lg">테스트 시작</a>
+                </div>
+            </div>
+        </div>
+    </div>
