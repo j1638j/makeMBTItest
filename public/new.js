@@ -5,7 +5,6 @@ const steps = document.querySelectorAll('.step');
 const beforeButton = document.querySelector('#before-button');
 const nextButton = document.querySelector('#next-button');
 const finishButton = document.querySelector('#finish-button');
-const submitForm = document.querySelector('#submit-form');
 //test name
 const testNameInput = document.querySelector('#test-name-input');
 const testDescriptionInput = document.querySelector('#test-description-input');
@@ -119,7 +118,6 @@ finishButton.addEventListener('click', function (e) {
     axios('/tests/created', {
         method: 'post',
         data: test,
-        maxRedirects: 5
     }).then(function (res) {
         console.log('res.data is: ' + res.data);
         console.log('res.config is: ' + JSON.stringify(res.config));
@@ -128,7 +126,6 @@ finishButton.addEventListener('click', function (e) {
     }).catch(e => { console.log(e) })
     // }
 
-    // submitForm.submit();
 
 })
 

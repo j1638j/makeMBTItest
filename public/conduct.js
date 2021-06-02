@@ -9,7 +9,7 @@ let test = null;
 let questionCount = 0;
 let questionsArrayLength = 0;
 let criteriaMap = null;
-
+let testId = null;
 
 
 
@@ -21,6 +21,7 @@ const callAxios = function (currentURL) {
         axios.get(url, config)
             .then(function (res) {
                 test = res.data;
+                testId = test._id;
                 return test;
             }).then(function () {
                 resolve()
@@ -43,7 +44,9 @@ const selectQuestion = function (test) {
         showQuestion(test, questionCount);
     } else {
         //테스트 끝나고 결과 산출
+        const result = calculateResult();
         //결과 페이지로 넘어감
+        goToNextPage(result);
     }
 }
 
@@ -101,7 +104,16 @@ const calculateResult = function () {
     return testResult
 }
 
-
+const goToNextPage = function (result) {
+    const url = `/tests/${testId}/result`
+    axios(url, {
+        method: 'post',
+        data: result
+    }).then(function (res) {
+        console.log('res.data is: ' + res.data);
+        return window.location = url
+    }).catch(e => { console.log(e) })
+}
 
 
 
