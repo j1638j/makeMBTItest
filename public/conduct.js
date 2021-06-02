@@ -22,9 +22,6 @@ const callAxios = function (currentURL) {
             .then(function (res) {
                 test = res.data;
                 return test;
-            }).then(function (test) {
-                criteriaMap = mapCriteria(test.criteria);
-                selectQuestion(test);
             }).then(function () {
                 resolve()
             }).catch(e => console.log(e))
@@ -34,7 +31,7 @@ const callAxios = function (currentURL) {
 
 //Assign to Arrays
 /////1. I have to make a function that shows the question and options to the user
-//2. I have to make a function that calculates the score : need current option, criteria for the option
+/////2. I have to make a function that calculates the score : need current option, criteria for the option
 /////3. I have to make a function that shows the next question and options to the user. 
 /////4. I have to make a function that Maps criteria Array, so that it stores all the criteria name and score.
 
@@ -44,7 +41,6 @@ const selectQuestion = function (test) {
 
     if (questionCount < questionsArrayLength) {
         showQuestion(test, questionCount);
-        questionCount++;
     } else {
         //테스트 끝나고 결과 산출
         //결과 페이지로 넘어감
@@ -69,29 +65,51 @@ const mapCriteria = function (originalArray) {
     return newMap;
 }
 
-const keepTheScores = function (optionIndex, questionCount) {
+const keepTheScores = function (optionIndex) {
     //현재 question은 전역변수 test와 questionCount에서 받아온다.
     //사용자가 선택한 option 번호를 arg로 받아서 그 option의 정보로 현재 criteriaMap의 점수를 가져와 추가 점수를 더함
-    const currentTest = test;
-    const currentQuestions = test.questions;
-    const currentQuestion = test.questions[questionCount]
-    // const currentOptions = test.questions[questionCount].options
-    // const currentOption = test.questions[questionCount].options[option]
-    console.log('currentTest: ', currentTest)
-    console.log('currentQuestions: ', currentQuestions)
-    console.log('currentQuestion: ', currentQuestion)
-    // console.log('currentOptions: ', currentOptions);
-    // console.log('currentOption: ' + currentOption);
+    const currentOption = test.questions[questionCount].options[optionIndex]
+    const criterionValue = criteriaMap.get(currentOption.criterion);
+    criteriaMap.set(currentOption.criterion, criterionValue + currentOption.score)
+}
 
+const calculateResult = function () {
+    //result of the test
+    const testResultArray = [];
+
+    //circulate criteriaMap and fill out resultTypeArray
+    for (let [key, value] of criteriaMap) {
+        const criterionResult = test.criteria.find(function (el) {
+            if (el.name === key && value < el.starndardScore) {
+                return el.belowStandardIs
+            } else if (el.name === key) {
+                return el.standardAndAboveIs
+            } else {
+                alret('테스트에 오류가 있습니다. 관리자에게 문의해주세요.')
+            }
+        })
+        testResultArray.push(criterionResult)
+    }
+
+    //find the test.results.resultType that contains all the elements from resultTypeArray
+    const testResult = test.results.find(function (el) {
+        testResultArray.every(function (element) {
+            el.resultType.include(element)
+        })
+    })
+
+    return testResult
 }
 
 
-callAxios(currentURL)
-    .then(function () {
-        console.log('test: ', test)
-        console.log('criteriaMap: ', criteriaMap)
 
-    })
+
+
+callAxios(currentURL)
+    .then(function (test) {
+        criteriaMap = mapCriteria(test.criteria);
+        selectQuestion(test);
+    }).catch(e => console.log(e));
 
 
 optionButton1.addEventListener('click', function () {
