@@ -68,6 +68,7 @@ app.post('/tests/created', async (req, res) => {
     //pass the id to the cookie
     res.cookie('testId', { testId }, { signed: true });
     await test.save();
+    console.log('test in the ', await Test.findById(testId));
     res.redirect('/tests/created')
 })
 
@@ -92,7 +93,13 @@ app.get('/tests/:id/conduct/axios', async (req, res) => {
 })
 
 app.get('/tests/:id/result', async (req, res) => {
-    res.render('result');
+    const result = req.params
+    console.log('result: ', result)
+    res.render('result', { result });
+})
+
+app.post('/tests/:id/result', async (req, res) => {
+
 })
 
 app.listen(port, () => {

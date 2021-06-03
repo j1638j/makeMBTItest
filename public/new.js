@@ -102,7 +102,7 @@ finishButton.addEventListener('click', function (e) {
         description: testDescriptionInput.value,
         questions: questionsArray,
         criteria: criteriaArray,
-        result: resultsArray
+        results: resultsArray
     }
     console.log('console.log(test) is: ' + test);
     console.log('console.dir(test) is: ');
@@ -283,6 +283,7 @@ addResultButton.addEventListener('click', function () {
     const resultTypeArray = [];
     for (let i = 0; i < resultTypeDOM.length; i++) {
         resultTypeArray.push(resultTypeDOM[i].value);
+        console.log(resultTypeArray)
     }
 
     //check if there is any empty result type select
@@ -349,6 +350,7 @@ addResultButton.addEventListener('click', function () {
     } else {
         //add result to array
         resultsArray.push(result);
+        console.log('result pushed to resultsArray: ', resultsArray)
         //show result in card
         const newFinishedResultCard = document.createElement('div');
         newFinishedResultCard.innerHTML =
@@ -361,12 +363,14 @@ addResultButton.addEventListener('click', function () {
                             <p class="card-text mb-2">설명: ${result.description}</p>
                             <p class="card-text mb-2">최고의 궁합: ${result.perfectMatch.resultName} - ${result.perfectMatch.description}</p>
                             <p class="card-text mb-2">최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}</p>
+                    
                         </div>
                         <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
                             aria-label="Close" style="display:none"></button>
                     </div>
                 </div>
             </div>`;
+
         finishedResultDiv.append(newFinishedResultCard);
 
 

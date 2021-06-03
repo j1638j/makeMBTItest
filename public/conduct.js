@@ -21,9 +21,10 @@ const callAxios = function (currentURL) {
         axios.get(url, config)
             .then(function (res) {
                 test = res.data;
+                console.log('test at first: ', test)
                 testId = test._id;
                 return test;
-            }).then(function () {
+            }).then(function (test) {
                 resolve()
             }).catch(e => console.log(e))
     });;
@@ -38,13 +39,15 @@ const callAxios = function (currentURL) {
 
 const selectQuestion = function (test) {
     questionsArrayLength = test.questions.length;
-    console.log(questionsArrayLength);
 
     if (questionCount < questionsArrayLength) {
         showQuestion(test, questionCount);
+        console.log('still middle of the test')
     } else {
         //테스트 끝나고 결과 산출
         const result = calculateResult();
+        console.log('test finished')
+        console.log('result: ', result)
         //결과 페이지로 넘어감
         goToNextPage(result);
     }
@@ -82,24 +85,37 @@ const calculateResult = function () {
 
     //circulate criteriaMap and fill out resultTypeArray
     for (let [key, value] of criteriaMap) {
-        const criterionResult = test.criteria.find(function (el) {
-            if (el.name === key && value < el.starndardScore) {
-                return el.belowStandardIs
-            } else if (el.name === key) {
-                return el.standardAndAboveIs
+        const criterion = test.criteria.find(el => el.name === key)
+
+        console.log('criterion: ', criterion)
+
+        const getCriterionResult = function (c) {
+            if (value < c.starndardScore) {
+                return c.belowStandardIs
             } else {
-                alret('테스트에 오류가 있습니다. 관리자에게 문의해주세요.')
+                return c.standardAndAboveIs
             }
-        })
+        }
+
+        const criterionResult = getCriterionResult(criterion);
         testResultArray.push(criterionResult)
+        console.log('testResultArray: ', testResultArray)
     }
 
     //find the test.results.resultType that contains all the elements from resultTypeArray
+    console.log('test: ', test)
+    console.log('test.results', test.results)
     const testResult = test.results.find(function (el) {
-        testResultArray.every(function (element) {
-            el.resultType.include(element)
+        console.log('inside of testResult')
+        const checkTestResultArray = testResultArray.every(function (element) {
+            console.log('el.resultType: ', el.resultType)
+            console.log(`element: `, element)
+            console.log(el.resultType.includes(element))
+            return el.resultType.includes(element)
         })
+        console.log('checkTestResultArray: ', checkTestResultArray)
     })
+    console.log('testResult: ', testResult)
 
     return testResult
 }
@@ -118,7 +134,7 @@ const goToNextPage = function (result) {
 
 
 callAxios(currentURL)
-    .then(function (test) {
+    .then(function (res) {
         criteriaMap = mapCriteria(test.criteria);
         selectQuestion(test);
     }).catch(e => console.log(e));
@@ -126,8 +142,12 @@ callAxios(currentURL)
 
 optionButton1.addEventListener('click', function () {
     keepTheScores(0)
+    questionCount++
+    selectQuestion(test)
 })
 
 optionButton2.addEventListener('click', function () {
     keepTheScores(1)
+    questionCount++
+    selectQuestion(test)
 })
