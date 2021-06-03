@@ -93,13 +93,20 @@ app.get('/tests/:id/conduct/axios', async (req, res) => {
 })
 
 app.get('/tests/:id/result', async (req, res) => {
-    const result = req.params
-    console.log('result: ', result)
-    res.render('result', { result });
+    const result = JSON.parse(req.signedCookies.result.result);
+    // console.log('req.signedCookies.result.result: ', req.signedCookies.result.result)
+    // console.log('result from cookie: ', result)
+    // console.log('result.result : ', result.result)
+    res.render('tests/result', { result });
 })
 
 app.post('/tests/:id/result', async (req, res) => {
-
+    console.log('req.body is: ');
+    console.dir(req.body);
+    const result = JSON.stringify(req.body);
+    console.log('stringified result: ', result)
+    res.cookie('result', { result }, { signed: true });
+    res.redirect('/tests/:id/result')
 })
 
 app.listen(port, () => {

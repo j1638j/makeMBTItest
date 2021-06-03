@@ -106,14 +106,13 @@ const calculateResult = function () {
     console.log('test: ', test)
     console.log('test.results', test.results)
     const testResult = test.results.find(function (el) {
-        console.log('inside of testResult')
         const checkTestResultArray = testResultArray.every(function (element) {
             console.log('el.resultType: ', el.resultType)
             console.log(`element: `, element)
             console.log(el.resultType.includes(element))
             return el.resultType.includes(element)
         })
-        console.log('checkTestResultArray: ', checkTestResultArray)
+        return checkTestResultArray === true
     })
     console.log('testResult: ', testResult)
 
@@ -121,7 +120,9 @@ const calculateResult = function () {
 }
 
 const goToNextPage = function (result) {
+    console.log('inside of goToNextPage()')
     const url = `/tests/${testId}/result`
+    console.log('url is: ', url)
     axios(url, {
         method: 'post',
         data: result
