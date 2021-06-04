@@ -94,9 +94,6 @@ app.get('/tests/:id/conduct/axios', async (req, res) => {
 
 app.get('/tests/:id/result', async (req, res) => {
     const result = JSON.parse(req.signedCookies.result.result);
-    // console.log('req.signedCookies.result.result: ', req.signedCookies.result.result)
-    // console.log('result from cookie: ', result)
-    // console.log('result.result : ', result.result)
     res.render('tests/result', { result });
 })
 
