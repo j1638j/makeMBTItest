@@ -108,23 +108,23 @@ finishButton.addEventListener('click', function (e) {
     console.log('console.dir(test) is: ');
     console.dir(test);
 
-    // if (!questionsArray.length || !criteriaArray.length || !resultsArray.length) {
-    //     alert('테스트에 완성되지 않은 부분이 있습니다. 테스트를 끝까지 완성해주세요.')
-    // } else if (currentTab === 3 && resultsArray.length < 2 ** (criteriaArray.length)) {
-    //     //결과 숫자는 2^(채점기준의 수) 여야 함
-    //     alert('테스트 결과 수는 2^(채점기준의 수) 이상이어야 합니다. 테스트 결과를 추가해주세요.')
-    // } else {
-    //If everything goes well, send all the data thru axios.
-    axios('/tests/created', {
-        method: 'post',
-        data: test,
-    }).then(function (res) {
-        console.log('res.data is: ' + res.data);
-        console.log('res.config is: ' + JSON.stringify(res.config));
-        console.log('res.request is: ' + res.request);
-        return window.location = `/tests/created`
-    }).catch(e => { console.log(e) })
-    // }
+    if (!questionsArray.length || !criteriaArray.length || !resultsArray.length) {
+        alert('테스트에 완성되지 않은 부분이 있습니다. 테스트를 끝까지 완성해주세요.')
+    } else if (currentTab === 3 && resultsArray.length < 2 ** (criteriaArray.length)) {
+        //결과 숫자는 2^(채점기준의 수) 여야 함
+        alert('테스트 결과 수는 2^(채점기준의 수) 이상이어야 합니다. 테스트 결과를 추가해주세요.')
+    } else {
+        //If everything goes well, send all the data thru axios.
+        axios('/tests/created', {
+            method: 'post',
+            data: test,
+        }).then(function (res) {
+            console.log('res.data is: ' + res.data);
+            console.log('res.config is: ' + JSON.stringify(res.config));
+            console.log('res.request is: ' + res.request);
+            return window.location = `/tests/created`
+        }).catch(e => { console.log(e) })
+    }
 
 
 })
