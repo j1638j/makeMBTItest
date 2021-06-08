@@ -12,11 +12,20 @@
 </head>
 
 <body class="d-flex text-center text-white bg-dark">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <main class="px-3">
-            <h1>나만의 MBTI 만들기</h1>
+    <div class="container cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <main class="px-3 row">
+            <h1 class="mt-5">나만의 MBTI 만들기</h1>
             <p class="lead"> <br> 내 마음대로 MBTI 테스트를 만들어 보세요! <br></p>
-            <a href="/tests/new" class="btn btn-lg btn-secondary font-weight-bold">테스트 만들기</a>
+            <div class="mt-5 ">
+                <div class="col-md-8 offset-md-2 col-xl-4 offset-xl-4 d-grid mx-auto">
+                    <a href="/tests/new" class=" btn btn-lg btn-secondary font-weight-bold m-2">비회원
+                        테스트 만들기</a>
+                </div>
+                <div class="col-md-8 offset-md-2 col-xl-4 offset-xl-4 d-grid mx-auto">
+                    <a href="/tests/new" class=" btn btn-lg btn-secondary font-weight-bold m-2">회원
+                        테스트 만들기</a>
+                </div>
+            </div>
         </main>
 
         <footer class="footer bg-dark py-3 mt-auto">
