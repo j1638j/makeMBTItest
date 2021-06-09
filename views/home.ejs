@@ -13,6 +13,24 @@
 
 <body class="d-flex text-center text-white bg-dark">
     <div class="container cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltM arkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="d-flex flex-row-reverse collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="/register">회원가입</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="/login">로그인</a>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
         <main class="px-3 row">
             <h1 class="mt-5">나만의 MBTI 만들기</h1>
             <p class="lead"> <br> 내 마음대로 MBTI 테스트를 만들어 보세요! <br></p>
@@ -40,7 +58,7 @@
             </div>
         </main>
 
-        <footer class="footer bg-dark py-3 mt-auto">
+        <footer class="footer bg-dark py-3 mt-5">
             <p class="text-muted">&copy; 2021 makeMBTItest</p>
         </footer>
 

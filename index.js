@@ -96,7 +96,7 @@ app.post('/tests/created', async (req, res) => {
     const test = new Test(req.body);
     const testId = test._id;
     //pass the id to the cookie
-    res.cookie('testId', { testId }, { signed: true });
+    res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
     await test.save();
     console.log('test in the ', await Test.findById(testId));
     res.redirect('/tests/created')
@@ -132,8 +132,16 @@ app.post('/tests/:id/result', async (req, res) => {
     console.dir(req.body);
     const result = JSON.stringify(req.body);
     console.log('stringified result: ', result)
-    res.cookie('result', { result }, { signed: true });
+    res.cookie('result', { result }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
     res.redirect('/tests/:id/result')
+})
+
+app.get('/register', async (req, res) => {
+    res.render('users/register')
+})
+
+app.get('/login', async (req, res) => {
+    res.render('users/login')
 })
 
 app.listen(port, () => {
