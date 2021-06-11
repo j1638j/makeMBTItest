@@ -8,6 +8,14 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
+    password: {
+        type: String,
+        required: true
+    },
+    nickname: {
+        type: String, 
+        required: true, 
+    },
     tests: [
         {
             type: Schema.Types.ObjectId,
