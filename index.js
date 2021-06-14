@@ -66,6 +66,13 @@ app.use(express.urlencoded({ extended: true }))
 const Test = require('./models/test');
 
 
+//routers
+const testRoutes = require('./routes/tests');
+app.use('/tests', testRoutes);
+
+
+
+
 app.get('/', (req, res) => {
     res.render('home');
 })
@@ -80,61 +87,6 @@ app.get('/', (req, res) => {
 // })
 
 
-app.get('/tests/new', async (req, res) => {
-    res.render('tests/new');
-})
-
-
-app.get(`/tests/created`, async (req, res) => {
-    const { testId } = req.signedCookies;
-    res.render('tests/created', testId);
-})
-
-app.post('/tests/created', async (req, res) => {
-    console.log('req.body is: ');
-    console.dir(req.body);
-    const test = new Test(req.body);
-    const testId = test._id;
-    //pass the id to the cookie
-    res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
-    await test.save();
-    console.log('test in the ', await Test.findById(testId));
-    res.redirect('/tests/created')
-})
-
-app.get('/tests/:id/start', async (req, res) => {
-    const test = await Test.findById(req.params.id).exec();
-    console.dir(test);
-    if (test === null) {
-        res.render('tests/noTest');
-    } else {
-        res.render('tests/start', { test })
-    }
-})
-
-app.get('/tests/:id/conduct', async (req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.render('tests/conduct', { test })
-})
-
-app.get('/tests/:id/conduct/axios', async (req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.json(test);
-})
-
-app.get('/tests/:id/result', async (req, res) => {
-    const result = JSON.parse(req.signedCookies.result.result);
-    res.render('tests/result', { result });
-})
-
-app.post('/tests/:id/result', async (req, res) => {
-    console.log('req.body is: ');
-    console.dir(req.body);
-    const result = JSON.stringify(req.body);
-    console.log('stringified result: ', result)
-    res.cookie('result', { result }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
-    res.redirect('/tests/:id/result')
-})
 
 app.get('/register', async (req, res) => {
     res.render('users/register')

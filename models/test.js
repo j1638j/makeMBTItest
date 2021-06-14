@@ -69,7 +69,11 @@ const TestSchema = new Schema({
             resultName: String,
             description: String
         }
-    }]
+    }],
+    public: {
+        type: Boolean, 
+        // required: true
+    }
 })
 
 module.exports = mongoose.model('Test', TestSchema);
