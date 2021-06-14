@@ -70,6 +70,8 @@ const Test = require('./models/test');
 const testRoutes = require('./routes/tests');
 app.use('/tests', testRoutes);
 
+const userRoutes = require('./routes/users');
+app.user('/', userRoutes);
 
 
 
@@ -78,23 +80,6 @@ app.get('/', (req, res) => {
 })
 
 
-// app.get('/login', (req, res) => {
-//     res.render('users/login');
-// })
-
-// app.get('/signup', (req, res) => {
-//     res.render('users/signup');
-// })
-
-
-
-app.get('/register', async (req, res) => {
-    res.render('users/register')
-})
-
-app.get('/login', async (req, res) => {
-    res.render('users/login')
-})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
