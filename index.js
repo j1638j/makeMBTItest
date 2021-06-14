@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
+
 //mongoose
 const mongoose = require('mongoose');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost/mbtitest';
@@ -19,6 +20,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     }).catch(err => {
         console.log('mongoose connection failed')
     })
+
 
 //session
 const store = new MongoStore({
@@ -62,16 +64,13 @@ app.use(cookieParser(process.env.SECRET));
 //parse req.body 
 app.use(express.urlencoded({ extended: true }))
 
-//models
-const Test = require('./models/test');
-
 
 //routers
 const testRoutes = require('./routes/tests');
 app.use('/tests', testRoutes);
 
 const userRoutes = require('./routes/users');
-app.user('/', userRoutes);
+app.use('/', userRoutes);
 
 
 

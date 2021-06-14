@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
 
-app.get('/register', async (req, res) => {
+
+router.get('/register', async (req, res) => {
     res.render('users/register')
 })
 
-app.get('/login', async (req, res) => {
+router.get('/login', async (req, res) => {
     res.render('users/login')
 })
 

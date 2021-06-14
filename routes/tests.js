@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Test = require('../models/test');
+
 
 router.get('/new', async (req, res) => {
     res.render('tests/new');
