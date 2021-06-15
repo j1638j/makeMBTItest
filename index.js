@@ -22,15 +22,18 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 
+//passport
+
+
+
+
 //session
 const store = new MongoStore({
     mongoUrl: dbUrl,
     secret: process.env.SECRET,
     touchAfter: 24 * 3600
 })
-
 store.on("error", e => console.log("Session store error: ", e))
-
 const sessionConfig = {
     store,
     name: 'session',
@@ -38,12 +41,11 @@ const sessionConfig = {
     resave: false,
     saveUninitialized: true,
     cookie: {
-        httpOnly: true,
+        httpOnly: true, 
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
-
 app.use(session(sessionConfig))
 
 
