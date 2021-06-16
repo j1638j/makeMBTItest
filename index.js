@@ -22,9 +22,8 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 
-//passport
-
-
+//Models
+const User = require('./models/user');
 
 
 //session
@@ -49,12 +48,24 @@ const sessionConfig = {
 app.use(session(sessionConfig))
 
 
+//passport
+const passport = require('passport');
+const localStrategy = require('passport-local');
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(localStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser()); 
+passport.deserializeUser(User.deserializeUser());
+
+
 //ejs
 const ejsMate = require('ejs-mate')
 const path = require('path');
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
 
 //statics
 app.use(express.static('public'));
