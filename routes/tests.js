@@ -26,12 +26,15 @@ router.post('/created', async (req, res) => {
 })
 
 router.get('/:id/start', async (req, res) => {
-    const test = await Test.findById(req.params.id).exec();
-    console.dir(test);
-    if (test === null) {
-        res.render('tests/noTest');
-    } else {
-        res.render('tests/start', { test })
+    try {
+        const test = await Test.findById(req.params.id).exec();
+        if (test === null) {
+            res.render('tests/noTest');
+        } else {
+            res.render('tests/start', { test })
+        }    
+    } catch(e) {
+        console.log(e)
     }
 })
 

@@ -14,7 +14,7 @@ const MongoStore = require('connect-mongo');
 //mongoose
 const mongoose = require('mongoose');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost/mbtitest';
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
         console.log('mongoose connected')
     }).catch(err => {
@@ -92,6 +92,9 @@ app.get('/', (req, res) => {
 })
 
 
+app.use((req, res) => {
+    res.status(404).render('404');
+})
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
