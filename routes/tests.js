@@ -32,7 +32,8 @@ router.get('/:id/start', async (req, res) => {
             res.render('tests/noTest');
         } else {
             res.render('tests/start', { test })
-        }    
+        }
+    
     } catch(e) {
         console.log(e)
     }

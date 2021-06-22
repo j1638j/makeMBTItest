@@ -8,6 +8,7 @@ const app = express()
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
 
 
@@ -86,15 +87,25 @@ const userRoutes = require('./routes/users');
 app.use('/', userRoutes);
 
 
-
 app.get('/', (req, res) => {
     res.render('home');
 })
 
+app.get('/error', (req, res) => {
+    Jiwan.isAwesome();
+})
 
+
+//404
 app.use((req, res) => {
     res.status(404).render('404');
 })
+
+//error
+app.use((err, req, res, next) => {
+    res.status(500).render('error')
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

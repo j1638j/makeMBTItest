@@ -6,22 +6,23 @@
                 class="card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-5 p-3">
                 <div class="card-body">
                     <h3 class="card-title mb-4 mx-4">회원가입</h3>
-                    <form action="/register" method="POST">
+                    <form action="/register" method="POST" novalidate class="validated-form">
                         <div class="mb-3 mx-4">
                             <label for="username" class="form-label">이메일</label>
-                            <input required type="email" id="username" name="username" class="form-control">
+                            <input required type="email" id="username" name="username" class="form-control validate-email" autofocus required>
+                            <div class="invalid-email">이미 사용중인 이메일입니다.</div>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="password" class="form-label">비밀번호</label>
-                            <input required type="password" id="password" name="password" class="form-control">
+                            <input required type="password" id="password" name="password" class="form-control" required>
                         </div>
                         <div class="mb-3 mx-4">
-                            <label for="password" class="form-label">비밀번호 확인</label>
-                            <input required type="password" id="password" name="password" class="form-control">
+                            <label for="check-password" class="form-label">비밀번호 확인</label>
+                            <input required type="password" id="check-password" name="check-password" class="form-control" required>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="nickname" class="form-label">별명</label>
-                            <input required type="text" id="nickname" name="nickname" class="form-control" autofocus>
+                            <input required type="text" id="nickname" name="nickname" class="form-control" required>
                         </div>
                         <div class="d-flex flex-row-reverse mx-4">
                             <button class="btn btn-primary mt-3">회원가입</button>
@@ -31,3 +32,7 @@
             </div>
         </div>
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/validateEmail.js"></script>
