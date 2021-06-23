@@ -26,6 +26,9 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 //Models
 const User = require('./models/user');
 
+//Custom Error Handlers
+const catchAsync = require('./utils/catchAsync');
+const ExpressError = require('./utils/ExpressError');
 
 //session
 const store = new MongoStore({

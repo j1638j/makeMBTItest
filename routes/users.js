@@ -2,21 +2,20 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const User = require('../models/user');
 
+const catchAsync = require('./utils/catchAsync');
+const ExpressError = require('./utils/ExpressError');
+
 
 router.get('/register', (req, res) => {
     res.render('users/register')
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', catchAsync(async (req, res) => {
     const {username, nickname, password} = req.body;
     const user = new User({username, nickname})
-    try{
-        const newUser = await User.register(user, password);
-        res.redirect('/')
-    } catch (e) {
-        console.log(e)
-    }
-})
+    const newUser = await User.register(user, password);
+    res.redirect('/')
+}))
 
 router.post('/uniqueEmail', async (req, res) => {
     console.log('inside of the post route')

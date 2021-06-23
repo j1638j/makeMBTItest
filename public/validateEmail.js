@@ -24,7 +24,7 @@
                 console.log('res.body: ', res.data);
                 if (!res.data.isEmailUnique) {
                     invalidFeedback.style.display = "block";
-                } 
+                }
             }).catch(e => { console.log(e) })
 
         }, 1000);
