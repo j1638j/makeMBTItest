@@ -24,10 +24,12 @@
                 console.log('res.body: ', res.data);
                 if (!res.data.isEmailUnique) {
                     invalidFeedback.style.display = "block";
+                } else {
+                    invalidFeedback.style.display = "none";
                 }
             }).catch(e => { console.log(e) })
 
-        }, 1000);
+        }, 500);
 
     }
 

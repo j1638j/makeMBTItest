@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Test = require('../models/test');
 
-const catchAsync = require('./utils/catchAsync');
-const ExpressError = require('./utils/ExpressError');
+const catchAsync = require('../utils/catchAsync');
+const ExpressError = require('../utils/ExpressError');
 
 
 
@@ -18,8 +18,7 @@ router.get(`/created`, catchAsync(async (req, res) => {
 }))
 
 router.post('/created', catchAsync(async (req, res) => {
-    console.log('req.body is: ');
-    console.dir(req.body);
+    // if(!req.body) throw new ExpressError('Invalid Test Data', 400);
     const test = new Test(req.body);
     const testId = test._id;
     //pass the id to the cookie
