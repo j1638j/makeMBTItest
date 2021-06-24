@@ -10,12 +10,15 @@
                         <div class="mb-3 mx-4">
                             <label for="username" class="form-label">이메일</label>
                             <input required type="email" id="username" name="username" class="form-control validate-email" autofocus required>
-                            <div id="invalid-email-feedback" class="custom-invalid-feedback">이미 사용중인 이메일입니다.</div>
+                            <div id="exist-email-feedback" class="custom-invalid-feedback">이미 사용중인 이메일입니다.</div>
+                            <div id="invalid-email-feedback" class="custom-invalid-feedback">올바른 이메일 형식이 아닙니다.</div>
                             <div id="valid-email-feedback" class="custom-valid-feedback">사용 가능한 이메일입니다.</div>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="password" class="form-label">비밀번호</label>
-                            <input required type="password" id="password" name="password" class="form-control" required>
+                            <input placeholder="8자 이상"
+                            type="password" id="password" name="password" class="form-control validate-password" required>
+                            <div id="short-password-feedback" class="custom-invalid-feedback">비밀번호가 너무 짧습니다.</div>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="check-password" class="form-label">비밀번호 확인</label>
@@ -36,4 +39,5 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/validateEmail.js"></script>
+    <script src="/registerValidation/validateEmail.js"></script>
+    <script src="/registerValidation/validatePassword.js"></script>
