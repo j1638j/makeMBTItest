@@ -53,7 +53,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), 
     (req, res) => {
-        req.flash('success', '환영합니다.');
+        req.flash('success', '로그인 되었습니다.');
         res.redirect('/');
 })
 
