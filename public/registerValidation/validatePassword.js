@@ -14,7 +14,6 @@
         timeout = setTimeout(function(){
             const invalidFeedback = document.querySelector('#short-password-feedback');
             if(0 < password.value.length && password.value.length < 8) {
-                console.log(password.value.length)
                 invalidFeedback.style.display = 'block';
             } else {
                 invalidFeedback.style.display = 'none';

@@ -22,7 +22,8 @@
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="check-password" class="form-label">비밀번호 확인</label>
-                            <input required type="password" id="check-password" name="check-password" class="form-control" required>
+                            <input required type="password" id="check-password" name="check-password" class="form-control validate-check-password" required>
+                            <div id="password-match-feedback" class="custom-invalid-feedback">비밀번호와 일치하지 않습니다.</div>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="nickname" class="form-label">별명</label>
@@ -41,3 +42,4 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/registerValidation/validateEmail.js"></script>
     <script src="/registerValidation/validatePassword.js"></script>
+    <script src="/registerValidation/validateCheckPassword.js"></script>
