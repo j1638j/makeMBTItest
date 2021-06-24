@@ -22,12 +22,18 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                     <ul class="navbar-nav ">
+                        <% if(!currentUser) { %> 
                         <li class="nav-item">
                             <a class="nav-link" href="/register">회원가입</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login">로그인</a>
                         </li>
+                        <% } else { %> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">로그아웃</a>
+                        </li>
+                        <% } %> 
                     </ul>    
                 </div>
             </div>
@@ -42,19 +48,30 @@
                             비회원 테스트 만들기
                         </div>
                         <div class="fs-5 mt-2">
-                            (URL 링크로 테스트 저장)
+                            (URL 링크로 테스트 저장, 테스트 수정 불가)
                         </div>
                     </a>
                 </div>
                 <div class="col-md-8 offset-md-2 col-xl-4 offset-xl-4 d-grid mx-auto mt-3">
-                    <a href="/tests/new" class=" btn btn-lg btn-secondary font-weight-bold m-2">
-                        <div class="font-weight-bold fs-3">
-                            회원 테스트 만들기
-                        </div>
-                        <div class="fs-5 mt-2">
-                            (계정에 테스트 저장)
-                        </div>
-                    </a>
+                    <% if(!currentUser) {%> 
+                        <a href="/login" class=" btn btn-lg btn-secondary font-weight-bold m-2">
+                            <div class="font-weight-bold fs-3">
+                                회원 테스트 만들기
+                            </div>
+                            <div class="fs-5 mt-2">
+                                (계정에 테스트 저장, 테스트 수정 가능)
+                            </div>
+                        </a>
+                    <% } else { %> 
+                        <a href="/tests/new" class=" btn btn-lg btn-secondary font-weight-bold m-2">
+                            <div class="font-weight-bold fs-3">
+                                회원 테스트 만들기
+                            </div>
+                            <div class="fs-5 mt-2">
+                                (계정에 테스트 저장, 테스트 수정 가능)
+                            </div>
+                        </a>    
+                    <% } %> 
                 </div>
             </div>
         </main>

@@ -14,6 +14,7 @@ router.get('/new', (req, res) => {
 
 router.get(`/created`, catchAsync(async (req, res) => {
     const { testId } = req.signedCookies;
+    delete req.signedCookies.testId;
     res.render('tests/created', testId);
 }))
 

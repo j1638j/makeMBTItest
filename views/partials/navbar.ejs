@@ -9,13 +9,14 @@
             <div class="navbar-nav">
                 <a class="nav-link" href="/tests/new">새로운 테스트 만들기</a>
             </div>
-            <div class="navbar-nav">
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser) { %> 
                 <a class="nav-link" href="/register">회원가입</a>
-            </div>
-            <div class="navbar-nav">
                 <a class="nav-link" href="/login">로그인</a>
+                <% } else { %> 
+                <a class="nav-link" href="/logout">로그아웃</a>
+                <% } %> 
             </div>
-
         </div>
     </div>
 </nav>

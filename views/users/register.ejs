@@ -10,7 +10,8 @@
                         <div class="mb-3 mx-4">
                             <label for="username" class="form-label">이메일</label>
                             <input required type="email" id="username" name="username" class="form-control validate-email" autofocus required>
-                            <div class="invalid-email">이미 사용중인 이메일입니다.</div>
+                            <div id="invalid-email-feedback" class="custom-invalid-feedback">이미 사용중인 이메일입니다.</div>
+                            <div id="valid-email-feedback" class="custom-valid-feedback">사용 가능한 이메일입니다.</div>
                         </div>
                         <div class="mb-3 mx-4">
                             <label for="password" class="form-label">비밀번호</label>

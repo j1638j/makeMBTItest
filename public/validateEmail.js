@@ -12,7 +12,8 @@
         clearTimeout(timeout);
 
         timeout = setTimeout(function(){
-            const invalidFeedback = document.querySelector('.invalid-email')
+            const invalidFeedback = document.querySelector('.invalid-email-feedback');
+            const validFeedback = document.querySelector('.valid-email-feedback');
             const emailValue = {email: email.value};
             console.log('email.value is: ', emailValue)
             axios('/uniqueEmail', {
@@ -24,8 +25,10 @@
                 console.log('res.body: ', res.data);
                 if (!res.data.isEmailUnique) {
                     invalidFeedback.style.display = "block";
+                    validFeedback.style.display = 'none';
                 } else {
                     invalidFeedback.style.display = "none";
+                    validFeedback.style.display = 'block';
                 }
             }).catch(e => { console.log(e) })
 
