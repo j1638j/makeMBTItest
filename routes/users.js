@@ -64,4 +64,10 @@ router.get('/logout', (req, res) => {
 })
 
 
+router.get('/personal', (req, res) => {
+    res.render('users/personal')
+})
+
+
+
 module.exports = router;
