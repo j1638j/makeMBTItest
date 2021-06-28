@@ -65,7 +65,9 @@ router.get('/logout', (req, res) => {
 
 
 router.get('/personal', (req, res) => {
-    res.render('users/personal')
+    const user = User.findById(res.locals.currentUser._id);
+    console.log(user);
+    res.render('users/personal', { user })
 })
 
 

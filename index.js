@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
-
+const methodOverride = require('method-override');
 
 //mongoose
 const mongoose = require('mongoose');
@@ -84,6 +84,7 @@ app.use(express.static('public'));
 
 app.use(express.json())
 app.use(cookieParser(process.env.SECRET));
+app.use(methodOverride('_method'));
 
 //urlencoded : a method inbuilt in express to recognize the incoming Request Object as strings or arrays.
 //parse req.body 
