@@ -81,9 +81,25 @@ router.get('/changeNickname', (req, res) => {
     res.render('users/changeNickname');
 })
 
-router.post('/changeNickname', (req, res) => {
-
-})
+router.post('/changeNickname', catchAsync(async(req, res) => {
+    const { password, nickname } = req.body;
+    const user = await User.findById(res.locals.currentUser);
+    console.log('user: ', user)
+    const userAuth = await user.authenticate(password)
+    console.log('userAuth', userAuth)
+    if (!userAuth.user && userAuth.error.name === 'IncorrectPasswordError') {
+        req.flash('error', '비밀번호가 일치하지 않습니다.')
+        console.log('inside of if statement')
+        console.log('userAuth.error.name', userAuth.error.name)
+        res.redirect('/changeNickname')
+    } else if(userAuth.user) {
+        console.log('it is the right password')
+        const changedNickname = await User.findByIdAndUpdate(res.locals.currentUser._id, {nickname})
+        console.log(changedNickname);
+        req.flash('success', '별명 변경이 완료되었습니다.')
+        res.redirect('/personal')
+    }
+}))
 
 router.get('/usertests', (req, res) => {
     res.render('users/usertests')    

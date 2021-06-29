@@ -21,6 +21,7 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     }).catch(err => {
         console.log('mongoose connection failed')
     })
+mongoose.set('useFindAndModify', false);
 
 
 //Models
