@@ -65,13 +65,24 @@ router.get('/logout', (req, res) => {
 
 
 router.get('/personal', (req, res) => {
-    const user = User.findById(res.locals.currentUser._id);
-    console.log(user);
-    res.render('users/personal', { user })
+    res.render('users/personal')
 })
 
 router.get('/changePassword', (req, res) => {
     res.render('users/changePassword');
+})
+
+router.post('changePassword', catchAsync(async (req, res) => {
+    const user = await User.findById(res.locals.currentUser._id);
+
+}))
+
+router.get('/changeNickname', (req, res) => {
+    res.render('users/changeNickname');
+})
+
+router.post('/changeNickname', (req, res) => {
+
 })
 
 router.get('/usertests', (req, res) => {
