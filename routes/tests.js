@@ -1,4 +1,5 @@
 const express = require('express');
+const { findOneAndUpdate, findByIdAndUpdate } = require('../models/test');
 const router = express.Router({mergeParams: true});
 const Test = require('../models/test');
 
@@ -14,6 +15,13 @@ router.get('/new', (req, res) => {
 
 router.get(`/created`, catchAsync(async (req, res) => {
     const { testId } = req.signedCookies;
+    const currentUser = res.locals.currentUser;
+    if(res.locals.currentUser) {
+        const user = await findById(currentUser._id);
+        const newTests = user.tests.push(testId);
+        const updatedUser = await findByIdAndUpdate(currentUser._id, {tests: newTests});
+        console.log(updatedUser);
+    }
     delete req.signedCookies.testId;
     res.render('tests/created', testId);
 }))

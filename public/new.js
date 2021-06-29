@@ -96,13 +96,26 @@ nextButton.addEventListener('click', function () {
 finishButton.addEventListener('click', function (e) {
     e.preventDefault();
 
+    const currentUser = res.local.currentUser;
+    const test = {};
     //make JSON with test object
-    const test = {
-        title: testNameInput.value,
-        description: testDescriptionInput.value,
-        questions: questionsArray,
-        criteria: criteriaArray,
-        results: resultsArray
+    if(!currentUser) {
+        test = {
+            title: testNameInput.value,
+            description: testDescriptionInput.value,
+            questions: questionsArray,
+            criteria: criteriaArray,
+            results: resultsArray
+        }    
+    } else {
+        test = {
+            title: testNameInput.value,
+            description: testDescriptionInput.value,
+            questions: questionsArray,
+            criteria: criteriaArray,
+            results: resultsArray,
+            author: currentUser
+        }    
     }
     console.log('console.log(test) is: ' + test);
     console.log('console.dir(test) is: ');
