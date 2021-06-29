@@ -72,9 +72,23 @@ router.get('/changePassword', (req, res) => {
     res.render('users/changePassword');
 })
 
-router.post('changePassword', catchAsync(async (req, res) => {
+router.post('/changePassword', catchAsync(async (req, res) => {
+    const {currentpw, newpw} = req.body;
+    if(newpw === currentpw) {
+        req.flash('error', '현재 비밀번호와 일치하는 비밀번호로 바꿀 수 없습니다.')
+        return res.redirect('/changePassword');
+    }
     const user = await User.findById(res.locals.currentUser._id);
-
+    try{
+        const changePW = await user.changePassword(currentpw, newpw);
+        console.log(changePW);
+        return res.redirect('/personal');
+    } catch (e) {
+        if (e.name === 'IncorrectPasswordError') {
+            req.flash('error', '현재 비밀번호와 일치하지 않습니다.');
+            return res.redirect('/changePassword')
+        }
+    }
 }))
 
 router.get('/changeNickname', (req, res) => {
