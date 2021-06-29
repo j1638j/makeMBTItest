@@ -70,9 +70,12 @@ router.get('/personal', (req, res) => {
     res.render('users/personal', { user })
 })
 
-router.get('/changeInfo', (req, res) => {
-    res.render('users/changeInfo');
+router.get('/changePassword', (req, res) => {
+    res.render('users/changePassword');
 })
 
+router.get('/usertests', (req, res) => {
+    res.render('users/usertests')    
+})
 
 module.exports = router;
