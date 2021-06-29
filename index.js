@@ -82,13 +82,11 @@ app.set('views', path.join(__dirname, 'views'));
 //statics
 app.use(express.static('public'));
 
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser(process.env.SECRET));
 app.use(methodOverride('_method'));
 
-//urlencoded : a method inbuilt in express to recognize the incoming Request Object as strings or arrays.
-//parse req.body 
-app.use(express.urlencoded({ extended: true }))
 
 
 
