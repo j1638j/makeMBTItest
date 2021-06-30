@@ -1,4 +1,8 @@
 <% layout('layouts/boilerplate') %>
+
+<link type="text/css" rel="stylesheet" href="/styles/aTag.css">
+
+
 <div class="container">
     <div class="row">
         <div class="d-flex justify-content-center">
@@ -7,15 +11,15 @@
         <div class="col-md-10 offset-md-1 col-xl-8 offset-md-2 mb-5">
             <div class="container">
                 <div class="row">
-                    <% for (test of currentUser.tests) {%> 
-                    <div class="col-md-8 col-xl-6 p-2">
+                    <% for (test of tests) {%> 
+                    <a href="/" class="col-md-8 col-xl-6 p-2">
                         <div class="card p-2">
                             <div class="card-body">
-                                <h5 class="card-title mb-3 fw-bold"><% test.title %> </h5>
-                                <p class="card-text text-muted"><% test.description %> </p>    
+                                <h5 class="card-title mb-3 fw-bold"><%= test.title %> </h5>
+                                <p class="card-text text-muted"><%= test.description %> </p>    
                             </div>
                         </div>
-                    </div> 
+                    </a> 
                     <% } %> 
                 </div>
             </div>

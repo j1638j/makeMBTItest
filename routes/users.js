@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 const User = require('../models/user');
+const Test = require('../models/test');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -115,8 +116,13 @@ router.post('/changeNickname', catchAsync(async(req, res) => {
     }
 }))
 
-router.get('/usertests', (req, res) => {
-    res.render('users/usertests')    
-})
+router.get('/usertests', catchAsync(async (req, res) => {
+    const tests = []
+    for (test of res.locals.currentUser.tests) {
+        const t = await Test.findById(test);
+        tests.push(t);
+    }
+    res.render('users/usertests', {tests})    
+}))
 
 module.exports = router;
