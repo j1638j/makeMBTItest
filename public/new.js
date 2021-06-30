@@ -36,7 +36,6 @@ const optionsArray = [];
 const questionsArray = [];
 const resultsArray = [];
 
-
 //OVERALL
 const displayTab = function (currentTab) {
     for (let i = 0; i < tabs.length; i++) {
@@ -95,28 +94,14 @@ nextButton.addEventListener('click', function () {
 
 finishButton.addEventListener('click', function (e) {
     e.preventDefault();
-
-    const currentUser = res.local.currentUser;
-    const test = {};
     //make JSON with test object
-    if(!currentUser) {
-        test = {
-            title: testNameInput.value,
-            description: testDescriptionInput.value,
-            questions: questionsArray,
-            criteria: criteriaArray,
-            results: resultsArray
-        }    
-    } else {
-        test = {
-            title: testNameInput.value,
-            description: testDescriptionInput.value,
-            questions: questionsArray,
-            criteria: criteriaArray,
-            results: resultsArray,
-            author: currentUser
-        }    
-    }
+    const test = {
+        title: testNameInput.value,
+        description: testDescriptionInput.value,
+        questions: questionsArray,
+        criteria: criteriaArray,
+        results: resultsArray
+    }    
     console.log('console.log(test) is: ' + test);
     console.log('console.dir(test) is: ');
     console.dir(test);

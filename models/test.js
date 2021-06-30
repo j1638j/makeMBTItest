@@ -71,10 +71,6 @@ const TestSchema = new Schema({
             description: String
         }
     }],
-    public: {
-        type: Boolean, 
-        // required: true
-    },
     author: {
         type: Schema.Types.ObjectId
     }

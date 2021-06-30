@@ -2,6 +2,7 @@ const express = require('express');
 const { findOneAndUpdate, findByIdAndUpdate } = require('../models/test');
 const router = express.Router({mergeParams: true});
 const Test = require('../models/test');
+const User = require('../models/user');
 
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
@@ -15,21 +16,26 @@ router.get('/new', (req, res) => {
 
 router.get(`/created`, catchAsync(async (req, res) => {
     const { testId } = req.signedCookies;
-    const currentUser = res.locals.currentUser;
-    if(res.locals.currentUser) {
-        const user = await findById(currentUser._id);
-        const newTests = user.tests.push(testId);
-        const updatedUser = await findByIdAndUpdate(currentUser._id, {tests: newTests});
-        console.log(updatedUser);
-    }
     delete req.signedCookies.testId;
     res.render('tests/created', testId);
 }))
 
 router.post('/created', catchAsync(async (req, res) => {
-    // if(!req.body) throw new ExpressError('Invalid Test Data', 400);
     const test = new Test(req.body);
     const testId = test._id;
+    const currentUser = res.locals.currentUser;
+    console.log('currentUser: ', currentUser)
+    if(currentUser) {
+        test.author = currentUser._id;
+        console.log('test.author: ', test.author)
+        const newTests = currentUser.tests.push(testId);
+        console.log('testId: ', testId)
+        console.log('currentUser.tests: ', currentUser.tests);
+        console.log('currentUser.tests.push(testId)', currentUser.tests.push(testId));
+        console.log('newTests: ', newTests)
+        const updatedUser = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests});
+        console.log('updatedUser', updatedUser);
+    }
     //pass the id to the cookie
     res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
     await test.save();
