@@ -125,4 +125,8 @@ router.get('/usertests', catchAsync(async (req, res) => {
     res.render('users/usertests', {tests})    
 }))
 
+router.get('/showTest/:id', catchAsync(async(req, res) => {
+    res.render('users/showTest')
+}))
+
 module.exports = router;
