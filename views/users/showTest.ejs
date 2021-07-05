@@ -1,10 +1,32 @@
 <% layout('layouts/boilerplate') %>
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         <div class="d-flex justify-content-center">
-            <h3 class="mt-2 mb-2">개인 페이지</h3>
+            <h3 class="mt-2 mb-2"><%= test.title %></h3>
         </div>    
-        <div class="card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-5 p-3">
-        </div>
+        <div class="d-flex justify-content-center">
+            <h5 class="mt-3 mb-2 text-muted"><%= test.description %> </h5>
+        </div>  
+        <p><%= test %> </p>
+        <% for (q of test.questions) { %>  
+            <div class="d-flex justify-content-center">
+                <h4>질문</h4>
+            </div>
+            <div class="card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-2 p-3 mb-2">
+                <div class="p-2">
+                    <h5>질문: <%= q.question %></h5>
+                    <h6>채점기준: <%= q.options[0].criterion %> </h6>    
+                </div>
+                <div class="border border-secondary rounded-3 m-1 p-2">
+                    선택지1: <%= q.options[0].option %> <br>
+                        점수: <%= q.options[0].score %> 
+                </div>
+                <div class="border border-secondary rounded-3 m-1 p-2">
+                    선택지2: <%= q.options[1].option %> <br>
+                        점수: <%= q.options[1].score %> 
+                </div>
+
+            </div>
+        <% } %> 
     </div>
 </div>

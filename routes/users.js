@@ -126,7 +126,8 @@ router.get('/usertests', catchAsync(async (req, res) => {
 }))
 
 router.get('/showTest/:id', catchAsync(async(req, res) => {
-    res.render('users/showTest')
+    const test = await Test.findById(req.params.id);
+    res.render('users/showTest', {test})
 }))
 
 module.exports = router;
