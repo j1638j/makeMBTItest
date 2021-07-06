@@ -83,22 +83,25 @@ const calculateResult = function () {
     //result of the test
     const testResultArray = [];
 
-    //circulate criteriaMap and fill out resultTypeArray
+    //criteriaMap 돌면서 결과가 어떤 타입으로 나오는지 보고 resultTypeArray에 추가
     for (let [key, value] of criteriaMap) {
         const criterion = test.criteria.find(el => el.name === key)
 
         console.log('criterion: ', criterion)
-
+        console.log('key, value: ', key, ', ', value)
         const getCriterionResult = function (c) {
-            if (value < c.starndardScore) {
+            if (value < c.standardScore) {
+                console.log('below: ', c.belowStandardIs);
                 return c.belowStandardIs
             } else {
+                console.log('above: ', c.standardAndAboveIs);
                 return c.standardAndAboveIs
             }
         }
 
         const criterionResult = getCriterionResult(criterion);
         testResultArray.push(criterionResult)
+        console.log('criterionResult: ', criterionResult)
         console.log('testResultArray: ', testResultArray)
     }
 
@@ -133,7 +136,7 @@ const goToNextPage = function (result) {
 }
 
 
-
+//start the test with the first question 
 callAxios(currentURL)
     .then(function (res) {
         criteriaMap = mapCriteria(test.criteria);

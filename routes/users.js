@@ -118,10 +118,14 @@ router.post('/changeNickname', catchAsync(async(req, res) => {
 
 router.get('/usertests', catchAsync(async (req, res) => {
     const tests = []
+    console.log('res.locals.currentUser.tests: ', res.locals.currentUser.tests)
     for (test of res.locals.currentUser.tests) {
         const t = await Test.findById(test);
+        console.log("t: ", t)
         tests.push(t);
     }
+    console.log('tests: ', tests)
+    console.log('tests.length: ', tests.length)
     res.render('users/usertests', {tests})    
 }))
 

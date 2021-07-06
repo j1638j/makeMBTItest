@@ -188,6 +188,7 @@ addCriteriaButton.addEventListener('click', function () {
         criterionSelect.setAttribute('class', 'form-select result-criterion-select');
 
         const criterionOptionSelected = document.createElement('option');
+        criterionOptionSelected.setAttribute('id', 'option-ignored')
         criterionOptionSelected.setAttribute('value', '');
         criterionOptionSelected.setAttribute('selected', '');
         criterionOptionSelected.innerText = `${criteriaArray[length - 1].name}`;
@@ -280,7 +281,9 @@ addResultButton.addEventListener('click', function () {
     const resultTypeDOM = document.querySelectorAll('.result-criterion-select');
     const resultTypeArray = [];
     for (let i = 0; i < resultTypeDOM.length; i++) {
-        resultTypeArray.push(resultTypeDOM[i].value);
+        if(resultTypeDOM[i].value) {
+            resultTypeArray.push(resultTypeDOM[i].value);
+        }
         console.log(resultTypeArray)
     }
 

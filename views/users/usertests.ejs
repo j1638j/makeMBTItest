@@ -8,23 +8,28 @@
         <div class="d-flex justify-content-center">
             <h2 class="mt-2 mb-5">내 테스트 목록</h3>
         </div>
+        <% if(!tests.length) {%> 
+            <div class="d-flex justify-content-center">
+                <h5>테스트가 존재하지 않습니다.</h5>
+            </div>
+        <% } %> 
         <div class="col-md-10 offset-md-1 col-xl-8 offset-md-2 mb-5">
             <div class="container">
                 <div class="row">
-                    <% for (test of tests) {%> 
-                    <a href="/showTest/<%=test._id%> " class="col-md-8 col-xl-6 p-2">
-                        <div class="card p-2">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3 fw-bold"><%= test.title %> </h5>
-                                <p class="card-text text-muted"><%= test.description %> </p>    
+                    <% if(tests.length) {%> 
+                        <% for (test of tests) { %> 
+                        <a href="/showTest/<%=test._id%> " class="col-md-8 col-xl-6 p-2">
+                            <div class="card p-2">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3 fw-bold"><%= test.title %> </h5>
+                                    <p class="card-text text-muted"><%= test.description %> </p>    
+                                </div>
                             </div>
-                        </div>
-                    </a> 
+                        </a> 
+                        <% } %> 
                     <% } %> 
                 </div>
             </div>
-
-
         </div>    
     </div>
 </div>

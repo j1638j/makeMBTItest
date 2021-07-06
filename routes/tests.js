@@ -31,7 +31,6 @@ router.post('/created', catchAsync(async (req, res) => {
         const newTests = currentUser.tests.push(testId);
         console.log('testId: ', testId)
         console.log('currentUser.tests: ', currentUser.tests);
-        console.log('currentUser.tests.push(testId)', currentUser.tests.push(testId));
         console.log('newTests: ', newTests)
         const updatedUser = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests});
         console.log('updatedUser', updatedUser);
