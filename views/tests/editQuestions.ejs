@@ -1,0 +1,56 @@
+<% layout('layouts/boilerplate') %>
+<div class="tab container mb-5">
+    <div class="row">
+        <div
+            class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+            <div class="mt-3 mb-5 text-center">
+                <h3>질문과 선택지를 입력해 주세요.</h3>
+                <h5 class="text-muted px-5">예) 선택지1을 선택하면 채점기준인 '에너지방향'에 1점</h5>
+                <h5 class="text-muted px-5"> 선택지2를 선택하면 채점기준인 '에너지방향'에 0점</h5>
+
+            </div>
+            <div id="third-question">
+                <div class="my-4 mx-4">
+                    <h6>질문</h6>
+                    <textarea name="question[question]" id="question" class="col-12 form-control" rows="2"
+                        placeholder="예)처음 보는 사람을 만나면 나는..."></textarea>
+                </div>
+                <div class="my-4 mx-4">
+                    <h6>채점기준 <span class="text-muted">예) 에너지방향</span></h6>
+                    <select id="option-criterion-select" name="option[criterion]" class="form-select">
+                        <option selected value="">선택</option>
+                    </select>
+                </div>
+                <div class="my-4 mx-4">
+                    <h6>선택지1</h6>
+                    <textarea name="option[option-1]" id="option1" class="col-12 p-2 form-control" rows="2"
+                        placeholder="예)먼저 말을 걸고 금방 친해진다."></textarea>
+                    <input class="form-control mt-1" type="number" name="option[score]" id="option-score-1"
+                        placeholder="점수" min="0">
+                </div>
+                <div class="my-4 mx-4">
+                    <h6>선택지2</h6>
+                    <textarea name="option[option-2]" id="option2" class="col-12 p-2 form-control" rows="2"
+                        placeholder="예)먼저 다가가지 않는다."></textarea>
+                    <input class="form-control mt-1" type="number" name="option[score]" id="option-score-2"
+                        placeholder="점수" min="0">
+                </div>
+                <div class="my-4 mx-4">
+                    <div id="question-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                        style="display: none;" role="alert">
+                        모든 값을 입력한 후에 추가해 주세요.
+                    </div>
+                    <div id="question-same-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                        style="display: none;" role="alert">
+                        선택지1과 선택지2의 값이 같을 수 없습니다.
+                    </div>
+                    <button id="add-question-button"
+                        class="btn btn-outline-primary align-text-bottom float-end mt-4 mb-3" type="button">질문
+                        추가</button>
+                </div>
+            </div>
+        </div>
+        <div id="finished-question-div" class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 mt-5">
+        </div>
+    </div>
+</div>
