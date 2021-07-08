@@ -75,5 +75,20 @@ router.post('/:id/result', catchAsync(async (req, res) => {
     res.redirect('/tests/:id/result')
 }))
 
+router.get('/:id/edit/titleDescription', (req, res) => {
+    res.render('tests/editTitleDescription')
+})
+
+router.get('/:id/edit/criteria', (req, res) => {
+    res.render('tests/editCriteria')
+})
+
+router.get('/:id/edit/questions', (req, res) => {
+    res.render('tests/editQuestions')
+})
+
+router.get('/:id/edit/results', (req, res) => {
+    res.render('tests/editResults');
+})
 
 module.exports = router;
