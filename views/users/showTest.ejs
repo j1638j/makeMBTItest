@@ -1,16 +1,22 @@
 <% layout('layouts/boilerplate') %>
 <div class="container mb-5">
     <div class="row">
-        <div class="d-flex justify-content-center">
-            <h3 class="mt-2 mb-2 fw-bold"><%= test.title %></h3>
-        </div>    
-        <div class="d-flex justify-content-center">
-            <h5 class="mt-3 mb-2 text-muted"><%= test.description %> </h5>
-        </div>  
-
+        <div class="mb-3 card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-dark mt-2 p-3 mb-2">
+            <div class="d-flex justify-content-center">
+                <h3 class="mt-2 mb-2 fw-bold"><%= test.title %></h3>
+            </div>    
+            <div class="d-flex justify-content-center">
+                <h5 class="mt-3 mb-2 text-muted"><%= test.description %></h5>
+            </div>      
+            <a href="/tests/<%= test._id %>/edit/titleDescription" class="btn btn-sm btn-dark mt-3 mx-5">제목, 설명 수정</a>
+        </div>
+        
 
         <div class="d-flex justify-content-center mt-5">
-            <h4 class="text-primary fw-bold">채점기준</h4>
+            <h4 class="text-primary fw-bold">채점기준</h4> 
+            <div>
+                <a href="/tests/<%= test._id %>/edit/criteria" class="btn btn-sm btn-primary mx-3">수정</a>
+            </div>
         </div>
         <% for (c of test.criteria) { %> 
         <div class="mb-3 card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-2 p-3 mb-2">
@@ -26,6 +32,9 @@
 
         <div class="d-flex justify-content-center mt-5">
             <h4 class="text-primary fw-bold">질문</h4>
+            <div>
+                <a href="/tests/<%= test._id %>/edit/questions" class="btn btn-sm btn-primary mx-3">수정</a>
+            </div>
         </div>
         <% for (q of test.questions) { %>  
             <div class="mb-3 card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-2 p-3 mb-2">
@@ -47,6 +56,9 @@
 
         <div class="d-flex justify-content-center mt-5">
             <h4 class="text-primary fw-bold">결과</h4>
+            <div>
+                <a href="/tests/<%= test._id %>/edit/results" class="btn btn-sm btn-primary mx-3">수정</a>
+            </div>
         </div>
         <% for (r of test.results) { %>  
             <div class="mb-3 card col-md-8 offset-md-2 col-xl-6 offset-xl-3 border rounded-3 border-2 border-primary mt-2 p-3 mb-2">
