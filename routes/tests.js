@@ -75,9 +75,17 @@ router.post('/:id/result', catchAsync(async (req, res) => {
     res.redirect('/tests/:id/result')
 }))
 
-router.get('/:id/edit/titleDescription', (req, res) => {
-    res.render('tests/editTitleDescription')
-})
+router.get('/:id/edit/titleDescription', catchAsync(async(req, res) => {
+    const test = await Test.findById(req.params.id);
+    res.render('tests/editTitleDescription', {test})
+}))
+
+router.patch('/:id/edit/titleDescription', catchAsync(async(req, res) => {
+    const { id } = req.params;
+    const test = await Test.findByIdAndUpdate(id, {...req.body.test})
+    res.redirect(`/showTest/${test._id}`)
+}))
+
 
 router.get('/:id/edit/criteria', (req, res) => {
     res.render('tests/editCriteria')

@@ -1,18 +1,27 @@
 <% layout('layouts/boilerplate') %>
-<div class="container mb-5">
-    <div class="row">
-        <div
-            class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
-            <div class="mb-3 text-center">
-                <h3>테스트 이름을 입력해 주세요.</h3>
+<form action="/tests/<%= test._id %>/edit/titleDescription?_method=PATCH" method="POST">
+    <div class="container mb-5">
+        <div class="row">
+            <div
+                class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
+                <div class="mb-3 text-center">
+                    <h3>테스트 이름을 입력해 주세요.</h3>
+                </div>
+                <input required class="form-control form-control-lg" id="test-name-input" type="text"
+                    placeholder="예) 나는 어떤 종류의 사람일까? " name="test[title]" value="<%= test.title %> ">
+                <div class="mt-5 mb-3 text-center">
+                    <h4>테스트 설명을 입력해 주세요. <span class="text-muted">(선택사항)</span> </h4>
+                </div>
+                <textarea required class="form-control" id="test-description-input" type="text"
+                    placeholder="예) 당신이 어떤 종류의 사람인지 테스트해보세요. " 
+                    name="test[description]"><%= test.description %></textarea>
             </div>
-            <input required class="form-control form-control-lg" id="test-name-input" type="text"
-                placeholder="예) 나는 어떤 종류의 사람일까? " name="test[title]">
-            <div class="mt-5 mb-3 text-center">
-                <h4>테스트 설명을 입력해 주세요. <span class="text-muted">(선택사항)</span> </h4>
-            </div>
-            <textarea required class="form-control" id="test-description-input" type="text"
-                placeholder="예) 당신이 어떤 종류의 사람인지 테스트해보세요. " name="test[description]"></textarea>
+            <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 mt-3 d-flex justify-content-end">
+                <button id="edit-button" class="btn btn-primary btn-lg" type="submit">테스트 수정</button>
+            </div>        
         </div>
-    </div>
-</div>
+    </div>    
+</form>
+
+
+<script src="/editTest/editTitleDescription.js"></script>
