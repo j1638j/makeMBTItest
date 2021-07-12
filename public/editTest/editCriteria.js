@@ -4,6 +4,23 @@ let deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button')
 let criterionDivs = document.querySelectorAll('.criterion');
 const criteria = [];
 
+const checkEmptyInput = function () {
+    const allInputs = document.querySelectorAll('.form-control');
+    const booleanArray = []
+    for (input of allInputs) {
+        let text = input.value.trim;
+        if (text) {
+            booleanArray.push(true);
+        } else {
+            booleanArray.push(false)
+        }
+    }
+    if (booleanArray.every(e => e)) {
+        return true
+    } else {
+        return false
+    }
+}
 
 //채점기준 삭제 버튼
 for (let i=0; i<deleteCriteriaButtons.length; i++) {
