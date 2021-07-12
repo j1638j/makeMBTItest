@@ -22,6 +22,28 @@ const checkEmptyInput = function () {
     }
 }
 
+const checkValueDifference = function () {
+    const allBelows = document.querySelectorAll('.criteria-below-standard-is');
+    const allAboves = document.querySelectorAll('.criteria-standard-and-above-is');
+    const booleanArray = []
+
+    for (let i = 0; i<criterionDivs.length; i++) {
+        let belowText = allBelows[i].value.trim;
+        let aboveText = allAboves[i].value.trim;
+        if(belowText !== aboveText) {
+            booleanArray.push(true)
+        } else {
+            booleanArray.push(false)
+        }
+    }
+
+    if (booleanArray.every(e => e)) {
+        return true
+    } else {
+        return false
+    }
+}
+
 //채점기준 삭제 버튼
 for (let i=0; i<deleteCriteriaButtons.length; i++) {
     let count = i;
