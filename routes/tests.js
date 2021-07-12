@@ -87,9 +87,10 @@ router.patch('/:id/edit/titleDescription', catchAsync(async(req, res) => {
 }))
 
 
-router.get('/:id/edit/criteria', (req, res) => {
-    res.render('tests/editCriteria')
-})
+router.get('/:id/edit/criteria', catchAsync(async(req, res) => {
+    const test = await Test.findById(req.params.id);
+    res.render('tests/editCriteria', {test})
+}))
 
 router.get('/:id/edit/questions', (req, res) => {
     res.render('tests/editQuestions')
