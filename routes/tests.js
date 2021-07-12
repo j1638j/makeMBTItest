@@ -92,6 +92,8 @@ router.get('/:id/edit/criteria', catchAsync(async(req, res) => {
     res.render('tests/editCriteria', {test})
 }))
 
+
+
 router.get('/:id/edit/questions', (req, res) => {
     res.render('tests/editQuestions')
 })

@@ -4,11 +4,12 @@ let deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button')
 let criterionDivs = document.querySelectorAll('.criterion');
 const criteria = [];
 
+//모든 값이 입력되었는지 확인
 const checkEmptyInput = function () {
     const allInputs = document.querySelectorAll('.form-control');
     const booleanArray = []
     for (input of allInputs) {
-        let text = input.value.trim;
+        let text = input.value.trim();
         if (text) {
             booleanArray.push(true);
         } else {
@@ -22,14 +23,15 @@ const checkEmptyInput = function () {
     }
 }
 
+//기준점수 미만, 이상 값이 다른지 확인
 const checkValueDifference = function () {
     const allBelows = document.querySelectorAll('.criteria-below-standard-is');
     const allAboves = document.querySelectorAll('.criteria-standard-and-above-is');
     const booleanArray = []
 
     for (let i = 0; i<criterionDivs.length; i++) {
-        let belowText = allBelows[i].value.trim;
-        let aboveText = allAboves[i].value.trim;
+        let belowText = allBelows[i].value.trim();
+        let aboveText = allAboves[i].value.trim();
         if(belowText !== aboveText) {
             booleanArray.push(true)
         } else {
@@ -43,6 +45,19 @@ const checkValueDifference = function () {
         return false
     }
 }
+
+//criteria에 수정한 정보 넣기
+const makeCriteriaArray = function () {
+    for (let i = 0; i < criterionDivs.length; i++) {
+        const criterion = {}
+        criterion.name = document.querySelector(`criteria-name-${i}`).value.trim();
+        criterion.standardScore = document.querySelector(`criteria-standard-score-${i}`).value.trim();
+        criterion.belowStandardIs = document.querySelector(`criteria-below-standard-is-${i}`).value.trim();
+        criterion.standardAndAboveIs = document.querySelector(`criteria-standard-and-above-is-${i}`).value.trim();
+        criteria.push(criterion)
+    }
+}
+
 
 //채점기준 삭제 버튼
 for (let i=0; i<deleteCriteriaButtons.length; i++) {
