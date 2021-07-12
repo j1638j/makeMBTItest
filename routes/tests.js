@@ -92,7 +92,14 @@ router.get('/:id/edit/criteria', catchAsync(async(req, res) => {
     res.render('tests/editCriteria', {test})
 }))
 
-
+router.patch('/:id/edit/criteria', catchAsynca(async(req, res) => {
+    const criteria = req.body.criteria;
+    const test = await Test.findByIdAndUpdate(req.params.id, {criteria}, {new: true});
+    const savedTest = await Test.findById(req.params.id)
+    console.log('test: ', test);
+    console.log('savedTest: ', savedTest);
+    res.redirect(`/showTest/${test._id}`)
+}))
 
 router.get('/:id/edit/questions', (req, res) => {
     res.render('tests/editQuestions')

@@ -23,6 +23,20 @@ const checkEmptyInput = function () {
     }
 }
 
+//값을 입력해야 하는 곳에 알림 띄우기
+const showEmptyInputAlert = function () {
+    const allInputs = document.querySelectorAll('.form-control');
+    for (let i = 0; i < criterionDivs.length; i++) {
+        let text = allInputs[i].value.trim();
+        if (!text) {
+            const emptyInputAlert = document.querySelector(`#criteria-empty-input-alert-${i}`)
+            const sameInputAlert = document.querySelector(`#criteria-same-input-alert-${i}`)
+            emptyInputAlert.style.display = 'block'
+            sameInputAlert.style.display = 'none'
+        }
+    }
+}
+
 //기준점수 미만, 이상 값이 다른지 확인
 const checkValueDifference = function () {
     const allBelows = document.querySelectorAll('.criteria-below-standard-is');
@@ -36,6 +50,11 @@ const checkValueDifference = function () {
             booleanArray.push(true)
         } else {
             booleanArray.push(false)
+            //기준점수 미만, 이상 값 같은 곳에 알림 띄우기
+            const emptyInputAlert = document.querySelector(`#criteria-empty-input-alert-${i}`)
+            const sameInputAlert = document.querySelector(`#criteria-same-input-alert-${i}`)
+            emptyInputAlert.style.display = 'none'
+            sameInputAlert.style.display = 'block'
         }
     }
 
@@ -58,6 +77,10 @@ const makeCriteriaArray = function () {
     }
 }
 
+//axios로 서버로 전송
+const sendAxios = function () {
+
+}
 
 //채점기준 삭제 버튼
 for (let i=0; i<deleteCriteriaButtons.length; i++) {
@@ -195,7 +218,18 @@ addCriteriaButton.addEventListener('click', function () {
 editCriteriaButton.addEventListener('click', function() {
     //0. criteria에 들어갈 정보가 유효한지 확인 
     //  1) 모든 값이 입력됐는가?
+    const isEveryInputFilled = checkEmptyInput();
     //  2) 기준점수 미만과 기준점수 이상이 다른 값인가?
+    const isValueDifferent = checkValueDifference();
+
+    if(!isEveryInputFilled) {
+        showEmptyInputAlert()
+    } else if(!isValueDifferent) {
+        checkValueDifference()
+    } else {
     //1. criteria에 수정한 정보 넣기
+    makeCriteriaArray();
     //2. axios로 서버로 전송
+    sendAxios();
+    }
 })

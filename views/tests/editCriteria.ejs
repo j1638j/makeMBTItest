@@ -40,11 +40,11 @@
                         placeholder="type2" name="criteria[standardAndAboveIs]" 
                         value="<%= test.criteria[i].standardAndAboveIs %> ">
                 </div>
-                <div id="criteria-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                <div id="criteria-empty-input-alert-<%= i %>" class="col-10 offset-1 alert alert-primary my-4"
                     style="display: none;" role="alert">
                     모든 값을 입력한 후에 추가해 주세요.
                 </div>
-                <div id="criteria-same-input-alert" class="col-10 offset-1 alert alert-primary mt-4"
+                <div id="criteria-same-input-alert-<%= i %>" class="col-10 offset-1 alert alert-primary mt-4"
                     style="display: none;" role="alert">
                     기준점수 미만과 기준점수 이상이 같은 값일 수 없습니다.
                 </div>
