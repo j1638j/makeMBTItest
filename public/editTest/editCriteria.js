@@ -124,7 +124,6 @@ addCriteriaButton.addEventListener('click', function () {
     //container div
     const containerDiv = document.createElement('div');
     containerDiv.classList.add('container', 'mb-5', 'criterion');
-    containerDiv.setAttribute('id', `criterion-div-${criterionDivs.length}`);
     criterionDivs[criterionDivs.length-1].insertAdjacentElement('afterend', containerDiv);
 
     //row div
@@ -195,6 +194,8 @@ addCriteriaButton.addEventListener('click', function () {
     const aboveDiv = document.createElement('div');
     const aboveH6 = document.createElement('h6');
     const aboveInput = document.createElement('input');
+    const emptyInputAlertDiv = document.createElement('div')
+    const sameInputAlertDiv = document.createElement('div')
     aboveRowDiv.classList.add('row', 'mb-3');
     aboveDiv.classList.add('col-10', 'offset-1');
     aboveH6.innerText = '기준점수 이상';
@@ -203,6 +204,16 @@ addCriteriaButton.addEventListener('click', function () {
     aboveInput.setAttribute('type', 'text')
     aboveInput.setAttribute('placeholder', 'type2')
     aboveInput.setAttribute('name', 'criteria[standardAndAboveIs]')
+    emptyInputAlertDiv.classList.add('col-10', 'offset-1', 'alert', 'alert-primary', 'my-4')
+    emptyInputAlertDiv.setAttribute('id', `criteria-empty-input-alert-${criterionDivs.length}`)
+    emptyInputAlertDiv.setAttribute('style', 'display:none;')
+    emptyInputAlertDiv.setAttribute('role', 'alert')
+    emptyInputAlertDiv.innerText = '모든 값을 입력한 후에 추가해 주세요.'
+    sameInputAlertDiv.classList.add('col-10', 'offset-1', 'alert', 'alert-primary', 'my-4')
+    sameInputAlertDiv.setAttribute('id', `criteria-same-input-alert-${criterionDivs.length}`)
+    sameInputAlertDiv.setAttribute('style', 'display:none;')
+    sameInputAlertDiv.setAttribute('role', 'alert')
+    sameInputAlertDiv.innerText = '기준점수 미만과 기준점수 이상이 같은 값일 수 없습니다.'
     aboveDiv.appendChild(aboveH6)
     aboveDiv.appendChild(aboveInput)
     aboveRowDiv.appendChild(aboveDiv);

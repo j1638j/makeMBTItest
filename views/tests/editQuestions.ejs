@@ -7,47 +7,47 @@
 </div>
 
 <% for (let i=0; i<test.questions.length; i++) { %> 
-<div class="container mb-5">
+<div class="container mb-5 questions">
     <div class="row">
         <div
             class="col-md-10 offset-md-1 col-xl-8 offset-xl-2 border rounded-3 border-2 border-primary mt-5 p-3">
             <div class="my-4 mx-4">
                 <h6>질문</h6>
-                <textarea name="question[question]" id="question" class="col-12 form-control" rows="2"
+                <textarea name="question[question]" id="question-<%= i %>" class="col-12 form-control question" rows="2"
                     placeholder="예)처음 보는 사람을 만나면 나는..."><%= test.questions[i].question %></textarea>
             </div>
             <div class="my-4 mx-4">
                 <h6>채점기준 <span class="text-muted">예) 에너지방향</span></h6>
-                <select id="option-criterion-select" name="option[criterion]" class="form-select">
+                <select id="option-criterion-select-<%= i %>" name="option[criterion]" class="form-select criterion-select">
                     <option selected value="">선택</option>
                 </select>
             </div>
             <div class="my-4 mx-4">
                 <h6>선택지1</h6>
-                <textarea name="option[option-1]" id="option1" class="col-12 p-2 form-control" rows="2"
+                <textarea name="option[option-1]" id="option1-<%= i %>" class="col-12 p-2 form-control option1" rows="2"
                     placeholder="예)먼저 말을 걸고 금방 친해진다."><%= test.questions[i].options[0].option %></textarea>
-                <input class="form-control mt-1" type="number" name="option[score]" id="option-score-1"
+                <input class="form-control mt-1 option1-score" type="number" name="option[score]" id="option-score-1-<%= i %>"
                     placeholder="점수" min="0" value="<%= test.questions[i].options[0].score %>">
             </div>
             <div class="my-4 mx-4">
                 <h6>선택지2</h6>
-                <textarea name="option[option-2]" id="option2" class="col-12 p-2 form-control" rows="2"
+                <textarea name="option[option-2]" id="option2-<%= i %>" class="col-12 p-2 form-control option2" rows="2"
                     placeholder="예)먼저 다가가지 않는다."><%= test.questions[i].options[1].option %></textarea>
-                <input class="form-control mt-1" type="number" name="option[score]" id="option-score-2"
+                <input class="form-control mt-1 options2-score" type="number" name="option[score]" id="option-score-2-<%= i %>"
                     placeholder="점수" min="0" value="<%= test.questions[i].options[1].score %>">
             </div>
             <div class="my-4 mx-4">
-                <div id="question-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                <div id="question-empty-input-alert-<%= i %>" class="col-10 offset-1 alert alert-primary my-4"
                     style="display: none;" role="alert">
                     모든 값을 입력한 후에 추가해 주세요.
                 </div>
-                <div id="question-same-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                <div id="question-same-input-alert-<%= i %>" class="col-10 offset-1 alert alert-primary my-4"
                     style="display: none;" role="alert">
                     선택지1과 선택지2의 값이 같을 수 없습니다.
                 </div>
             </div>
             <div class="d-flex justify-content-end mt-4 mb-3 mx-4">
-                <button id="delete-question-button-<%= i %>" class="btn btn-outline-primary text-wrap delete-criteria-button"
+                <button id="delete-question-button-<%= i %>" class="btn btn-outline-primary text-wrap delete-question-button"
                     type="button">채점기준 삭제</button>
             </div>            
         </div>
@@ -62,3 +62,8 @@
     <button id="add-question-button" class="btn btn-lg btn-outline-primary text-wrap mx-3"
     type="button">질문 추가</button>
 </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/editTest/editQuestions.js"></script>
