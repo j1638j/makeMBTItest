@@ -94,18 +94,23 @@ router.get('/:id/edit/criteria', catchAsync(async(req, res) => {
 
 router.patch('/:id/edit/criteria', catchAsync(async(req, res) => {
     const criteria = req.body;
-    // const test = await Test.findById(req.params.id);
-    // console.log('test: ', test)
-    // console.log('test.criteria: ', test.criteria);
-    // console.log('criteria: ', criteria)
     const test = await Test.findByIdAndUpdate(req.params.id, {criteria}, {new: true});
     console.log('test: ', test);
     res.send('finished');
 }))
 
-router.get('/:id/edit/questions', (req, res) => {
-    res.render('tests/editQuestions')
-})
+router.get('/:id/edit/questions', catchAsync(async(req, res) => {
+    const test = await Test.findById(req.params.id)
+    res.render('tests/editQuestions', {test})
+}))
+
+router.patch('/:id/edit/questions', catchAsync(async(req, res) => {
+    const questions = req.body;
+    const test = await Test.findByIdAndUpdate(req.params.id, {questions}, {new: true});
+    console.log('test: ', test);
+    res.send('finished')
+}))
+
 
 router.get('/:id/edit/results', (req, res) => {
     res.render('tests/editResults');
