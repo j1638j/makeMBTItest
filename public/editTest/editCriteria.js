@@ -2,7 +2,7 @@ const editCriteriaButton = document.querySelector('#edit-criteria-button');
 const addCriteriaButton = document.querySelector('#add-criteria-button')
 let deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
 let criterionDivs = document.querySelectorAll('.criterion');
-const criteria = [];
+let criteria = [];
 
 //모든 값이 입력되었는지 확인
 const checkEmptyInput = function () {
@@ -69,35 +69,48 @@ const checkValueDifference = function () {
 const makeCriteriaArray = function () {
     for (let i = 0; i < criterionDivs.length; i++) {
         const criterion = {}
-        criterion.name = document.querySelector(`criteria-name-${i}`).value.trim();
-        criterion.standardScore = document.querySelector(`criteria-standard-score-${i}`).value.trim();
-        criterion.belowStandardIs = document.querySelector(`criteria-below-standard-is-${i}`).value.trim();
-        criterion.standardAndAboveIs = document.querySelector(`criteria-standard-and-above-is-${i}`).value.trim();
+        criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
+        criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
+        criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
+        criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
+        criteria = []
         criteria.push(criterion)
     }
 }
 
 //axios로 서버로 전송
 const sendAxios = function () {
-
+    const url = window.location.pathname;
+    const id = url.split('/')[2];
+    console.log('id: ', id);
+    axios(url, {
+        method: 'patch',
+        data: criteria
+    }).then(function (res) {
+        console.log('res: ', res);
+        return window.location = `/showTest/${id}`
+    }).catch(e => console.log(e))
 }
 
 //채점기준 삭제 버튼
-for (let i=0; i<deleteCriteriaButtons.length; i++) {
-    let count = i;
-
-    deleteCriteriaButtons[count].addEventListener('click', function() {
-        console.log('deleteCriteriaButtons: ', deleteCriteriaButtons)
-        console.log(`deleteCriteriaButtons[${count}]`)
-        criterionDivs[count].remove();
-        console.log('criterionDivs after remove: ', criterionDivs)
-        //criterionDivs, deleteCriteriaButtons 다시 query
-        criterionDivs = document.querySelectorAll('.criterion');  
-        console.log('criterionDivs after query: ', criterionDivs)
-        deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
-        console.log('deleteCriteriaButtons after query: ', deleteCriteriaButtons)
-    })
+const activateDeleteButtons = function () {
+    for (let i=0; i<deleteCriteriaButtons.length; i++) {
+        let count = i;
+    
+        deleteCriteriaButtons[count].addEventListener('click', function() {
+            console.log('deleteCriteriaButtons: ', deleteCriteriaButtons)
+            console.log(`deleteCriteriaButtons[${count}]`)
+            criterionDivs[count].remove();
+            console.log('criterionDivs after remove: ', criterionDivs)
+            //criterionDivs, deleteCriteriaButtons 다시 query
+            criterionDivs = document.querySelectorAll('.criterion');  
+            console.log('criterionDivs after query: ', criterionDivs)
+            deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
+            console.log('deleteCriteriaButtons after query: ', deleteCriteriaButtons)
+        })
+    }    
 }
+activateDeleteButtons();
 
 
 //채점기준 추가 버튼
@@ -209,7 +222,10 @@ addCriteriaButton.addEventListener('click', function () {
 
     //2. criterionDivs, deleteCriteriaButtons 다시 query
     criterionDivs = document.querySelectorAll('.criterion');  
+    console.log('criterionDivs: ', criterionDivs)
     deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
+    activateDeleteButtons()
+    console.log('deleteCriteriaButtons: ', deleteCriteriaButtons)
 
 })
 
