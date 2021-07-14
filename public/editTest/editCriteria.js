@@ -67,14 +67,19 @@ const checkValueDifference = function () {
 
 //criteria에 수정한 정보 넣기
 const makeCriteriaArray = function () {
-    for (let i = 0; i < criterionDivs.length; i++) {
-        const criterion = {}
-        criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
-        criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
-        criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
-        criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
-        criteria = []
-        criteria.push(criterion)
+    if(criterionDivs.length) {
+        for (let i = 0; i < criterionDivs.length; i++) {
+            const criterion = {}
+            criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
+            criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
+            criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
+            criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
+            criteria = []
+            criteria.push(criterion)
+        }    
+    } else {
+        const noCriteriaAlert = document.querySelector('#no-criteria-alert');
+        noCriteriaAlert.style.display = 'block'
     }
 }
 

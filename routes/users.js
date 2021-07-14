@@ -122,7 +122,9 @@ router.get('/usertests', catchAsync(async (req, res) => {
     for (test of res.locals.currentUser.tests) {
         const t = await Test.findById(test);
         console.log("t: ", t)
-        tests.push(t);
+        if(t) {
+            tests.push(t);
+        }
     }
     console.log('tests: ', tests)
     console.log('tests.length: ', tests.length)
