@@ -67,20 +67,24 @@ const checkValueDifference = function () {
 
 //criteria에 수정한 정보 넣기
 const makeCriteriaArray = function () {
-    if(criterionDivs.length) {
-        for (let i = 0; i < criterionDivs.length; i++) {
-            const criterion = {}
-            criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
-            criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
-            criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
-            criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
-            criteria = []
-            criteria.push(criterion)
-        }    
-    } else {
-        const noCriteriaAlert = document.querySelector('#no-criteria-alert');
-        noCriteriaAlert.style.display = 'block'
-    }
+    return new Promise((resolve, reject) => {
+        if(criterionDivs.length) {
+            for (let i = 0; i < criterionDivs.length; i++) {
+                const criterion = {}
+                criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
+                criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
+                criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
+                criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
+                criteria = []
+                criteria.push(criterion)
+            }    
+            resolve('Successfully added all the criteria')
+        } else {
+            const noCriteriaAlert = document.querySelector('#no-criteria-alert');
+            noCriteriaAlert.style.display = 'block'
+            reject("There's no criteria")
+        }
+    })
 }
 
 //axios로 서버로 전송
@@ -259,9 +263,11 @@ editCriteriaButton.addEventListener('click', function() {
     } else if(!isValueDifferent) {
         checkValueDifference()
     } else {
-    //1. criteria에 수정한 정보 넣기
-    makeCriteriaArray();
-    //2. axios로 서버로 전송
-    sendAxios();
+        //1. criteria에 수정한 정보 넣기
+        makeCriteriaArray()
+        .then((res) => {
+            //2. axios로 서버로 전송
+            sendAxios();
+        }).catch(e => console.log)
     }
 })
