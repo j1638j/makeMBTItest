@@ -312,3 +312,5 @@ editQuestionButton.addEventListener('click', function () {
     }
 
 })
+
+//질문 추가해서 저장하면 저장 안됨
