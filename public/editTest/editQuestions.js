@@ -5,6 +5,101 @@ let deleteQuestionButtons = document.querySelectorAll('.delete-question-button')
 let questions = []
 let criteria = []
 
+
+//모든 값이 입력되었는지 확인
+const checkEmptyInput = function () {
+    const allInputs = document.querySelectorAll('.form-control, .form-select');
+    const booleanArray = []
+    for (input of allInputs) {
+        let text = input.value.trim();
+        if (text) {
+            booleanArray.push(true);
+        } else {
+            booleanArray.push(false)
+        }
+    }
+    if (booleanArray.every(e => e)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+//값을 입력해야 하는 곳에 알림 띄우기
+const showEmptyInputAlert = function () {
+    const allInputs = document.querySelectorAll('.form-control, .form-select');
+    for (let i = 0; i < questionsDivs.length; i++) {
+        let text = allInputs[i].value.trim();
+        if (!text) {
+            const emptyInputAlert = document.querySelector(`#question-empty-input-alert-${i}`)
+            const sameInputAlert = document.querySelector(`#question-same-input-alert-${i}`)
+            emptyInputAlert.style.display = 'block'
+            sameInputAlert.style.display = 'none'
+        }
+    }
+}
+
+// 선택지 1, 2의 값이 다른지 확인
+const checkValueDifference = function () {
+    const options1 = document.querySelectorAll('.option1');
+    const options2 = document.querySelectorAll('.option2');
+    const scores1 = document.querySelectorAll('.option1-score')
+    const scores2 = document.querySelectorAll('.option2-score')
+    const booleanArray = []
+
+    for (let i = 0; i<criterionDivs.length; i++) {
+        let option1 = options1[i].value.trim();
+        let option2 = options2[i].value.trim();
+        let score1 = scores1[i].value;
+        let score2 = scores2[i].value;
+        if(option1 !== option2 && score1 !== score2) {
+            booleanArray.push(true)
+        } else {
+            booleanArray.push(false)
+            //기준점수 미만, 이상 값 같은 곳에 알림 띄우기
+            const emptyInputAlert = document.querySelector(`#question-empty-input-alert-${i}`)
+            const sameInputAlert = document.querySelector(`#question-same-input-alert-${i}`)
+            emptyInputAlert.style.display = 'none'
+            sameInputAlert.style.display = 'block'
+        }
+    }
+
+    if (booleanArray.every(e => e)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+//questions에 수정한 정보 넣기
+const makeQuestionsArray = function () {
+    return new Promise((resolve, reject) => {
+        if(questionsDivs.length >= criteria.length) {
+            for (let i = 0; i < questionsDivs.length; i++) {
+                const question = {}
+                const option1 = {}
+                const option2 = {}
+                question.question = document.querySelector(`question-${i}`).value.trim()
+                option1.criterion = option2.criterion = document.querySelector(`option-criterion-select-${i}`).value
+                option1.option = document.querySelector(`option1-${i}`).value.trim();
+                option1.score = document.querySelector(`option-score-${i}`).value;
+                option2.option = document.querySelector(`option2-${i}`).value.trim()
+                option2.score = document.querySelector(`option2-${i}`).value
+                question.options = [option1, option2];
+                questions = []
+                questions.push(question)
+            }    
+            resolve('Successfully added all the questions')
+        } else {
+            const noQuestionAlert = document.querySelector('#no-question-alert');
+            noQuestionAlert.style.display = 'block'
+            reject("There's no question")
+        }
+    })
+}
+
+
+
 //db에서 test 가져오기 
 const getCriteriaAxios = function () {
     const id = window.location.pathname.split('/')[2]

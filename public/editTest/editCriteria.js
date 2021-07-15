@@ -3,6 +3,18 @@ const addCriteriaButton = document.querySelector('#add-criteria-button')
 let deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
 let criterionDivs = document.querySelectorAll('.criterion');
 let criteria = [];
+let questions = [];
+
+//db에서 test 가져오기 
+const getQuestionsAxios = function () {
+    const id = window.location.pathname.split('/')[2]
+    axios.get(`/tests/${id}/conduct/axios`)
+    .then((res) => {
+        questions = res.data.questions;
+    }).catch(e => console.log(e))
+}
+getCriteriaAxios()
+
 
 //모든 값이 입력되었는지 확인
 const checkEmptyInput = function () {
@@ -252,6 +264,8 @@ addCriteriaButton.addEventListener('click', function () {
 
 //채점기준 수정 완료 버튼
 editCriteriaButton.addEventListener('click', function() {
+    console.log(document.querySelector('#criteria-standard-score-0').value)
+
     //0. criteria에 들어갈 정보가 유효한지 확인 
     //  1) 모든 값이 입력됐는가?
     const isEveryInputFilled = checkEmptyInput();
@@ -268,6 +282,11 @@ editCriteriaButton.addEventListener('click', function() {
         .then((res) => {
             //2. axios로 서버로 전송
             sendAxios();
+        }).then(()=>{
+            //questions의 갯수가 criteria보다 적은 경우 
+            if(questions.length < criteria.length) {
+                alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
+            }
         }).catch(e => console.log)
     }
 })

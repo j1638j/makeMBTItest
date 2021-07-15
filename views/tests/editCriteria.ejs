@@ -12,14 +12,14 @@
             <div class="row mb-3 mt-5">
                 <div class="col-10 offset-1">
                     <h6>채점기준 <span class="text-muted">예)에너지 방향</span></h6>
-                    <input class="form-control criteria-name" id="criteria-name-<%= i %>" type="text" name="criteria[name]" 
+                    <input required class="form-control criteria-name" id="criteria-name-<%= i %>" type="text" name="criteria[name]" 
                         value="<%= test.criteria[i].name %>">
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-10 offset-1">
                     <h6>기준점수</h6>
-                    <input class="form-control criteria-standard-score" id="criteria-standard-score-<%= i %>" type="number" min="0"
+                    <input required class="form-control criteria-standard-score" id="criteria-standard-score-<%= i %>" type="number" min="0"
                         name="criteria[standardScore]" value="<%= test.criteria[i].standardScore %>">
 
                 </div>
@@ -27,7 +27,7 @@
             <div class="row mb-3">
                 <div class="col-10 offset-1">
                     <h6>기준점수 미만</h6>
-                    <input class="form-control criteria-below-standard-is" id="criteria-below-standard-is-<%= i %>" type="text"
+                    <input required class="form-control criteria-below-standard-is" id="criteria-below-standard-is-<%= i %>" type="text"
                         placeholder="type1" name="criteria[belowStandardIs]" 
                         value="<%= test.criteria[i].belowStandardIs %> ">
                 </div>
@@ -36,7 +36,7 @@
             <div class="row mb-3">
                 <div class="col-10 offset-1">
                     <h6>기준점수 이상</h6>
-                    <input class="form-control criteria-standard-and-above-is" id="criteria-standard-and-above-is-<%= i %>" type="text"
+                    <input required class="form-control criteria-standard-and-above-is" id="criteria-standard-and-above-is-<%= i %>" type="text"
                         placeholder="type2" name="criteria[standardAndAboveIs]" 
                         value="<%= test.criteria[i].standardAndAboveIs %> ">
                 </div>
