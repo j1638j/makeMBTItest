@@ -47,7 +47,7 @@ const checkValueDifference = function () {
     const scores2 = document.querySelectorAll('.option2-score')
     const booleanArray = []
 
-    for (let i = 0; i<criterionDivs.length; i++) {
+    for (let i = 0; i<questionsDivs.length; i++) {
         let option1 = options1[i].value.trim();
         let option2 = options2[i].value.trim();
         let score1 = scores1[i].value;
@@ -74,55 +74,75 @@ const checkValueDifference = function () {
 //questions에 수정한 정보 넣기
 const makeQuestionsArray = function () {
     return new Promise((resolve, reject) => {
-        if(questionsDivs.length >= criteria.length) {
+        if(questionsDivs.length) {
+            questions = []
             for (let i = 0; i < questionsDivs.length; i++) {
                 const question = {}
                 const option1 = {}
                 const option2 = {}
-                question.question = document.querySelector(`question-${i}`).value.trim()
-                option1.criterion = option2.criterion = document.querySelector(`option-criterion-select-${i}`).value
-                option1.option = document.querySelector(`option1-${i}`).value.trim();
-                option1.score = document.querySelector(`option-score-${i}`).value;
-                option2.option = document.querySelector(`option2-${i}`).value.trim()
-                option2.score = document.querySelector(`option2-${i}`).value
+                question.question = document.querySelector(`#question-${i}`).value.trim()
+                option1.criterion = document.querySelector(`#option-criterion-select-${i}`).value
+                option2.criterion = document.querySelector(`#option-criterion-select-${i}`).value
+                option1.option = document.querySelector(`#option1-${i}`).value.trim();
+                option1.score = document.querySelector(`#option-score-1-${i}`).value;
+                option2.option = document.querySelector(`#option2-${i}`).value.trim()
+                option2.score = document.querySelector(`#option-score-2-${i}`).value
                 question.options = [option1, option2];
-                questions = []
                 questions.push(question)
             }    
+            console.log('resolve')
             resolve('Successfully added all the questions')
         } else {
             const noQuestionAlert = document.querySelector('#no-question-alert');
             noQuestionAlert.style.display = 'block'
+            console.log('reject')
             reject("There's no question")
         }
     })
 }
 
-
+//axios로 서버로 전송
+const sendAxios = function () {
+    const url = window.location.pathname;
+    const id = url.split('/')[2];
+    console.log('id: ', id);
+    axios(url, {
+        method: 'patch',
+        data: questions
+    }).then(function (res) {
+        console.log('res: ', res);
+        return window.location = `/showTest/${id}`
+    }).catch(e => console.log(e))
+}
 
 //db에서 test 가져오기 
-const getCriteriaAxios = function () {
+const getTestAxios = function () {
     const id = window.location.pathname.split('/')[2]
     axios.get(`/tests/${id}/conduct/axios`)
     .then((res) => {
         criteria = res.data.criteria;
+        questions = res.data.questions;
     }).then(() => {
-        addOptions()
+        addOptions();
     }).catch(e => console.log(e))
 }
-getCriteriaAxios()
+getTestAxios()
+
 
 //채점기준 select에 option 추가
 const addOptions = function () {
-    for (c of criteria) {
+    for (let i = 0; i < criteria.length; i++) {
         const newSelectOption = document.createElement('option')
-        newSelectOption.setAttribute('value', c.name)
-        newSelectOption.innerText = c.name;
+        newSelectOption.setAttribute('value', criteria[i].name)
+        newSelectOption.innerText = criteria[i].name;
+        if(questions[i].options[i].criterion === criteria[i].name) {
+            newSelectOption.setAttribute('selected', '')
+        }
         const criterionSelects = document.querySelectorAll('.criterion-select');
         for (s of criterionSelects) {
             s.append(newSelectOption)
         }
-    } 
+    }
 } 
 
 //질문 삭제 버튼 
@@ -267,5 +287,28 @@ addQuestionButton.addEventListener('click', function () {
 
 //질문 수정 완료 버튼
 editQuestionButton.addEventListener('click', function () {
+    //0. questions에 들어갈 정보가 유효한지 확인 
+    //  1) 모든 값이 입력됐는가?
+    const isEveryInputFilled = checkEmptyInput();
+    //  2) 기준점수 미만과 기준점수 이상이 다른 값인가?
+    const isValueDifferent = checkValueDifference();
+
+    if(!isEveryInputFilled) {
+        showEmptyInputAlert()
+    } else if(!isValueDifferent) {
+        checkValueDifference()
+    } else if(questions.length < criteria.length) {
+        //questions의 갯수가 criteria보다 적은 경우 
+        alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
+    } else {
+        //1. questions에 수정한 정보 넣기
+        console.log('else')
+        makeQuestionsArray()
+        .then((res) => {
+            console.log(res)
+            //2. axios로 서버로 전송
+            sendAxios();
+        }).catch(e => console.log)
+    }
 
 })
