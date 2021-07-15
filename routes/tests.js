@@ -112,8 +112,17 @@ router.patch('/:id/edit/questions', catchAsync(async(req, res) => {
 }))
 
 
-router.get('/:id/edit/results', (req, res) => {
-    res.render('tests/editResults');
-})
+router.get('/:id/edit/results', catchAsync(async (req, res) => {
+    const test = await Test.findById(req.params.id)
+    res.render('tests/editResults', {test});
+}))
+
+router.patch('/:id/edit/results', catchAsync(async(req, res)=> {
+    const results = req.body;
+    const test = await Test.findByIdAndUpdate(req.params.id, {results}, {new: true});
+    console.log('test: ', test);
+    res.send('finished')
+}))
+
 
 module.exports = router;
