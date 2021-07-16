@@ -4,8 +4,8 @@
     <h5 class="text-muted">모든 경우의 수가 입력되지 않으면 오류가 생길 수 있습니다.</h6>
 </div>
 
+<div id="all">
 <% for (let i=0; i<test.results.length; i++) { %> 
-
 <div class="container mb-3 results">
     <div class="row">
         <div
@@ -42,27 +42,32 @@
                     class="form-control mt-2" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."><%= test.results[i].perfectMatch.description %></textarea>
             </div>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-3">
-                <div id="result-empty-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+            <div class="d-flex justify-content-center my-3">
+                <div id="result-empty-input-alert-<%= i %>" class="alert alert-primary my-3"
                     style="display: none;" role="alert">
                     모든 값을 입력한 후에 추가해 주세요.
                 </div>
-                <div id="result-same-input-alert" class="col-10 offset-1 alert alert-primary my-4"
+                <div id="result-same-input-alert-<%= i %>" class="alert alert-primary my-3"
                     style="display: none;" role="alert">
                     최고의 궁합과 최악의 궁합의 값이 같을 수 없습니다.
                 </div>
+            </div>
+            
+            <div class="d-flex justify-content-end mt-3 mb-3"> 
                 <button class="btn btn-outline-primary text-wrap mx-5 delete-result-button"
-                    type="button">결과 삭제</button>
+                type="button">결과 삭제</button>
             </div>
         </div>
     </div>
 </div>
 <% } %> 
+</div>
+
 
 <div class="container">
     <div class="row">
         <div id="no-result-alert" class="col-8 offset-2 alert alert-primary" role="alert" style="display: none;">
-            적어도 한 개 이상의 질문이 있어야 합니다.
+            적어도 한 개 이상의 결과가 있어야 합니다.
         </div>        
     </div>
 </div>

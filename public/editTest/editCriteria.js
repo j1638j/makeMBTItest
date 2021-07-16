@@ -84,13 +84,14 @@ const checkValueDifference = function () {
 const makeCriteriaArray = function () {
     return new Promise((resolve, reject) => {
         if(criterionDivs.length) {
+            criteria = []
+
             for (let i = 0; i < criterionDivs.length; i++) {
                 const criterion = {}
                 criterion.name = document.querySelector(`#criteria-name-${i}`).value.trim();
                 criterion.standardScore = document.querySelector(`#criteria-standard-score-${i}`).value.trim();
                 criterion.belowStandardIs = document.querySelector(`#criteria-below-standard-is-${i}`).value.trim();
                 criterion.standardAndAboveIs = document.querySelector(`#criteria-standard-and-above-is-${i}`).value.trim();
-                criteria = []
                 criteria.push(criterion)
             }    
             resolve('Successfully added all the criteria')
@@ -118,21 +119,18 @@ const sendAxios = function () {
 
 //채점기준 삭제 버튼
 const activateDeleteButtons = function () {
+
     for (let i=0; i<deleteCriteriaButtons.length; i++) {
         let count = i;
-    
-        deleteCriteriaButtons[count].addEventListener('click', function() {
-            console.log('deleteCriteriaButtons: ', deleteCriteriaButtons)
-            console.log(`deleteCriteriaButtons[${count}]`)
+        deleteCriteriaButtons[count].onclick = function() {
             criterionDivs[count].remove();
-            console.log('criterionDivs after remove: ', criterionDivs)
             //criterionDivs, deleteCriteriaButtons 다시 query
             criterionDivs = document.querySelectorAll('.criterion');  
-            console.log('criterionDivs after query: ', criterionDivs)
             deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
-            console.log('deleteCriteriaButtons after query: ', deleteCriteriaButtons)
-        })
-    }    
+            activateDeleteButtons();
+        };
+
+    }
 }
 activateDeleteButtons();
 
@@ -148,7 +146,8 @@ addCriteriaButton.addEventListener('click', function () {
     //container div
     const containerDiv = document.createElement('div');
     containerDiv.classList.add('container', 'mb-5', 'criterion');
-    criterionDivs[criterionDivs.length-1].insertAdjacentElement('afterend', containerDiv);
+    const all = document.querySelector('#all');
+    all.append(containerDiv)
 
     //row div
     const rowDiv = document.createElement('div');
@@ -157,7 +156,7 @@ addCriteriaButton.addEventListener('click', function () {
 
     //border div
     const borderDiv = document.createElement('div');
-    borderDiv.classList.add('col-md-10', 'offset-md-1', 'col-xl-8', 'offset-xl-2', 'border', 'rounded-3', 'border-2', 'border-primary', 'p-3')
+    borderDiv.classList.add('col-md-10', 'offset-md-1', 'col-xl-8', 'offset-xl-2', 'border', 'rounded-3', 'border-2', 'border-primary','mt-3', 'p-3')
     rowDiv.appendChild(borderDiv);
 
     //criteria-name div
@@ -257,10 +256,8 @@ addCriteriaButton.addEventListener('click', function () {
 
     //2. criterionDivs, deleteCriteriaButtons 다시 query
     criterionDivs = document.querySelectorAll('.criterion');  
-    console.log('criterionDivs: ', criterionDivs)
     deleteCriteriaButtons = document.querySelectorAll('.delete-criteria-button');
     activateDeleteButtons()
-    console.log('deleteCriteriaButtons: ', deleteCriteriaButtons)
 
 })
 

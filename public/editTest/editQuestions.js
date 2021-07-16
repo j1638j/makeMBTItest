@@ -122,6 +122,8 @@ const getTestAxios = function () {
     .then((res) => {
         criteria = res.data.criteria;
         questions = res.data.questions;
+        console.log('criteria: ', criteria)
+        console.log('questions: ', questions)
     }).then(() => {
         addOptions();
     }).catch(e => console.log(e))
@@ -132,16 +134,26 @@ getTestAxios()
 //채점기준 select에 option 추가
 const addOptions = function () {
     for (let i = 0; i < criteria.length; i++) {
+        //option elemenet 생성
         const newSelectOption = document.createElement('option')
         newSelectOption.setAttribute('value', criteria[i].name)
         newSelectOption.innerText = criteria[i].name;
-        if(questions[i].options[i].criterion === criteria[i].name) {
-            newSelectOption.setAttribute('selected', '')
+
+        //원래 채점기준 디폴트 선택으로
+        for (let j=0; j<questions.length; j++) {
+            console.log('i: ', i, ' j: ', j)
+
+            if(questions[j].options[0].criterion === criteria[i].name) {
+                newSelectOption.setAttribute('selected', '')
+            }        
         }
+
+        //select에 option 추가
         const criterionSelects = document.querySelectorAll('.criterion-select');
         for (s of criterionSelects) {
             s.append(newSelectOption)
         }
+        
     }
 } 
 
@@ -150,12 +162,14 @@ const activateDeleteButtons = function () {
     for (let i=0; i<deleteQuestionButtons.length; i++) {
         let count = i;
     
-        deleteQuestionButtons[count].addEventListener('click', function() {
+        deleteQuestionButtons[count].onclick = function() {
             questionsDivs[count].remove();
             //questionsDivs, deleteQuestionButtons 다시 query
             questionsDivs = document.querySelectorAll('.questions');  
             deleteQuestionButtons = document.querySelectorAll('.delete-question-button');
-        })
+            activateDeleteButtons();
+
+        }
     }    
 }
 activateDeleteButtons();
@@ -169,7 +183,8 @@ addQuestionButton.addEventListener('click', function () {
     //container div
     const containerDiv = document.createElement('div');
     containerDiv.classList.add('container', 'mb-5', 'questions');
-    questionsDivs[questionsDivs.length-1].insertAdjacentElement('afterend', containerDiv);
+    const all = document.querySelector('#all');
+    all.append(containerDiv)
 
     //row div
     const rowDiv = document.createElement('div');
