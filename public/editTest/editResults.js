@@ -24,6 +24,37 @@ const getTestAxios = function () {
 getTestAxios()
 
 
+//채점기준 select에 option 추가
+const addOptions = function () {
+    for (let i = 0; i < resultsDivs.length; i++) {
+    
+        //원래 채점기준 디폴트 선택으로
+        for (let j=0; j<criteria.length; j++) {
+            console.log('i: ', i, ' j: ', j)
+
+            //select, option 생성
+            const newSelect = document.createElement('select')
+            newSelect.classList.add('form-select', 'mb-1')
+            const newOptionType = document.createElement('option')
+            newOptionType.setAttribute('value', '')
+            newOptionType.setAttribute('selected', '')
+            newOptionType.innerText = criteria[j].name;
+            const option1 = document.createElement('option')
+            const option2 = document.createElement('option')
+            option1.setAttribute('value', criteria[j].belowStandardIs)
+            option1.innerText = criteria[j].belowStandardIs
+            option2.setAttribute('value', criteria[j].standardAndAboveIs)
+            option2.innerText = criteria[j].standardAndAboveIs
+            newSelect.append(newOptionType, option1, option2)
+            const resultTypeDiv = document.querySelector('#result-type-div-' + i)
+            resultTypeDiv.append(newSelect)
+        }
+        
+    }
+} 
+
+
+
 //결과 삭제 버튼 
 const activateDeleteButtons = function () {
     for (let i=0; i<deleteResultButtons.length; i++) {
