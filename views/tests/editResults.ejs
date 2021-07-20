@@ -13,7 +13,7 @@
 
             <div id="result-name-div-<%= i %>" class="my-4 mx-5">
                 <h6>별명 <span class="text-muted">예)대담한 통솔자</span></h6>
-                <input class="form-control" id="result-name-input-<%= i %>" type="text" required 
+                <input class="form-control required-<%= i %>" id="result-name-input-<%= i %>" type="text" required 
                     value="<%= test.results[i].resultName %>">
             </div>
 
@@ -23,23 +23,23 @@
 
             <div class="my-4 mx-5" id="result-description-div-<%= i %>">
                 <h6>설명 <span class="text-muted">예)통솔자형 사람은 천성적으로 타고난 리더로...</span></h6>
-                <textarea id="result-description-textarea-<%= i %>" class="form-control"><%= test.results[i].description %></textarea>
+                <textarea id="result-description-textarea-<%= i %>" class="form-control required-<%= i %>"><%= test.results[i].description %></textarea>
             </div>
 
             <div class="my-4 mx-5" id="result-perfect-match-div-<%= i %>">
                 <h6>최고의 궁합 <span class="text-muted">(선택사항)</span></h6>
-                <input class="form-control" type="text" id="result-perfect-match-name-<%= i %>"
+                <input class="form-control perfect-match-name" type="text" id="result-perfect-match-name-<%= i %>"
                     placeholder="별명 예)사교적인 외교관" value="<%= test.results[i].perfectMatch.resultName %>">
-                <textarea id="result-perfect-match-description-<%= i %>" class="form-control mt-2"
+                <textarea id="result-perfect-match-description-<%= i %>" class="form-control mt-2 perfect-match-description"
                     placeholder="설명 예)사교형 사람은 통솔자형 사람과..."><%= test.results[i].perfectMatch.description %></textarea>
             </div>
 
             <div class="my-4 mx-5" id="result-worst-match-div-<%= i %>">
                 <h6>최악의 궁합 <span class="text-muted">(선택사항)</span></h6>
-                <input class="form-control" type="text" id="result-worst-match-name-<%= i %>"
+                <input class="form-control worst-match-name" type="text" id="result-worst-match-name-<%= i %>"
                     placeholder="별명 예)사교적인 외교관" value="<%= test.results[i].worstMatch.resultName %>">
                 <textarea id="result-worst-match-description-<%= i %>"
-                    class="form-control mt-2" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."><%= test.results[i].perfectMatch.description %></textarea>
+                    class="form-control mt-2 worst-match-description" placeholder="설명 예)사교형 사람은 통솔자형 사람과..."><%= test.results[i].perfectMatch.description %></textarea>
             </div>
 
             <div class="d-flex justify-content-center my-3">

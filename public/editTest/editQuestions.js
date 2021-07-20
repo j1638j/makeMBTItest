@@ -27,9 +27,12 @@ const checkEmptyInput = function () {
 
 //값을 입력해야 하는 곳에 알림 띄우기
 const showEmptyInputAlert = function () {
+    console.log('inside of showEmptyInputAlert')
     const allInputs = document.querySelectorAll('.form-control, .form-select');
-    for (let i = 0; i < questionsDivs.length; i++) {
+    console.log('allInputs: ', allInputs)
+    for (let i = 0; i < allInputs.length; i++) {
         let text = allInputs[i].value.trim();
+        console.log('text: ', text)
         if (!text) {
             const emptyInputAlert = document.querySelector(`#question-empty-input-alert-${i}`)
             const sameInputAlert = document.querySelector(`#question-same-input-alert-${i}`)
@@ -37,6 +40,7 @@ const showEmptyInputAlert = function () {
             sameInputAlert.style.display = 'none'
         }
     }
+    
 }
 
 // 선택지 1, 2의 값이 다른지 확인
@@ -298,10 +302,17 @@ addQuestionButton.addEventListener('click', function () {
     deleteDiv.append(deleteButton)
     borderDiv.append(deleteDiv)
 
+    //2. questionsDivs, deleteQuestionButtons 다시 query
+    questionsDivs = document.querySelectorAll('.questions');  
+    deleteQuestionButtons = document.querySelectorAll('.delete-question-button');
+    activateDeleteButtons()
+
+
 })
 
 //질문 수정 완료 버튼
 editQuestionButton.addEventListener('click', function () {
+    console.log('clicked editQuestionButton')
     //0. questions에 들어갈 정보가 유효한지 확인 
     //  1) 모든 값이 입력됐는가?
     const isEveryInputFilled = checkEmptyInput();
@@ -310,8 +321,10 @@ editQuestionButton.addEventListener('click', function () {
 
     if(!isEveryInputFilled) {
         showEmptyInputAlert()
+        console.log('showEmptyInputAlert')
     } else if(!isValueDifferent) {
         checkValueDifference()
+        console.log('checkValueDifference')
     } else if(questions.length < criteria.length) {
         //questions의 갯수가 criteria보다 적은 경우 
         alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')

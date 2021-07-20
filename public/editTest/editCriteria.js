@@ -49,7 +49,7 @@ const showEmptyInputAlert = function () {
             emptyInputAlert.style.display = 'block'
             sameInputAlert.style.display = 'none'
         }
-    }
+    }    
 }
 
 //기준점수 미만, 이상 값이 다른지 확인
