@@ -8,7 +8,7 @@ let criteria = []
 
 //모든 값이 입력되었는지 확인
 const checkEmptyInput = function () {
-    const allInputs = document.querySelectorAll('.form-control, .form-select');
+    const allInputs = document.querySelectorAll('.required');
     const booleanArray = []
     for (input of allInputs) {
         let text = input.value.trim();
@@ -27,18 +27,22 @@ const checkEmptyInput = function () {
 
 //값을 입력해야 하는 곳에 알림 띄우기
 const showEmptyInputAlert = function () {
-    console.log('inside of showEmptyInputAlert')
-    const allInputs = document.querySelectorAll('.form-control, .form-select');
-    console.log('allInputs: ', allInputs)
-    for (let i = 0; i < allInputs.length; i++) {
-        let text = allInputs[i].value.trim();
-        console.log('text: ', text)
-        if (!text) {
-            const emptyInputAlert = document.querySelector(`#question-empty-input-alert-${i}`)
-            const sameInputAlert = document.querySelector(`#question-same-input-alert-${i}`)
-            emptyInputAlert.style.display = 'block'
-            sameInputAlert.style.display = 'none'
-        }
+    for (let j = 0; j < questionsDivs.length; j++) {
+        console.log('inside of showEmptyInputAlert')
+        const allInputs = document.querySelectorAll(`.required-${j}`);
+        console.log('allInputs: ', allInputs)
+        for (let i = 0; i < allInputs.length; i++) {
+            let text = allInputs[i].value.trim();
+            console.log('text: ', text)
+            if (!text) {
+                const emptyInputAlert = document.querySelector(`#question-empty-input-alert-${j}`)
+                const sameInputAlert = document.querySelector(`#question-same-input-alert-${j}`)
+                console.log('empty: ', emptyInputAlert)
+                console.log('same: ', sameInputAlert)
+                emptyInputAlert.style.display = 'block'
+                sameInputAlert.style.display = 'none'
+            }
+        }    
     }
     
 }
@@ -167,6 +171,7 @@ const activateDeleteButtons = function () {
         let count = i;
     
         deleteQuestionButtons[count].onclick = function() {
+            console.log('delete button clicked')
             questionsDivs[count].remove();
             //questionsDivs, deleteQuestionButtons 다시 query
             questionsDivs = document.querySelectorAll('.questions');  
@@ -206,7 +211,7 @@ addQuestionButton.addEventListener('click', function () {
     const questionTextarea = document.createElement('textarea');
     questionDiv.classList.add('my-4', 'mx-4');
     questionH6.innerText = '질문'
-    questionTextarea.classList.add('col-12', 'form-control', 'question');
+    questionTextarea.classList.add('col-12', 'form-control', 'question', 'required', `required-${questionsDivs.length}`);
     questionTextarea.setAttribute('id', `question-${questionsDivs.length}`)
     questionTextarea.setAttribute('rows', '2')
     questionTextarea.setAttribute('placeholder', '예)처음 보는 사람을 만나면 나는...')
@@ -220,7 +225,7 @@ addQuestionButton.addEventListener('click', function () {
     const criteriaOption = document.createElement('option');
     criteriaDiv.classList.add('my-4', 'mx-4')
     criteriaH6.innerHTML = '채점기준 <span class="text-muted">예) 에너지방향</span>'
-    criteriaSelect.classList.add('form-select', 'criterion-select');
+    criteriaSelect.classList.add('form-select', 'criterion-select', 'required', `required-${questionsDivs.length}`);
     criteriaSelect.setAttribute('id', `option-criterion-select-${questionsDivs.length}`);
     criteriaOption.setAttribute('selected', '')
     criteriaOption.setAttribute('value', '');
@@ -242,11 +247,11 @@ addQuestionButton.addEventListener('click', function () {
     const option1Input = document.createElement('input')
     option1Div.classList.add('my-4', 'mx-4')
     option1H6.innerText = '선택지1'
-    option1Textarea.classList.add('col-12', 'p-2', 'form-control', 'option1')
+    option1Textarea.classList.add('col-12', 'p-2', 'form-control', 'option1', 'required', `required-${questionsDivs.length}`)
     option1Textarea.setAttribute('id', `option1-${questionsDivs.length}`)
     option1Textarea.setAttribute('rows', '2')
     option1Textarea.setAttribute('placeholder', '예)먼저 말을 걸고 금방 친해진다.')
-    option1Input.classList.add('form-control', 'mt-1', 'option1-score')
+    option1Input.classList.add('form-control', 'mt-1', 'option1-score', 'required', `required-${questionsDivs.length}`)
     option1Input.setAttribute('type', 'number')
     option1Input.setAttribute('id', `option-score-1-${questionsDivs.length}`);
     option1Input.setAttribute('placeholder', '점수')
@@ -261,11 +266,11 @@ addQuestionButton.addEventListener('click', function () {
     const option2Input = document.createElement('input')
     option2Div.classList.add('my-4', 'mx-4')
     option2H6.innerText = '선택지2'
-    option2Textarea.classList.add('col-12', 'p-2', 'form-control', 'option2')
+    option2Textarea.classList.add('col-12', 'p-2', 'form-control', 'option2', 'required', `required-${questionsDivs.length}`)
     option2Textarea.setAttribute('id', `option2-${questionsDivs.length}`)
     option2Textarea.setAttribute('rows', '2')
     option2Textarea.setAttribute('placeholder', '예)먼저 다가가지 않는다.')
-    option2Input.classList.add('form-control', 'mt-1', 'option2-score')
+    option2Input.classList.add('form-control', 'mt-1', 'option2-score', 'required', `required-${questionsDivs.length}`)
     option2Input.setAttribute('type', 'number')
     option2Input.setAttribute('id', `option-score-2-${questionsDivs.length}`);
     option2Input.setAttribute('placeholder', '점수')
@@ -295,10 +300,10 @@ addQuestionButton.addEventListener('click', function () {
     const deleteDiv = document.createElement('div');
     const deleteButton = document.createElement('div')
     deleteDiv.classList.add('d-flex', 'justify-content-end', 'mt-4', 'mb-3', 'mx-4')
-    deleteButton.classList.add('btn', 'btn-outline-primary', 'text-wrap', 'delete-criteria-button')
+    deleteButton.classList.add('btn', 'btn-outline-primary', 'text-wrap', 'delete-question-button')
     deleteButton.setAttribute('id', 'delete-question-button-' + questionsDivs.length)
     deleteButton.setAttribute('type', 'button')
-    deleteButton.innerText = '채점기준 삭제'
+    deleteButton.innerText = '질문 삭제'
     deleteDiv.append(deleteButton)
     borderDiv.append(deleteDiv)
 
