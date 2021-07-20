@@ -42,12 +42,17 @@ const checkEmptyInput = function () {
 const showEmptyInputAlert = function () {
     const allInputs = document.querySelectorAll('.form-control');
     for (let i = 0; i < criterionDivs.length; i++) {
-        let text = allInputs[i].value.trim();
-        if (!text) {
-            const emptyInputAlert = document.querySelector(`#criteria-empty-input-alert-${i}`)
-            const sameInputAlert = document.querySelector(`#criteria-same-input-alert-${i}`)
-            emptyInputAlert.style.display = 'block'
-            sameInputAlert.style.display = 'none'
+        console.log('i: ', i)
+        for (let j = 0; j < allInputs.length; j++) {
+            console.log('j: ', j)
+            let text = allInputs[j].value.trim();
+            console.log('text: ', text)
+            if (!text) {
+                const emptyInputAlert = document.querySelector(`#criteria-empty-input-alert-${i}`)
+                const sameInputAlert = document.querySelector(`#criteria-same-input-alert-${i}`)
+                emptyInputAlert.style.display = 'block'
+                sameInputAlert.style.display = 'none'
+            }    
         }
     }    
 }
@@ -239,7 +244,7 @@ addCriteriaButton.addEventListener('click', function () {
     sameInputAlertDiv.innerText = '기준점수 미만과 기준점수 이상이 같은 값일 수 없습니다.'
     aboveDiv.appendChild(aboveH6)
     aboveDiv.appendChild(aboveInput)
-    aboveRowDiv.appendChild(aboveDiv);
+    aboveRowDiv.append(aboveDiv, emptyInputAlertDiv, sameInputAlertDiv);
     borderDiv.appendChild(aboveRowDiv)
 
     //delete-criteria-button div
@@ -264,12 +269,16 @@ addCriteriaButton.addEventListener('click', function () {
 
 //채점기준 수정 완료 버튼
 editCriteriaButton.addEventListener('click', function() {
+    console.log('editCriteriaButton clicked')
 
     //0. criteria에 들어갈 정보가 유효한지 확인 
     //  1) 모든 값이 입력됐는가?
     const isEveryInputFilled = checkEmptyInput();
     //  2) 기준점수 미만과 기준점수 이상이 다른 값인가?
     const isValueDifferent = checkValueDifference();
+
+    console.log('isEveryInputFilled: ', isEveryInputFilled)
+    console.log('isValueDifferent: ', isValueDifferent)
 
     if(!isEveryInputFilled) {
         showEmptyInputAlert()
