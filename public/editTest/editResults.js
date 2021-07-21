@@ -79,6 +79,50 @@ const checkValueDifference = function () {
 }
 
 
+//questions에 수정한 정보 넣기
+const makeResultsArray = function () {
+    return new Promise((resolve, reject) => {
+        if(questionsDivs.length) {
+            questions = []
+            for (let i = 0; i < questionsDivs.length; i++) {
+                const question = {}
+                const option1 = {}
+                const option2 = {}
+                question.question = document.querySelector(`#question-${i}`).value.trim()
+                option1.criterion = document.querySelector(`#option-criterion-select-${i}`).value
+                option2.criterion = document.querySelector(`#option-criterion-select-${i}`).value
+                option1.option = document.querySelector(`#option1-${i}`).value.trim();
+                option1.score = document.querySelector(`#option-score-1-${i}`).value;
+                option2.option = document.querySelector(`#option2-${i}`).value.trim()
+                option2.score = document.querySelector(`#option-score-2-${i}`).value
+                question.options = [option1, option2];
+                questions.push(question)
+            }    
+            console.log('resolve')
+            resolve('Successfully added all the questions')
+        } else {
+            const noQuestionAlert = document.querySelector('#no-question-alert');
+            noQuestionAlert.style.display = 'block'
+            console.log('reject')
+            reject("There's no question")
+        }
+    })
+}
+
+//axios로 서버로 전송
+const sendAxios = function () {
+    const url = window.location.pathname;
+    const id = url.split('/')[2];
+    console.log('id: ', id);
+    axios(url, {
+        method: 'patch',
+        data: results
+    }).then(function (res) {
+        console.log('res: ', res);
+        return window.location = `/showTest/${id}`
+    }).catch(e => console.log(e))
+}
+
 
 //db에서 test 가져오기 
 const getTestAxios = function () {
@@ -297,23 +341,21 @@ editResultButton.addEventListener('click', function() {
     console.log('isValueDifferenct: ', isValueDifferent)
 
     if(!isEveryInputFilled) {
-        console.log('showEmptyInputAlert')
         showEmptyInputAlert()
     } else if(!isValueDifferent) {
         checkValueDifference()
-    } // else if(re.length < criteria.length) {
-    //     //questions의 갯수가 criteria보다 적은 경우 
-    //     alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
-    // } 
-    else {
-        //1. questions에 수정한 정보 넣기
+    } else if(resultsDivs.length < 2**criteria.length) {
+        // !==로 바꿀까?
+        alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
+    } else {
+        //1. results 수정한 정보 넣기
         console.log('else')
-        // makeQuestionsArray()
-        // .then((res) => {
-        //     console.log(res)
-        //     //2. axios로 서버로 전송
-        //     sendAxios();
-        // }).catch(e => console.log)
+        makeQuestionsArray()
+        .then((res) => {
+            console.log(res)
+            //2. axios로 서버로 전송
+            sendAxios();
+        }).catch(e => console.log)
     }
 
 })

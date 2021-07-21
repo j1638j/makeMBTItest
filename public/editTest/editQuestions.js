@@ -330,7 +330,7 @@ editQuestionButton.addEventListener('click', function () {
     } else if(!isValueDifferent) {
         checkValueDifference()
         console.log('checkValueDifference')
-    } else if(questions.length < criteria.length) {
+    } else if(questionsDivs.length < criteria.length) {
         //questions의 갯수가 criteria보다 적은 경우 
         alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
     } else {
