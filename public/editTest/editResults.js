@@ -78,6 +78,32 @@ const checkValueDifference = function () {
     }
 }
 
+const checkResultTypesDifference = function () {
+    let count = 0;
+
+    Array.prototype.equals = function (arr) {
+        //if the other array is a falsy value, return false
+        if (!arr) return false;
+
+        //compare lengths
+        if (this.length !== arr.length) return false;
+
+        //compare arrays
+        for (let i = 0; i < this.length; i++ ) {
+            if(this[i] !== arr[i]) return false
+        }
+        return true;
+    }
+
+    for (r of results) {
+        for (let i = 0; i < results.length-count-1; i++) {
+            if (results[count].resultType.equals(results[i+count+1].resultType)) return false
+        }
+        count++    
+    }
+ 
+    return true
+}
 
 //results에 수정한 정보 넣기
 const makeResultsArray = function () {
@@ -374,8 +400,16 @@ editResultButton.addEventListener('click', function() {
         makeResultsArray()
         .then((res) => {
             console.log('res: ', res)
-            //2. axios로 서버로 전송
-            sendAxios();
+
+            const isResultTypeDifferent = checkResultTypesDifference();
+            console.log('isResultTypeDifferent: ', isResultTypeDifferent)
+        
+            if(!isResultTypeDifferent) {
+                alert('유형이 중복된 결과가 있습니다. 결과 별 유형을 확인해 주세요.')
+            } else {
+                //2. axios로 서버로 전송
+                sendAxios();
+            }
         }).catch(e => console.log)
     }
 

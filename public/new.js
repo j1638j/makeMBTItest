@@ -348,7 +348,7 @@ addResultButton.addEventListener('click', function () {
         resultEmptyInputAlert.style.display = 'none'
         resultSameInputAlert.innerText = '같은 별명의 결과를 여러 개 만들 수 없습니다.'
         resultSameInputAlert.style.display = 'block'
-    } else {
+    }  else {
         //add result to array
         resultsArray.push(result);
         console.log('result pushed to resultsArray: ', resultsArray)
