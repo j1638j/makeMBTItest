@@ -79,32 +79,46 @@ const checkValueDifference = function () {
 }
 
 
-//questions에 수정한 정보 넣기
+//results에 수정한 정보 넣기
 const makeResultsArray = function () {
     return new Promise((resolve, reject) => {
-        if(questionsDivs.length) {
-            questions = []
-            for (let i = 0; i < questionsDivs.length; i++) {
-                const question = {}
-                const option1 = {}
-                const option2 = {}
-                question.question = document.querySelector(`#question-${i}`).value.trim()
-                option1.criterion = document.querySelector(`#option-criterion-select-${i}`).value
-                option2.criterion = document.querySelector(`#option-criterion-select-${i}`).value
-                option1.option = document.querySelector(`#option1-${i}`).value.trim();
-                option1.score = document.querySelector(`#option-score-1-${i}`).value;
-                option2.option = document.querySelector(`#option2-${i}`).value.trim()
-                option2.score = document.querySelector(`#option-score-2-${i}`).value
-                question.options = [option1, option2];
-                questions.push(question)
+        console.log('inside of makeResultsArray function')
+        if(resultsDivs.length) {
+            results = []
+            for (let i = 0; i < resultsDivs.length; i++) {
+                console.log('inside of for loop/ i: ', i)
+                const result = {}
+                const resultType = [];
+                const perfectMatch = {};
+                const worstMatch = {};
+                result.resultName = document.querySelector(`#result-name-input-${i}`).value.trim()
+                const resultTypeQuery = document.querySelectorAll(`.result-type-input-${i}`)
+                console.log('resultTypeQuery: ', resultTypeQuery)
+                for (r of resultTypeQuery) {
+                    console.log('inside of for loop inside of for loop/ r: ', r)
+                    resultType.push(r.value.trim())
+                }
+                result.resultType = resultType;
+                console.log('after for loop in the for loop')
+                result.description = document.querySelector(`#result-description-textarea-${i}`).value.trim()
+                console.log('result: ', result)
+                perfectMatch.resultName = document.querySelector(`#result-perfect-match-name-${i}`).value.trim()
+                perfectMatch.description = document.querySelector(`#result-perfect-match-description-${i}`).value.trim()
+                worstMatch.resultName = document.querySelector(`#result-worst-match-name-${i}`).value.trim()
+                worstMatch.description = document.querySelector(`#result-worst-match-description-${i}`).value.trim()
+                result.perfectMatch = perfectMatch
+                result.worstMatch = worstMatch
+                console.log('result: ', result)
+                results.push(result)
+                console.log('results: ', results)
             }    
             console.log('resolve')
-            resolve('Successfully added all the questions')
+            resolve('Successfully added all the results')
         } else {
-            const noQuestionAlert = document.querySelector('#no-question-alert');
-            noQuestionAlert.style.display = 'block'
+            const noResultAlert = document.querySelector('#no-result-alert');
+            noResultAlert.style.display = 'block'
             console.log('reject')
-            reject("There's no question")
+            reject("There's no result")
         }
     })
 }
@@ -148,12 +162,13 @@ const addOptions = function () {
         for (let j=0; j<criteria.length; j++) {
             console.log('i: ', i, ' j: ', j)
 
+            const resultTypeArray = results[i].resultType
+
             //select, option 생성
             const newSelect = document.createElement('select')
-            newSelect.classList.add('form-select', 'mb-1')
+            newSelect.classList.add('form-select', 'mb-1', 'required', 'required-'+i, `result-type-input-${i}`)
             const newOptionType = document.createElement('option')
             newOptionType.setAttribute('value', '')
-            newOptionType.setAttribute('selected', '')
             newOptionType.innerText = criteria[j].name;
             const option1 = document.createElement('option')
             const option2 = document.createElement('option')
@@ -161,6 +176,13 @@ const addOptions = function () {
             option1.innerText = criteria[j].belowStandardIs
             option2.setAttribute('value', criteria[j].standardAndAboveIs)
             option2.innerText = criteria[j].standardAndAboveIs
+            if (resultTypeArray.includes(option1.value)) {
+                option1.setAttribute('selected', '')
+            } else if (resultTypeArray.includes(option2.value)) {
+                option2.setAttribute('selected', '')
+            } else {
+                newOptionType.setAttribute('selected', '')
+            }
             newSelect.append(newOptionType, option1, option2)
             const resultTypeDiv = document.querySelector('#result-type-div-' + i)
             resultTypeDiv.append(newSelect)
@@ -233,7 +255,7 @@ addResultButton.addEventListener('click', function () {
     for (let i=0; i<criteria.length; i++) {
         //select, option 생성
         const newSelect = document.createElement('select')
-        newSelect.classList.add('form-select', 'mb-1','required', 'required-'+resultsDivs.length)
+        newSelect.classList.add('form-select', 'mb-1','required', 'required-'+resultsDivs.length, 'result-type-input-'+resultsDivs.length)
         const newOptionType = document.createElement('option')
         newOptionType.setAttribute('value', '')
         newOptionType.setAttribute('selected', '')
@@ -344,15 +366,14 @@ editResultButton.addEventListener('click', function() {
         showEmptyInputAlert()
     } else if(!isValueDifferent) {
         checkValueDifference()
-    } else if(resultsDivs.length < 2**criteria.length) {
-        // !==로 바꿀까?
-        alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
+    } else if(resultsDivs.length !== 2**criteria.length) {
+        alert('결과의 수는 2^(채점 기준의 수) 여야 합니다. 질문을 수정해주세요.')
     } else {
         //1. results 수정한 정보 넣기
         console.log('else')
-        makeQuestionsArray()
+        makeResultsArray()
         .then((res) => {
-            console.log(res)
+            console.log('res: ', res)
             //2. axios로 서버로 전송
             sendAxios();
         }).catch(e => console.log)

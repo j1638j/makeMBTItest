@@ -13,7 +13,7 @@
 
             <div id="result-name-div-<%= i %>" class="my-4 mx-5">
                 <h6>별명 <span class="text-muted">예)대담한 통솔자</span></h6>
-                <input class="form-control required-<%= i %>" id="result-name-input-<%= i %>" type="text" required 
+                <input class="form-control required required-<%= i %>" id="result-name-input-<%= i %>" type="text" required 
                     value="<%= test.results[i].resultName %>">
             </div>
 
@@ -23,7 +23,7 @@
 
             <div class="my-4 mx-5" id="result-description-div-<%= i %>">
                 <h6>설명 <span class="text-muted">예)통솔자형 사람은 천성적으로 타고난 리더로...</span></h6>
-                <textarea id="result-description-textarea-<%= i %>" class="form-control required-<%= i %>"><%= test.results[i].description %></textarea>
+                <textarea id="result-description-textarea-<%= i %>" class="required form-control required-<%= i %>"><%= test.results[i].description %></textarea>
             </div>
 
             <div class="my-4 mx-5" id="result-perfect-match-div-<%= i %>">

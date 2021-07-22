@@ -294,9 +294,9 @@ editCriteriaButton.addEventListener('click', function() {
             //questions의 갯수가 criteria보다 적은 경우 
             if(questions.length < criteria.length) {
                 alert('질문의 수가 채점 기준의 수보다 적습니다. 질문을 추가해주세요.')
-            } else if(results.length < 2**criteria.length) {
+            } else if(results.length !== 2**criteria.length) {
                 console.log(2**criteria.length)
-                alert('결과의 수가 (2^채점 기준의 수) 보다 적습니다. 결과를 추가해주세요.')
+                alert('결과의 수는 2^(채점 기준의 수) 여야 합니다. 질문을 수정해주세요.')
             }
         }).catch(e => console.log)
     }
