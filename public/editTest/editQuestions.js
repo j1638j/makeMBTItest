@@ -141,28 +141,20 @@ getTestAxios()
 
 //채점기준 select에 option 추가
 const addOptions = function () {
-    for (let i = 0; i < criteria.length; i++) {
-        //option elemenet 생성
-        const newSelectOption = document.createElement('option')
-        newSelectOption.setAttribute('value', criteria[i].name)
-        newSelectOption.innerText = criteria[i].name;
+    const criterionSelects = document.querySelectorAll('.criterion-select')
 
-        //원래 채점기준 디폴트 선택으로
-        for (let j=0; j<questions.length; j++) {
-            console.log('i: ', i, ' j: ', j)
-
-            if(questions[j].options[0].criterion === criteria[i].name) {
+    for (let i = 0; i < questions.length; i++) {
+        for (let j = 0; j < criteria.length; j++) {
+            const newSelectOption = document.createElement('option');
+            newSelectOption.setAttribute('value', criteria[i].name)
+            newSelectOption.innerText = criteria[i].name
+            criterionSelects[i].append(newSelectOption)
+            if (questions[i].options[0].criterion === criteria[j].name) {
                 newSelectOption.setAttribute('selected', '')
-            }        
+            }
         }
-
-        //select에 option 추가
-        const criterionSelects = document.querySelectorAll('.criterion-select');
-        for (s of criterionSelects) {
-            s.append(newSelectOption)
-        }
-        
     }
+
 } 
 
 //질문 삭제 버튼 
