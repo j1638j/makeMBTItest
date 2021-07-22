@@ -90,10 +90,26 @@
 
 
         <div class="d-flex justify-content-center mt-5">
-            <button class="btn btn-danger btn-lg mx-4">테스트 삭제하기</button>
+            <button id="delete-test" class="btn btn-danger btn-lg mx-4">테스트 삭제하기</button>
             <a href="/tests/<%= test._id %>/start" class="btn btn-outline-primary btn-lg mx-5">테스트 시작</a>
         </div>
 
 
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const deleteTestButton = document.querySelector('#delete-test')
+    deleteTestButton.addEventListener('click', function () {
+        if(confirm('정말 테스트를 삭제하시겠습니까?')) {
+            const id = window.location.pathname.split('/')[2]
+            axios.delete(`/tests/${id}/delete`
+            ).then((res) => {
+                console.log(res)
+                console.log('axios sent successfully')
+                return window.location = `/personal`
+            }).catch(e => console.log(e))
+        }   
+    })
+</script>

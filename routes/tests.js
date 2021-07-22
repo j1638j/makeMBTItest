@@ -124,5 +124,10 @@ router.patch('/:id/edit/results', catchAsync(async(req, res)=> {
     res.send('finished')
 }))
 
+router.delete('/:id/delete', catchAsync(async(req, res) => {
+    const test = await Test.findByIdAndDelete(req.params.id);
+    console.log('test: ', test)
+    res.send('deleted?')
+}))
 
 module.exports = router;
