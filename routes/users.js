@@ -132,8 +132,12 @@ router.get('/usertests', catchAsync(async (req, res) => {
 }))
 
 router.get('/showTest/:id', catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.render('users/showTest', {test})
+    const test = await Test.findById(req.params.id).populate("author");
+    if (res.locals.currentUser && JSON.stringify(res.locals.currentUser._id) === JSON.stringify(test.author._id)) {
+        res.render('users/showTest', {test})
+    } else {
+        res.render('notAuthorized')
+    }
 }))
 
 module.exports = router;

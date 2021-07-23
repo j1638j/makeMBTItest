@@ -72,7 +72,8 @@ const TestSchema = new Schema({
         }
     }],
     author: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
