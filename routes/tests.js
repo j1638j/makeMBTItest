@@ -25,22 +25,22 @@ router.route('/:id/result')
 
 router.route('/:id/edit/titleDescription')
     .get(isAuthorized, catchAsync(testsController.renderEditTitleDescription))
-    .patch('/:id/edit/titleDescription', isAuthorized, catchAsync(testsController.editTitleDescription))
+    .patch(isAuthorized, catchAsync(testsController.editTitleDescription))
 
 
 router.route('/:id/edit/criteria')
     .get(isAuthorized, catchAsync(testsController.renderEditCriteria))
-    .patch('/:id/edit/criteria', isAuthorized, catchAsync(testsController.editCriteria))
+    .patch(isAuthorized, catchAsync(testsController.editCriteria))
 
 
 router.route('/:id/edit/questions')
     .get(isAuthorized, catchAsync(testsController.renderEditQuestions))
-    .patch('/:id/edit/questions', isAuthorized, catchAsync(testsController.editQuestions))
+    .patch(isAuthorized, catchAsync(testsController.editQuestions))
 
 
 router.route('/:id/edit/results')
     .get(isAuthorized, catchAsync(testsController.renderEditResult))
-    .patch('/:id/edit/results', isAuthorized, catchAsync(testsController.editResult))
+    .patch(isAuthorized, catchAsync(testsController.editResult))
 
 router.delete('/:id/delete', isAuthorized, catchAsync(testsController.deleteTest))
 
