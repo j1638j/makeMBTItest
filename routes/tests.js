@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const Test = require('../models/test');
-const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
 const {isAuthorized} = require('../middleware')
 const testsController = require('../controllers/tests')
@@ -10,119 +8,40 @@ const testsController = require('../controllers/tests')
 router.get('/new', testsController.renderNew)
 
 
-router.get(`/created`, catchAsync(testsController.renderCreated))
+router.route(`/created`)
+    .get(catchAsync(testsController.renderCreated))
+    .post(catchAsync(testsController.createTest))
 
-router.post('/created', catchAsync(async (req, res) => {
-    const test = new Test(req.body);
-    const testId = test._id;
-    const currentUser = res.locals.currentUser;
-    if(currentUser) {
-        test.author = currentUser._id;
-        currentUser.tests.push(testId);
-        const updatedUser = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests});
-    }
-    //pass the id to the cookie
-    res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
-    await test.save();
-    console.log('test in the ', await Test.findById(testId));
-    res.redirect('/tests/created')
-}))
+router.get('/:id/start', catchAsync(testsController.startTest))
 
-router.get('/:id/start', catchAsync(async (req, res) => {
-    const test = await Test.findById(req.params.id).exec();
-    if (test === null) {
-        res.render('tests/noTest');
-    } else {
-        res.render('tests/start', { test })
-    }
-}))
+router.get('/:id/conduct', catchAsync(testsController.conductTest))
 
-router.get('/:id/conduct', catchAsync(async (req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.render('tests/conduct', { test })
-}))
+router.get('/:id/conduct/axios', catchAsync(testsController.conductAxios))
 
-router.get('/:id/conduct/axios', catchAsync(async (req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.json(test);
-}))
-
-router.get('/:id/result', catchAsync(async (req, res) => {
-    const result = JSON.parse(req.signedCookies.result.result);
-    res.render('tests/result', { result });
-}))
-
-router.post('/:id/result', catchAsync(async (req, res) => {
-    console.log('req.body is: ');
-    console.dir(req.body);
-    const result = JSON.stringify(req.body);
-    console.log('stringified result: ', result)
-    res.cookie('result', { result }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
-    res.redirect('/tests/:id/result')
-}))
-
-router.get('/:id/edit/titleDescription', isAuthorized, catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.render('tests/editTitleDescription', {test})
-}))
-
-router.patch('/:id/edit/titleDescription', isAuthorized, catchAsync(async(req, res) => {
-    const { id } = req.params;
-    const test = await Test.findByIdAndUpdate(id, {...req.body.test})
-    res.redirect(`/showTest/${test._id}`)
-}))
+router.route('/:id/result')
+    .get(catchAsync(testsController.renderTestResult))
+    .post(catchAsync(testsController.cookieTestResult))
 
 
-router.get('/:id/edit/criteria', isAuthorized, catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id);
-    res.render('tests/editCriteria', {test})
-}))
-
-router.patch('/:id/edit/criteria', isAuthorized, catchAsync(async(req, res) => {
-    const criteria = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {criteria}, {new: true});
-    console.log('test: ', test);
-    res.send('finished');
-}))
-
-router.get('/:id/edit/questions',isAuthorized, catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id)
-    res.render('tests/editQuestions', {test})
-}))
-
-router.patch('/:id/edit/questions', isAuthorized, catchAsync(async(req, res) => {
-    const questions = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {questions}, {new: true});
-    console.log('test: ', test);
-    res.send('finished')
-}))
+router.route('/:id/edit/titleDescription')
+    .get(isAuthorized, catchAsync(testsController.renderEditTitleDescription))
+    .patch('/:id/edit/titleDescription', isAuthorized, catchAsync(testsController.editTitleDescription))
 
 
-router.get('/:id/edit/results', isAuthorized, catchAsync(async (req, res) => {
-    const test = await Test.findById(req.params.id)
-    res.render('tests/editResults', {test});
-}))
+router.route('/:id/edit/criteria')
+    .get(isAuthorized, catchAsync(testsController.renderEditCriteria))
+    .patch('/:id/edit/criteria', isAuthorized, catchAsync(testsController.editCriteria))
 
-router.patch('/:id/edit/results', isAuthorized, catchAsync(async(req, res)=> {
-    const results = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {results}, {new: true});
-    console.log('test: ', test);
-    res.send('finished')
-}))
 
-router.delete('/:id/delete', isAuthorized, catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id)
-    const currentUser = res.locals.currentUser
-    for (let i = 0; i < currentUser.tests.length; i++) {
-        if(currentUser.tests[i]._id.equals(test._id)) {
-            console.log('found it!')
-            currentUser.tests.splice(i, 1)
-            const user = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests}, {new: true})
-        }
-    }
+router.route('/:id/edit/questions')
+    .get(isAuthorized, catchAsync(testsController.renderEditQuestions))
+    .patch('/:id/edit/questions', isAuthorized, catchAsync(testsController.editQuestions))
 
-    const deletedTest = await Test.findByIdAndDelete(req.params.id)
-    res.send('deleted?')
-}))
+
+router.route('/:id/edit/results')
+    .get(isAuthorized, catchAsync(testsController.renderEditResult))
+    .patch('/:id/edit/results', isAuthorized, catchAsync(testsController.editResult))
+
+router.delete('/:id/delete', isAuthorized, catchAsync(testsController.deleteTest))
 
 module.exports = router;
