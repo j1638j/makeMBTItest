@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const {isLoggedIn, isAuthorized} = require('../middleware')
 
 
 router.get('/register', (req, res) => {
@@ -65,15 +66,15 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.get('/personal', (req, res) => {
+router.get('/personal', isLoggedIn, (req, res) => {
     res.render('users/personal')
 })
 
-router.get('/changePassword', (req, res) => {
+router.get('/changePassword', isLoggedIn , (req, res) => {
     res.render('users/changePassword');
 })
 
-router.post('/changePassword', catchAsync(async (req, res) => {
+router.post('/changePassword', isLoggedIn, catchAsync(async (req, res) => {
     const {currentpw, newpw} = req.body;
     if(newpw === currentpw) {
         req.flash('error', '현재 비밀번호와 일치하는 비밀번호로 바꿀 수 없습니다.')
@@ -92,11 +93,11 @@ router.post('/changePassword', catchAsync(async (req, res) => {
     }
 }))
 
-router.get('/changeNickname', (req, res) => {
+router.get('/changeNickname', isLoggedIn, (req, res) => {
     res.render('users/changeNickname');
 })
 
-router.post('/changeNickname', catchAsync(async(req, res) => {
+router.post('/changeNickname', isLoggedIn, catchAsync(async(req, res) => {
     const { password, nickname } = req.body;
     const user = await User.findById(res.locals.currentUser);
     console.log('user: ', user)
@@ -116,28 +117,21 @@ router.post('/changeNickname', catchAsync(async(req, res) => {
     }
 }))
 
-router.get('/usertests', catchAsync(async (req, res) => {
+router.get('/usertests', isLoggedIn, catchAsync(async (req, res) => {
     const tests = []
     console.log('res.locals.currentUser.tests: ', res.locals.currentUser.tests)
     for (test of res.locals.currentUser.tests) {
         const t = await Test.findById(test);
-        console.log("t: ", t)
         if(t) {
             tests.push(t);
         }
     }
-    console.log('tests: ', tests)
-    console.log('tests.length: ', tests.length)
     res.render('users/usertests', {tests})    
 }))
 
-router.get('/showTest/:id', catchAsync(async(req, res) => {
-    const test = await Test.findById(req.params.id).populate("author");
-    if (res.locals.currentUser && JSON.stringify(res.locals.currentUser._id) === JSON.stringify(test.author._id)) {
-        res.render('users/showTest', {test})
-    } else {
-        res.render('notAuthorized')
-    }
+router.get('/showTest/:id', isAuthorized, catchAsync(async(req, res) => {
+    const test = await Test.findById(req.params.id);
+    res.render('users/showTest', {test})
 }))
 
 module.exports = router;

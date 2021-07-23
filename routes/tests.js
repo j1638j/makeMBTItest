@@ -6,6 +6,7 @@ const User = require('../models/user');
 
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const {isAuthorized} = require('../middleware')
 
 
 
@@ -75,36 +76,36 @@ router.post('/:id/result', catchAsync(async (req, res) => {
     res.redirect('/tests/:id/result')
 }))
 
-router.get('/:id/edit/titleDescription', catchAsync(async(req, res) => {
+router.get('/:id/edit/titleDescription', isAuthorized, catchAsync(async(req, res) => {
     const test = await Test.findById(req.params.id);
     res.render('tests/editTitleDescription', {test})
 }))
 
-router.patch('/:id/edit/titleDescription', catchAsync(async(req, res) => {
+router.patch('/:id/edit/titleDescription', isAuthorized, catchAsync(async(req, res) => {
     const { id } = req.params;
     const test = await Test.findByIdAndUpdate(id, {...req.body.test})
     res.redirect(`/showTest/${test._id}`)
 }))
 
 
-router.get('/:id/edit/criteria', catchAsync(async(req, res) => {
+router.get('/:id/edit/criteria', isAuthorized, catchAsync(async(req, res) => {
     const test = await Test.findById(req.params.id);
     res.render('tests/editCriteria', {test})
 }))
 
-router.patch('/:id/edit/criteria', catchAsync(async(req, res) => {
+router.patch('/:id/edit/criteria', isAuthorized, catchAsync(async(req, res) => {
     const criteria = req.body;
     const test = await Test.findByIdAndUpdate(req.params.id, {criteria}, {new: true});
     console.log('test: ', test);
     res.send('finished');
 }))
 
-router.get('/:id/edit/questions', catchAsync(async(req, res) => {
+router.get('/:id/edit/questions',isAuthorized, catchAsync(async(req, res) => {
     const test = await Test.findById(req.params.id)
     res.render('tests/editQuestions', {test})
 }))
 
-router.patch('/:id/edit/questions', catchAsync(async(req, res) => {
+router.patch('/:id/edit/questions', isAuthorized, catchAsync(async(req, res) => {
     const questions = req.body;
     const test = await Test.findByIdAndUpdate(req.params.id, {questions}, {new: true});
     console.log('test: ', test);
@@ -112,19 +113,19 @@ router.patch('/:id/edit/questions', catchAsync(async(req, res) => {
 }))
 
 
-router.get('/:id/edit/results', catchAsync(async (req, res) => {
+router.get('/:id/edit/results', isAuthorized, catchAsync(async (req, res) => {
     const test = await Test.findById(req.params.id)
     res.render('tests/editResults', {test});
 }))
 
-router.patch('/:id/edit/results', catchAsync(async(req, res)=> {
+router.patch('/:id/edit/results', isAuthorized, catchAsync(async(req, res)=> {
     const results = req.body;
     const test = await Test.findByIdAndUpdate(req.params.id, {results}, {new: true});
     console.log('test: ', test);
     res.send('finished')
 }))
 
-router.delete('/:id/delete', catchAsync(async(req, res) => {
+router.delete('/:id/delete', isAuthorized, catchAsync(async(req, res) => {
     const test = await Test.findByIdAndDelete(req.params.id);
     console.log('test: ', test)
     res.send('deleted?')
