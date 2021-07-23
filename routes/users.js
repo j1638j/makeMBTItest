@@ -3,12 +3,9 @@ const router = express.Router({mergeParams: true});
 const User = require('../models/user');
 const Test = require('../models/test');
 const passport = require('passport');
-const session = require('express-session');
-const flash = require('connect-flash');
 
 
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
 const {isLoggedIn, isAuthorized} = require('../middleware')
 
 

@@ -27,10 +27,6 @@ mongoose.set('useFindAndModify', false);
 //Models
 const User = require('./models/user');
 
-//Custom Error Handlers
-const catchAsync = require('./utils/catchAsync');
-const ExpressError = require('./utils/ExpressError');
-
 //session
 const store = new MongoStore({
     mongoUrl: dbUrl,
@@ -64,6 +60,8 @@ passport.use(new localStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser()); 
 passport.deserializeUser(User.deserializeUser());
 
+
+//res.locals
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');

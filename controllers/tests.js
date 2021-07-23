@@ -1,13 +1,16 @@
 const Test = require('../models/test');
 
-
-module.exports.createNewTest = async (req, res) => {
-
+module.exports.renderNew = (req, res) => {
+    res.render('tests/new');
 }
 
-
-
-
-module.exports.calculateResult = async (req, res) => {
-
+module.exports.renderCreated = async (req, res) => {
+    const { testId } = req.signedCookies;
+    delete req.signedCookies.testId;
+    res.render('tests/created', testId);
 }
+
+// module.exports.create = 
+
+
+

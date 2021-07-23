@@ -1,40 +1,25 @@
 const express = require('express');
-const { findOneAndUpdate, findByIdAndUpdate } = require('../models/test');
 const router = express.Router({mergeParams: true});
 const Test = require('../models/test');
 const User = require('../models/user');
-
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
 const {isAuthorized} = require('../middleware')
+const testsController = require('../controllers/tests')
 
 
-
-router.get('/new', (req, res) => {
-    res.render('tests/new');
-})
+router.get('/new', testsController.renderNew)
 
 
-router.get(`/created`, catchAsync(async (req, res) => {
-    const { testId } = req.signedCookies;
-    delete req.signedCookies.testId;
-    res.render('tests/created', testId);
-}))
+router.get(`/created`, catchAsync(testsController.renderCreated))
 
 router.post('/created', catchAsync(async (req, res) => {
     const test = new Test(req.body);
     const testId = test._id;
     const currentUser = res.locals.currentUser;
-    console.log('currentUser: ', currentUser)
     if(currentUser) {
         test.author = currentUser._id;
-        console.log('test.author: ', test.author)
-        const newTests = currentUser.tests.push(testId);
-        console.log('testId: ', testId)
-        console.log('currentUser.tests: ', currentUser.tests);
-        console.log('newTests: ', newTests)
+        currentUser.tests.push(testId);
         const updatedUser = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests});
-        console.log('updatedUser', updatedUser);
     }
     //pass the id to the cookie
     res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
@@ -126,8 +111,17 @@ router.patch('/:id/edit/results', isAuthorized, catchAsync(async(req, res)=> {
 }))
 
 router.delete('/:id/delete', isAuthorized, catchAsync(async(req, res) => {
-    const test = await Test.findByIdAndDelete(req.params.id);
-    console.log('test: ', test)
+    const test = await Test.findById(req.params.id)
+    const currentUser = res.locals.currentUser
+    for (let i = 0; i < currentUser.tests.length; i++) {
+        if(currentUser.tests[i]._id.equals(test._id)) {
+            console.log('found it!')
+            currentUser.tests.splice(i, 1)
+            const user = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests}, {new: true})
+        }
+    }
+
+    const deletedTest = await Test.findByIdAndDelete(req.params.id)
     res.send('deleted?')
 }))
 
