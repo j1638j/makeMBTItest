@@ -50,7 +50,8 @@ module.exports.conductAxios = async (req, res) => {
 
 module.exports.renderTestResult = async (req, res) => {
     const result = JSON.parse(req.signedCookies.result.result);
-    res.render('tests/result', { result });
+    const test = await Test.findById(req.params.id)
+    res.render('tests/result', { result, test });
 }
 
 module.exports.cookieTestResult = async (req, res) => {
