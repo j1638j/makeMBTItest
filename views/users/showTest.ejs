@@ -73,15 +73,13 @@
                 </div>
                 <% if(r.perfectMatch.resultName) { %> 
                     <div class="border border-secondary rounded-3 m-1 p-2">
-                        <h5>최고의궁합: <%= r.perfectMatch.resultName %></h5>
-                        <br>
+                        <h5 class="mb-3">최고의궁합: <%= r.perfectMatch.resultName %></h5>
                         <%= r.perfectMatch.description %> 
                     </div>
                 <% } %>
                 <% if(r.worstMatch.resultName) { %> 
                     <div class="border border-secondary rounded-3 m-1 p-2">
-                        <h5>최악의궁합: <%= r.worstMatch.resultName %></h5>
-                        <br>
+                        <h5 class="mb-3">최악의궁합: <%= r.worstMatch.resultName %></h5>
                         <%= r.worstMatch.description %> 
                     </div>
                 <% } %>    
