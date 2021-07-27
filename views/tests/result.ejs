@@ -11,11 +11,30 @@
                     </h2>
                 </div>
                 <div class="px-5 mb-4">
-                    <p>
+                    <p class="text-center">
                         <%= result.description %>
                     </p>
-
                 </div>
+                <% if(result.perfectMatch.resultName) { %> 
+                    <div class="px-5 mb-4">
+                        <h4 class="text-center">
+                            <%= result.perfectMatch.resultName %> 
+                        </h4>
+                        <p class="text-center">
+                            <%= result.perfectMatch.description %> 
+                        </p>
+                    </div>
+                <% } %> 
+                <% if(result.worstMatch.resultName) { %> 
+                    <div class="px-5 mb-4">
+                        <h4 class="text-center">
+                            <%= result.worstMatch.resultName %> 
+                        </h4>
+                        <p class="text-center">
+                            <%= result.worstMatch.description %> 
+                        </p>
+                    </div>
+                <% } %>     
             </div>
         </div>
     </div>
