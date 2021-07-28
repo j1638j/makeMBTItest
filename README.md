@@ -6,4 +6,5 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 <!-- 
 <div>
     <img src="https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/home-beforelogin_v6kdbs.png">
+<<<<<<< HEAD
 </div> -->
