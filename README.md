@@ -4,10 +4,6 @@
 
 MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테마를 덧붙여 새로운 테스트를 만들기도 합니다(예시: [롤 MBTI](https://next.op.gg/mbti), [디즈니 MBTI](https://poomang.com/disneyprincess2021?c=9&kc=7878)). 이 웹사이트는 자신의 웹사이트를 구축하지 않더라도 MBTI 테스트를 만들고 공유할 수 있게 해줍니다.
 
-<!-- 
-<div>
-    <img src="https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/home-beforelogin_v6kdbs.png">
-</div> -->
 ### 주요기능
 1. MBTI 테스트 만들기
 2. MBTI 테스트 실행하고 결과 얻기
@@ -19,7 +15,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 ### 기술 스택
 1. Node.js
 2. Express
-3. MongoDB
+3. MongoDB / Mongoose
 4. EJS
 4. HTML / CSS / Vanilla JavaScript
 5. Axios
@@ -28,6 +24,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 <br>
 <br>
 <br>
+
 
 # ScreenShots
 ## Index
@@ -137,6 +134,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 ![개별 테스트 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473268/makeMBTItest/personal-usertests-show_gcunhq.png)
 * 테스트의 내용을 확인할 수 있습니다.
 * <수정> 버튼으로 테스트 수정 페이지로 이동할 수 있습니다.
+* <테스트 삭제하기> 버튼으로 테스트를 삭제할 수 있습니다.
 * 로그인하지 않은 상태에서 접근하면 로그인 페이지로 이동합니다.
 * 유저의 테스트가 아닌 경우 접근권한 오류 페이지로 이동합니다.
 
@@ -153,6 +151,9 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 ![테스트 수정 페이지3](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550015/makeMBTItest/edittest3_n74q8y.png)
 #### 결과 수정
 ![테스트 수정 페이지4](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550015/makeMBTItest/edittest4_bg0wun.png)
+* 테스트 내용을 수정할 수 있습니다. 사용자의 편의를 위해 이름/설명, 채점기준, 질문, 결과로 페이지를 나눴습니다.
+* 로그인하지 않은 상태에서 접근하면 로그인 페이지로 이동합니다.
+* 유저의 테스트가 아닌 경우 접근권한 오류 페이지로 이동합니다.
 
 <br>
 <br>
@@ -174,6 +175,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 * 접근 권한이 없는 페이지에 접근할 경우 사용됩니다.
     1. 로그인이 필요한 페이지
     2. 다른 유저의 페이지에 접근하는 경우
+* 이미 로그인된 상태라면 '로그인 후 이용해주시기 바랍니다'라는 문구와 <회원가입>, <로그인> 버튼이 보이지 않습니다.
 #### 주소 오류 페이지
 ![주소 오류 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627565703/makeMBTItest/noPage_irfeay.png)
 * 주소에 오류가 있을 때 사용됩니다.
