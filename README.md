@@ -25,6 +25,10 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 5. Axios
 6. Deploy: Heroku
 
+<br>
+<br>
+<br>
+
 # ScreenShots
 ## Index
 1. [홈페이지](#홈페이지)
@@ -36,7 +40,8 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 7. [유저 테스트 페이지](#유저-테스트-페이지)
 8. [개별 테스트 페이지](#개별-테스트-페이지)
 9. [테스트 수정 페이지](#테스트-수정-페이지)
-10. [유저 비밀번호 / 별명 바꾸기](#유저-비밀번호/별명-바꾸기)
+10. [유저 비밀번호 / 별명 바꾸기](#유저-비밀번호-/-별명-바꾸기)
+11. [오류 페이지](#오류-페이지)
 
 <br>
 <br>
@@ -69,6 +74,8 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 ![테스트 생성5](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473266/makeMBTItest/maketest5_enrvzb.png)
 * 테스트를 생성합니다. 테스트를 만들기 위해서 입력할 값이 많기 때문에 CSS와 JavaScript를 이용하여 유저에게 보여지는 부분을 네 부분으로 나누었습니다.
 * 채점기준, 질문, 결과는 <추가> 버튼을 누르면 파란 박스 아래에 카드 형태로 추가되어 유저가 확인할 수 있습니다. 
+* Axios를 이용하여 서버에 Request를 보냅니다.
+* 테스트 실행 시 오류를 없애기 위해 질문의 수는 채점기준의 수보다 많거나 같고, 결과의 수는 (2 ^ 채점기준의 수)와 같도록 설정되어 있습니다.
 
 <br>
 <br>
@@ -78,13 +85,15 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 
 #### 테스트 실행1: 
 ![테스트 실행1](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/conduct1_tociax.png)
+* 테스트를 시작하기 위한 화면입니다.
 
 #### 테스트 실행2: 
 ![테스트 실행2](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/conduct2_ck6agq.png)
+* 테스트를 실행하는 화면입니다. 질문에 따라 두 가지 답안 중 하나를 고를 수 있습니다.
 
 #### 테스트 결과: 
 ![테스트 결과](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/testresult_zhtgln.png)
-
+* 테스트 결과를 보여줍니다.
 
 <br>
 <br>
@@ -92,7 +101,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 
 ## 회원가입
 ![회원가입](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/register_huqda9.png)
-
+* Passport.js를 이용하여 회원가입 기능을 구축하였습니다.
 
 <br>
 <br>
@@ -100,36 +109,73 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 
 ## 로그인
 ![로그인](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473266/makeMBTItest/login_hkj1lu.png)
-
+* Passport.js를 이용하여 로그인 기능을 구축하였습니다.
 
 <br>
 <br>
 <br>
 
 ## 유저 개인 페이지
-![유저 개인 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/register_huqda9.png)
-### 유저 개인 페이지
+![유저 개인 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473266/makeMBTItest/personal_mfu3ua.png)
+* 네비게이션 바의 별명을 클릭하면 유저 개인 페이지로 이동합니다.
+* 로그인하지 않은 상태에서 접근하면 로그인 페이지로 이동합니다.
 
 <br>
 <br>
 <br>
 
 ## 유저 테스트 페이지
+![유저 테스트 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/personal-usertests_hgszin.png)
+* 유저가 만든 테스트를 볼 수 있습니다.
+* 로그인하지 않은 상태에서 접근하면 로그인 페이지로 이동합니다.
 
 <br>
 <br>
 <br>
 
 ## 개별 테스트 페이지
+![개별 테스트 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473268/makeMBTItest/personal-usertests-show_gcunhq.png)
+* 테스트의 내용을 확인할 수 있습니다.
+* <수정> 버튼으로 테스트 수정 페이지로 이동할 수 있습니다.
+* 로그인하지 않은 상태에서 접근하면 로그인 페이지로 이동합니다.
+* 유저의 테스트가 아닌 경우 접근권한 오류 페이지로 이동합니다.
 
 <br>
 <br>
 <br>
 
 ## 테스트 수정 페이지
+#### 테스트 이름 / 설명 수정
+![테스트 수정 페이지1](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550014/makeMBTItest/edittest1_uqcxqs.png)
+#### 채점기준 수정
+![테스트 수정 페이지2](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550015/makeMBTItest/edittest2_mjfaqt.png)
+#### 질문 수정
+![테스트 수정 페이지3](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550015/makeMBTItest/edittest3_n74q8y.png)
+#### 결과 수정
+![테스트 수정 페이지4](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627550015/makeMBTItest/edittest4_bg0wun.png)
 
 <br>
 <br>
 <br>
 
 ## 유저 비밀번호 / 별명 바꾸기
+#### 비밀번호 변경
+![유저 비밀번호 바꾸기](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473263/makeMBTItest/personal-changepassword_ididdj.png)
+#### 별명 변경
+![유저 별명 바꾸기](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/personal-changenickname_d3vhkz.png)
+
+<br>
+<br>
+<br>
+
+## 오류 페이지
+#### 접근권한 오류 페이지
+![접근권한 오류 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627565520/makeMBTItest/notAuthorized_wffopn.png)
+* 접근 권한이 없는 페이지에 접근할 경우 사용됩니다.
+    1. 로그인이 필요한 페이지
+    2. 다른 유저의 페이지에 접근하는 경우
+#### 주소 오류 페이지
+![주소 오류 페이지](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627565703/makeMBTItest/noPage_irfeay.png)
+* 주소에 오류가 있을 때 사용됩니다.
+    1. 아예 존재하지 않는 주소
+    2. 주소 내부의 아이디 오류
