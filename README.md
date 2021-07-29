@@ -20,10 +20,20 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 1. Node.js
 2. Express
 3. MongoDB
+4. EJS
 4. HTML / CSS / Vanilla JavaScript
 5. Axios
 6. Deploy: Heroku
 
 # ScreenShots
 
+![홈페이지-로그아웃](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/home-beforelogin_v6kdbs.png)
+![홈페이지-로그인](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/home-afterlogin_ugzid1.png)
+### 홈페이지
+- 로그인 전후로 화면이 바뀝니다. 
+- 로그인하면 Flash를 사용하여 유저에게 안내해줍니다.
+- 로그인 이전의 화면에서 <회원 테스트 만들기> 버튼을 클릭하면 로그인 화면으로 이동합니다.
+- 로그인 이전 <비회원 테스트 만들기>, 로그인 이후 <회원 테스트 만들기> 버튼을 클릭하면 테스트 생성 화면으로 이동합니다.
 
+
+![테스트 생성1](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473264/makeMBTItest/maketest1_r9anpj.png)
