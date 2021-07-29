@@ -8,7 +8,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 <div>
     <img src="https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473265/makeMBTItest/home-beforelogin_v6kdbs.png">
 </div> -->
-## 주요기능
+### 주요기능
 1. MBTI 테스트 만들기
 2. MBTI 테스트 실행하고 결과 얻기
 3. MBTI 테스트 수정 / 삭제
@@ -16,7 +16,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 5. 유저 페이지에서 내 테스트 목록 확인
 6. 회원 비밀번호 / 별명 변경
 
-## 기술 스택
+### 기술 스택
 1. Node.js
 2. Express
 3. MongoDB
