@@ -17,7 +17,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 2. Express
 3. MongoDB / Mongoose
 4. EJS
-4. HTML / CSS / Vanilla JavaScript
+4. HTML / CSS / Bootstrap / Vanilla JavaScript
 5. Axios
 6. Deploy: Heroku
 
@@ -37,10 +37,9 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 7. [유저 테스트 페이지](#유저-테스트-페이지)
 8. [개별 테스트 페이지](#개별-테스트-페이지)
 9. [테스트 수정 페이지](#테스트-수정-페이지)
-10. [유저 비밀번호 / 별명 바꾸기](#유저-비밀번호-/-별명-바꾸기)
+10. [유저 비밀번호 / 별명 바꾸기](#비밀번호-변경)
 11. [오류 페이지](#오류-페이지)
 
-<br>
 <br>
 <br>
 
@@ -69,7 +68,7 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 ![테스트 생성4](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473267/makeMBTItest/maketest4_j1qsjd.png)
 #### 테스트 생성5: 완성
 ![테스트 생성5](https://res.cloudinary.com/dwu65dhp2/image/upload/v1627473266/makeMBTItest/maketest5_enrvzb.png)
-* 테스트를 생성합니다. 테스트를 만들기 위해서 입력할 값이 많기 때문에 CSS와 JavaScript를 이용하여 유저에게 보여지는 부분을 네 부분으로 나누었습니다.
+* Mongoose Model을 이용하여 테스트를 생성합니다. 테스트를 만들기 위해서 입력할 값이 많기 때문에 CSS와 JavaScript를 이용하여 유저에게 보여지는 부분을 네 부분으로 나누었습니다.
 * 채점기준, 질문, 결과는 <추가> 버튼을 누르면 파란 박스 아래에 카드 형태로 추가되어 유저가 확인할 수 있습니다. 
 * Axios를 이용하여 서버에 Request를 보냅니다.
 * 테스트 실행 시 오류를 없애기 위해 질문의 수는 채점기준의 수보다 많거나 같고, 결과의 수는 (2 ^ 채점기준의 수)와 같도록 설정되어 있습니다.
