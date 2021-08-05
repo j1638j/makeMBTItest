@@ -154,20 +154,41 @@ addCriteriaButton.addEventListener('click', function () {
         criteriaArray.push({ name, standardScore, belowStandardIs, standardAndAboveIs })
         //show criteria in card
         const newFinishedCriteriaCard = document.createElement('div');
-        newFinishedCriteriaCard.innerHTML =
-            `<div id="finished-criteria-card-${criteriaArray.length - 1}" class="card border-2 my-2">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h5 class="card-title">${name}</h5>
-                        <p class="card-text">기준점수 ${standardScore}점 미만 ${belowStandardIs}, 이상 ${standardAndAboveIs}</p>
-                    </div>
-                    <button id="finished-criteria-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
-                        aria-label="Close" style="display:none"></button>
-                </div>
-            </div>
-        </div>`;
+        newFinishedCriteriaCard.classList.add('card', 'border-2', 'my-2')
+        newFinishedCriteriaCard.setAttribute('id', 'finished-criteria-card-'+criteriaArray.length)
+        const newFinishedCriteriaCardBody = document.createElement('div');
+        newFinishedCriteriaCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
+        const textDiv = document.createElement('div')
+        const titleH5 = document.createElement('h5');
+        titleH5.classList.add('card-title')
+        titleH5.innerText = name
+        const scoreP = document.createElement('p');
+        scoreP.innerText = `기준점수 ${standardScore}점 미만 ${belowStandardIs}, 이상 ${standardAndAboveIs}`
+        scoreP.classList.add('card-text')
+        const closeButton = document.createElement('button')
+        closeButton.classList.add('btn-close')
+        closeButton.setAttribute('id', 'finished-criteria-card-close-button-'+criteriaArray.length)
+        closeButton.setAttribute('type', 'button')
+        closeButton.setAttribute('aria-label', 'Close')
+        closeButton.setAttribute('style', 'display:block')
+        // newFinishedCriteriaCard.innerHTML =
+        //     `<div id="finished-criteria-card-${criteriaArray.length}" class="card border-2 my-2">
+        //     <div class="card-body">
+        //         <div class="d-flex justify-content-between">
+        //             <div>
+        //                 <h5 class="card-title">${name}</h5>
+        //                 <p class="card-text">기준점수 ${standardScore}점 미만 ${belowStandardIs}, 이상 ${standardAndAboveIs}</p>
+        //             </div>
+        //             <button id="finished-criteria-card-close-button-${criteriaArray.length}" type="button" class="btn-close"
+        //                 aria-label="Close" style="display:none"></button>
+        //         </div>
+        //     </div>
+        // </div>`;
         finishedCriteriaDiv.append(newFinishedCriteriaCard);
+        newFinishedCriteriaCard.append(newFinishedCriteriaCardBody)
+        newFinishedCriteriaCardBody.append(textDiv, closeButton)
+        textDiv.append(titleH5, scoreP)
+
         //clear inputs
         criteriaPreference.value = criteriaStandardScore.value = criteriaBelowStandardIs.value = criteriaStandardAndAboveIs.value = '';
         //dismiss alerts if exist
