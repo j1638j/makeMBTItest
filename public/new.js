@@ -166,7 +166,7 @@ addCriteriaButton.addEventListener('click', function () {
         scoreP.innerText = `기준점수 ${standardScore}점 미만 ${belowStandardIs}, 이상 ${standardAndAboveIs}`
         scoreP.classList.add('card-text')
         const closeButton = document.createElement('button')
-        closeButton.classList.add('btn-close')
+        closeButton.classList.add('btn-close', 'criteria-close-button')
         closeButton.setAttribute('id', 'finished-criteria-card-close-button-'+criteriaArray.length)
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
@@ -223,7 +223,7 @@ addCriteriaButton.addEventListener('click', function () {
         criterionOption2.innerText = `${criteriaArray[length - 1].standardAndAboveIs}`;
 
         criterionSelect.append(criterionOptionSelected, criterionOption1, criterionOption2);
-        resultTypeDiv.append(/*criterionLabel,*/ criterionSelect);
+        resultTypeDiv.append(criterionSelect);
 
     }
 })
@@ -268,21 +268,43 @@ addQuestionButton.addEventListener('click', function () {
         questionsArray.push(question);
         //show question in card
         const newFinishedQuestionCard = document.createElement('div');
-        newFinishedQuestionCard.innerHTML =
-            `<div id="finished-question-card" class="card border-2 my-2">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h5 class="card-title mb-4">질문: ${question.question}</h5>
-                        <p class="card-text mb-2">선택지1: ${option1.option} (${option1.criterion} ${option1.score} 추가)</p>
-                        <p class="card-text">선택지2: ${option2.option} (${option2.criterion} ${option2.score} 추가)</p>
-                    </div>
-                    <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
-                        aria-label="Close" style="display:none"></button>
-                </div>
-            </div>
-        </div>`;
+        newFinishedQuestionCard.classList.add('card', 'border-2', 'my-2')
+        const newFinishedQuestionCardBody = document.createElement('div');
+        newFinishedQuestionCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
+        const textDiv = document.createElement('div');
+        const titleH5 = document.createElement('h5');
+        titleH5.classList.add('card-title', 'mb-4');
+        titleH5.innerText = `질문: ${question.question}`
+        const option1p = document.createElement('p');
+        option1p.classList.add('card-text', 'mb-2');
+        option1p.innerText = `선택지1: ${option1.option} (${option1.criterion} ${option1.score} 추가)`
+        const option2p = document.createElement('p');
+        option2p.classList.add('card-text');
+        option2p.innerText = `선택지2: ${option2.option} (${option2.criterion} ${option2.score} 추가)`
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('btn-close', 'question-close-button')
+        closeButton.setAttribute('id', `finished-question-card-close-button-${questionsArray.length}`)
+        closeButton.setAttribute('type', `button`)
+        closeButton.setAttribute('aria-label', `Close`)
+        closeButton.setAttribute('style', `display:block`)
         finishedQuestionDiv.append(newFinishedQuestionCard);
+        newFinishedQuestionCard.append(newFinishedQuestionCardBody);
+        newFinishedQuestionCardBody.append(textDiv, closeButton);
+        textDiv.append(titleH5, option1p, option2p)
+        // newFinishedQuestionCard.innerHTML =
+        //     `<div id="finished-question-card" class="card border-2 my-2">
+        //     <div class="card-body">
+        //         <div class="d-flex justify-content-between">
+        //             <div>
+        //                 <h5 class="card-title mb-4">질문: ${question.question}</h5>
+        //                 <p class="card-text mb-2">선택지1: ${option1.option} (${option1.criterion} ${option1.score} 추가)</p>
+        //                 <p class="card-text">선택지2: ${option2.option} (${option2.criterion} ${option2.score} 추가)</p>
+        //             </div>
+        //             <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
+        //                 aria-label="Close" style="display:none"></button>
+        //         </div>
+        //     </div>
+        // </div>`;
 
         //clear inputs
         questionDOM.value = optionScoreDOM1.value = optionScoreDOM2.value = optionCriterionSelect.value = optionTextDOM1.value = optionTextDOM2.value = "";
