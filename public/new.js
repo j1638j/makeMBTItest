@@ -291,20 +291,6 @@ addQuestionButton.addEventListener('click', function () {
         newFinishedQuestionCard.append(newFinishedQuestionCardBody);
         newFinishedQuestionCardBody.append(textDiv, closeButton);
         textDiv.append(titleH5, option1p, option2p)
-        // newFinishedQuestionCard.innerHTML =
-        //     `<div id="finished-question-card" class="card border-2 my-2">
-        //     <div class="card-body">
-        //         <div class="d-flex justify-content-between">
-        //             <div>
-        //                 <h5 class="card-title mb-4">질문: ${question.question}</h5>
-        //                 <p class="card-text mb-2">선택지1: ${option1.option} (${option1.criterion} ${option1.score} 추가)</p>
-        //                 <p class="card-text">선택지2: ${option2.option} (${option2.criterion} ${option2.score} 추가)</p>
-        //             </div>
-        //             <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
-        //                 aria-label="Close" style="display:none"></button>
-        //         </div>
-        //     </div>
-        // </div>`;
 
         //clear inputs
         questionDOM.value = optionScoreDOM1.value = optionScoreDOM2.value = optionCriterionSelect.value = optionTextDOM1.value = optionTextDOM2.value = "";
@@ -397,25 +383,55 @@ addResultButton.addEventListener('click', function () {
         console.log('result pushed to resultsArray: ', resultsArray)
         //show result in card
         const newFinishedResultCard = document.createElement('div');
-        newFinishedResultCard.innerHTML =
-            `<div id="finished-question-card" class="card border-2 my-2">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5 class="card-title mb-4">${result.resultName}</h5>
-                            <p class="card-text mb-2">타입: ${resultTypeArray.toString()}</p>
-                            <p class="card-text mb-2">설명: ${result.description}</p>
-                            <p class="card-text mb-2">최고의 궁합: ${result.perfectMatch.resultName} - ${result.perfectMatch.description}</p>
-                            <p class="card-text mb-2">최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}</p>
-                    
-                        </div>
-                        <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
-                            aria-label="Close" style="display:none"></button>
-                    </div>
-                </div>
-            </div>`;
+        newFinishedResultCard.classList.add('card', 'border-2', 'my-2')
+        const newFinishedResultCardBody = document.createElement('div')
+        newFinishedResultCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
+        const textDiv = document.createElement('div');
+        const resultNameH5 = document.createElement('h5');
+        resultNameH5.classList.add('card-title', 'mb-4')
+        resultNameH5.innerText = `${result.resultName}`
+        const resultTypeP = document.createElement('p')
+        resultTypeP.classList.add('card-text', 'mb-2')
+        resultTypeP.innerText = `타입: ${resultTypeArray.toString()}`
+        const descriptionP = document.createElement('p')
+        descriptionP.classList.add('card-text', 'mb-2')
+        descriptionP.innerText = `설명: ${result.description}`
+        const perfectMatchP = document.createElement('p')
+        perfectMatchP.classList.add('card-text', 'mb-2')
+        perfectMatchP.innerText = `최고의 궁합: ${result.perfectMatch.resultName} - ${result.perfectMatch.description}`
+        const worstMatchP = document.createElement('p')
+        worstMatchP.classList.add('card-text', 'mb-2')
+        worstMatchP.innerText = `최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}`
+        const closeButton = document.createElement('button')
+        closeButton.setAttribute('id', 'finished-result-card-close-button-'+resultsArray.length)
+        closeButton.setAttribute('type', 'button')
+        closeButton.setAttribute('aria-label', 'Close')
+        closeButton.setAttribute('style', 'display:block')
+        closeButton.classList.add('btn-close', 'result-close-button')
 
         finishedResultDiv.append(newFinishedResultCard);
+        newFinishedResultCard.append(newFinishedResultCardBody)
+        newFinishedResultCardBody.append(textDiv, closeButton)
+        textDiv.append(resultNameH5, resultTypeP, descriptionP, perfectMatchP, worstMatchP)
+
+        // newFinishedResultCard.innerHTML = 
+        //     `<div id="finished-question-card" class="card border-2 my-2">
+        //         <div class="card-body">
+        //             <div class="d-flex justify-content-between">
+        //                 <div>
+        //                     <h5 class="card-title mb-4">${result.resultName}</h5>
+        //                     <p class="card-text mb-2">타입: ${resultTypeArray.toString()}</p>
+        //                     <p class="card-text mb-2">설명: ${result.description}</p>
+        //                     <p class="card-text mb-2">최고의 궁합: ${result.perfectMatch.resultName} - ${result.perfectMatch.description}</p>
+        //                     <p class="card-text mb-2">최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}</p>
+                    
+        //                 </div>
+        //                 <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
+        //                     aria-label="Close" style="display:none"></button>
+        //             </div>
+        //         </div>
+        //     </div>`;
+
 
 
         //clear inputs
