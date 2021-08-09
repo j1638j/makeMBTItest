@@ -171,19 +171,6 @@ addCriteriaButton.addEventListener('click', function () {
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
         closeButton.setAttribute('style', 'display:block')
-        // newFinishedCriteriaCard.innerHTML =
-        //     `<div id="finished-criteria-card-${criteriaArray.length}" class="card border-2 my-2">
-        //     <div class="card-body">
-        //         <div class="d-flex justify-content-between">
-        //             <div>
-        //                 <h5 class="card-title">${name}</h5>
-        //                 <p class="card-text">기준점수 ${standardScore}점 미만 ${belowStandardIs}, 이상 ${standardAndAboveIs}</p>
-        //             </div>
-        //             <button id="finished-criteria-card-close-button-${criteriaArray.length}" type="button" class="btn-close"
-        //                 aria-label="Close" style="display:none"></button>
-        //         </div>
-        //     </div>
-        // </div>`;
         finishedCriteriaDiv.append(newFinishedCriteriaCard);
         newFinishedCriteriaCard.append(newFinishedCriteriaCardBody)
         newFinishedCriteriaCardBody.append(textDiv, closeButton)
@@ -413,25 +400,6 @@ addResultButton.addEventListener('click', function () {
         newFinishedResultCard.append(newFinishedResultCardBody)
         newFinishedResultCardBody.append(textDiv, closeButton)
         textDiv.append(resultNameH5, resultTypeP, descriptionP, perfectMatchP, worstMatchP)
-
-        // newFinishedResultCard.innerHTML = 
-        //     `<div id="finished-question-card" class="card border-2 my-2">
-        //         <div class="card-body">
-        //             <div class="d-flex justify-content-between">
-        //                 <div>
-        //                     <h5 class="card-title mb-4">${result.resultName}</h5>
-        //                     <p class="card-text mb-2">타입: ${resultTypeArray.toString()}</p>
-        //                     <p class="card-text mb-2">설명: ${result.description}</p>
-        //                     <p class="card-text mb-2">최고의 궁합: ${result.perfectMatch.resultName} - ${result.perfectMatch.description}</p>
-        //                     <p class="card-text mb-2">최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}</p>
-                    
-        //                 </div>
-        //                 <button id="finished-question-card-close-button-${criteriaArray.length - 1}" type="button" class="btn-close"
-        //                     aria-label="Close" style="display:none"></button>
-        //             </div>
-        //         </div>
-        //     </div>`;
-
 
 
         //clear inputs
