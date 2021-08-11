@@ -139,6 +139,7 @@ addCriteriaButton.addEventListener('click', function () {
     const standardAndAboveIs = criteriaStandardAndAboveIs.value;
     const criteriaEmptyInputAlert = document.querySelector('#criteria-empty-input-alert');
     const criteriaSameInputAlert = document.querySelector('#criteria-same-input-alert');
+    const numberOfCriteria = document.querySelectorAll('.finished-criteria-card').length;
 
 
     if (!name || !standardScore || !belowStandardIs || !standardAndAboveIs) {
@@ -154,8 +155,8 @@ addCriteriaButton.addEventListener('click', function () {
         criteriaArray.push({ name, standardScore, belowStandardIs, standardAndAboveIs })
         //show criteria in card
         const newFinishedCriteriaCard = document.createElement('div');
-        newFinishedCriteriaCard.classList.add('card', 'border-2', 'my-2')
-        newFinishedCriteriaCard.setAttribute('id', 'finished-criteria-card-'+criteriaArray.length)
+        newFinishedCriteriaCard.classList.add('card', 'border-2', 'my-2', 'finished-criteria-card')
+        newFinishedCriteriaCard.setAttribute('id', 'finished-criteria-card-'+numberOfCriteria)
         const newFinishedCriteriaCardBody = document.createElement('div');
         newFinishedCriteriaCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
         const textDiv = document.createElement('div')
@@ -167,10 +168,13 @@ addCriteriaButton.addEventListener('click', function () {
         scoreP.classList.add('card-text')
         const closeButton = document.createElement('button')
         closeButton.classList.add('btn-close', 'criteria-close-button')
-        closeButton.setAttribute('id', 'finished-criteria-card-close-button-'+criteriaArray.length)
+        closeButton.setAttribute('id', 'finished-criteria-card-close-button-'+numberOfCriteria)
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
         closeButton.setAttribute('style', 'display:block')
+        closeButton.onclick = function(){
+            newFinishedCriteriaCard.remove();
+        }
         finishedCriteriaDiv.append(newFinishedCriteriaCard);
         newFinishedCriteriaCard.append(newFinishedCriteriaCardBody)
         newFinishedCriteriaCardBody.append(textDiv, closeButton)
