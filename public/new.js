@@ -174,6 +174,8 @@ addCriteriaButton.addEventListener('click', function () {
         closeButton.setAttribute('style', 'display:block')
         closeButton.onclick = function(){
             newFinishedCriteriaCard.remove();
+            criteriaArray.splice(numberOfCriteria,1)
+            newSelectOption.remove()
         }
         finishedCriteriaDiv.append(newFinishedCriteriaCard);
         newFinishedCriteriaCard.append(newFinishedCriteriaCardBody)
@@ -278,6 +280,9 @@ addQuestionButton.addEventListener('click', function () {
         closeButton.setAttribute('type', `button`)
         closeButton.setAttribute('aria-label', `Close`)
         closeButton.setAttribute('style', `display:block`)
+        closeButton.onclick = function(){
+            newFinishedQuestionCard.remove();
+        }
         finishedQuestionDiv.append(newFinishedQuestionCard);
         newFinishedQuestionCard.append(newFinishedQuestionCardBody);
         newFinishedQuestionCardBody.append(textDiv, closeButton);
