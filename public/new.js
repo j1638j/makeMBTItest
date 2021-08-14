@@ -80,7 +80,11 @@ beforeButton.addEventListener('click', function () {
 })
 
 nextButton.addEventListener('click', function () {
-    if (currentTab === 2 && questionsArray.length < criteriaArray.length) {
+    const cArray = criteriaArray.filter(el => el)
+    const qArray = questionsArray.filter(el => el)
+    const rArray = resultsArray.filter(el => el)
+
+    if (currentTab === 2 && qArray.length < cArray.length) {
         //질문 숫자는 채점 기준보다 많아야 함
         alert('채점기준의 수보다 질문의 수가 더 많아야 합니다. 질문을 더 추가해 주세요.');
 
@@ -95,20 +99,26 @@ nextButton.addEventListener('click', function () {
 finishButton.addEventListener('click', function (e) {
     e.preventDefault();
     //make JSON with test object
+
+    const cArray = criteriaArray.filter(el => el)
+    const qArray = questionsArray.filter(el => el)
+    const rArray = resultsArray.filter(el => el)
+    
+
     const test = {
         title: testNameInput.value,
         description: testDescriptionInput.value,
-        questions: questionsArray,
-        criteria: criteriaArray,
-        results: resultsArray
+        questions: questionsArray.filter(el => el),
+        criteria: criteriaArray.filter(el => el),
+        results: resultsArray(el => el)
     }    
     console.log('console.log(test) is: ' + test);
     console.log('console.dir(test) is: ');
     console.dir(test);
 
-    if (!questionsArray.length || !criteriaArray.length || !resultsArray.length) {
+    if (!qArray.length || !cArray.length || !rArray.length) {
         alert('테스트에 완성되지 않은 부분이 있습니다. 테스트를 끝까지 완성해주세요.')
-    } else if (currentTab === 3 && resultsArray.length !== 2 ** (criteriaArray.length)) {
+    } else if (currentTab === 3 && rArray.length !== 2 ** (cArray.length)) {
         //결과 숫자는 2^(채점기준의 수) 여야 함
         alert('결과의 수는 2^(채점 기준의 수) 여야 합니다. 질문을 수정해주세요.')
     } else {
@@ -153,6 +163,7 @@ addCriteriaButton.addEventListener('click', function () {
         //IF ALL IS WELL,
         //add criteria to the array
         criteriaArray.push({ name, standardScore, belowStandardIs, standardAndAboveIs })
+        console.log('criteriaArray: ', criteriaArray)
         //show criteria in card
         const newFinishedCriteriaCard = document.createElement('div');
         newFinishedCriteriaCard.classList.add('card', 'border-2', 'my-2', 'finished-criteria-card')
@@ -174,8 +185,10 @@ addCriteriaButton.addEventListener('click', function () {
         closeButton.setAttribute('style', 'display:block')
         closeButton.onclick = function(){
             newFinishedCriteriaCard.remove();
-            criteriaArray.splice(numberOfCriteria,1)
+            delete criteriaArray[numberOfCriteria]
             newSelectOption.remove()
+            console.log('criteriaArray: ', criteriaArray)
+            console.log('filtered: ', criteriaArray.filter(el => el))
         }
         finishedCriteriaDiv.append(newFinishedCriteriaCard);
         newFinishedCriteriaCard.append(newFinishedCriteriaCardBody)
@@ -245,6 +258,7 @@ addQuestionButton.addEventListener('click', function () {
     const questionEmptyInputAlert = document.querySelector('#question-empty-input-alert');
     const questionSameInputAlert = document.querySelector('#question-same-input-alert');
 
+    const numberOfQuestions = document.querySelectorAll('.finished-questions-div').length;
 
     if (!question || !option1.option || !option1.criterion || !option1.score || !option2.option || !option2.criterion || !option2.score) {
         //check if all the inputs are filled out
@@ -261,7 +275,7 @@ addQuestionButton.addEventListener('click', function () {
         questionsArray.push(question);
         //show question in card
         const newFinishedQuestionCard = document.createElement('div');
-        newFinishedQuestionCard.classList.add('card', 'border-2', 'my-2')
+        newFinishedQuestionCard.classList.add('card', 'border-2', 'my-2', 'finished-questions-div')
         const newFinishedQuestionCardBody = document.createElement('div');
         newFinishedQuestionCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
         const textDiv = document.createElement('div');
@@ -276,12 +290,14 @@ addQuestionButton.addEventListener('click', function () {
         option2p.innerText = `선택지2: ${option2.option} (${option2.criterion} ${option2.score} 추가)`
         const closeButton = document.createElement('button');
         closeButton.classList.add('btn-close', 'question-close-button')
-        closeButton.setAttribute('id', `finished-question-card-close-button-${questionsArray.length}`)
+        closeButton.setAttribute('id', `finished-question-card-close-button-${numberOfQuestions}`)
         closeButton.setAttribute('type', `button`)
         closeButton.setAttribute('aria-label', `Close`)
         closeButton.setAttribute('style', `display:block`)
         closeButton.onclick = function(){
             newFinishedQuestionCard.remove();
+            delete questionsArray[numberOfQuestions]
+            newSelectOption.remove()
         }
         finishedQuestionDiv.append(newFinishedQuestionCard);
         newFinishedQuestionCard.append(newFinishedQuestionCardBody);
