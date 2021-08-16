@@ -1,4 +1,5 @@
 //DOM
+
 //overall
 const tabs = document.querySelectorAll('.tab');
 const steps = document.querySelectorAll('.step');
@@ -82,7 +83,6 @@ beforeButton.addEventListener('click', function () {
 nextButton.addEventListener('click', function () {
     const cArray = criteriaArray.filter(el => el)
     const qArray = questionsArray.filter(el => el)
-    const rArray = resultsArray.filter(el => el)
 
     if (currentTab === 2 && qArray.length < cArray.length) {
         //질문 숫자는 채점 기준보다 많아야 함
@@ -187,6 +187,7 @@ addCriteriaButton.addEventListener('click', function () {
             newFinishedCriteriaCard.remove();
             delete criteriaArray[numberOfCriteria]
             newSelectOption.remove()
+            criterionSelect.remove()
             console.log('criteriaArray: ', criteriaArray)
             console.log('filtered: ', criteriaArray.filter(el => el))
         }
@@ -273,6 +274,8 @@ addQuestionButton.addEventListener('click', function () {
         //add question to array
         question.options = optionsArray;
         questionsArray.push(question);
+        console.log('questionsArray: ', questionsArray)
+
         //show question in card
         const newFinishedQuestionCard = document.createElement('div');
         newFinishedQuestionCard.classList.add('card', 'border-2', 'my-2', 'finished-questions-div')
@@ -297,7 +300,8 @@ addQuestionButton.addEventListener('click', function () {
         closeButton.onclick = function(){
             newFinishedQuestionCard.remove();
             delete questionsArray[numberOfQuestions]
-            newSelectOption.remove()
+            console.log('questionsArray: ',questionsArray)
+            console.log('filtered questionsArray: ', questionsArray.filter(el => el))
         }
         finishedQuestionDiv.append(newFinishedQuestionCard);
         newFinishedQuestionCard.append(newFinishedQuestionCardBody);
@@ -372,6 +376,8 @@ addResultButton.addEventListener('click', function () {
     const resultEmptyInputAlert = document.querySelector('#result-empty-input-alert');
     const resultSameInputAlert = document.querySelector('#result-same-input-alert')
 
+    const numberOfResults = document.querySelectorAll('.finished-result-div').length;
+
     if (isAnyResultTypeEmpty() || !result.resultName || !result.description) {
         //check if all the inputs are filled out
         resultEmptyInputAlert.style.display = 'block'
@@ -392,10 +398,10 @@ addResultButton.addEventListener('click', function () {
     }  else {
         //add result to array
         resultsArray.push(result);
-        console.log('result pushed to resultsArray: ', resultsArray)
+        console.log('resultsArray: ', resultsArray)
         //show result in card
         const newFinishedResultCard = document.createElement('div');
-        newFinishedResultCard.classList.add('card', 'border-2', 'my-2')
+        newFinishedResultCard.classList.add('card', 'border-2', 'my-2', 'finishied-result-div')
         const newFinishedResultCardBody = document.createElement('div')
         newFinishedResultCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
         const textDiv = document.createElement('div');
@@ -415,11 +421,17 @@ addResultButton.addEventListener('click', function () {
         worstMatchP.classList.add('card-text', 'mb-2')
         worstMatchP.innerText = `최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}`
         const closeButton = document.createElement('button')
-        closeButton.setAttribute('id', 'finished-result-card-close-button-'+resultsArray.length)
+        closeButton.setAttribute('id', 'finished-result-card-close-button-'+numberOfResults)
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
         closeButton.setAttribute('style', 'display:block')
         closeButton.classList.add('btn-close', 'result-close-button')
+        closeButton.onclick = function() {
+            newFinishedResultCard.remove();
+            delete resultsArray[numberOfResults]
+            console.log('resultsArray: ',resultsArray)
+            console.log('filtered resultsArray: ', resultsArray.filter(el => el))
+        }
 
         finishedResultDiv.append(newFinishedResultCard);
         newFinishedResultCard.append(newFinishedResultCardBody)
