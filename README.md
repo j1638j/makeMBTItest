@@ -21,6 +21,119 @@ MBTI 테스트가 유행하면서 기존의 MBTI 테스트에 여러 가지 테�
 5. Axios
 6. Deploy: Heroku
 
+### Mongoose 모델
+1. **Test**
+    * 제목
+    * 설명
+    * 저자: 로그인 후 만들어진 테스트의 경우만 해당
+    * 채점기준 Array
+        - 질문에 답한 것을 채점할 기준
+        - 예시) MBTI의 에너지 방향: 에너지방향 점수가 높을 수록 외향적(E), 낮을 수록 내향적(I)
+        ```js
+        criteria: [{
+            // 이름
+            name: {
+                type: String,
+                required: true
+            },
+            // 기준 점수: 이 점수를 기준으로 유저의 타입을 결정
+            standardScore: {
+                type: Number,
+                required: true
+            },
+            // 기준점수 미만일 경우 타입
+            belowStandardIs: {
+                type: String,
+                required: true
+            },
+            // 기준점수 이상일 경우 타입
+            standardAndAboveIs: {
+                type: String,
+                required: true
+            }
+        }]
+        ```
+    * 질문 Array
+        - 질문을 읽고 두 가지 선택지 중 하나를 선택한다.
+        - 선택된 선택지
+        ```js
+        questions: [{
+            // 질문 텍스트
+            question: {
+                type: String,
+                required: true
+            },
+            // 선택지 Array        
+            options: [{
+                // 선택지 텍스트
+                option: {
+                    type: String,
+                    required: true
+                },
+                // 선택지를 선택했을 때 영향 받을 채점 기준
+                // 채점기준 Array에서 선택
+                criterion: {
+                    type: String,
+                    required: true
+                },
+                // 채점 기준에 추가될 점수
+                score: {
+                    type: Number,
+                    required: true
+                }
+            }]
+        }]
+        ```
+    * 결과 Array
+        - 선택에 따른 채점 결과
+        ```js
+        results: [{
+            // 결과 타입: 채점기준을 기준으로 채점한 결과의 총합
+            // 예시) E N T J
+            resultType: {
+                type: [String],
+                required: true
+            },
+            // 결과 이름: 결과 타입에 걸맞는 이름
+            // 예시) 대담한 통솔자
+            resultName: {
+                type: String,
+                required: true
+            },
+            // 설명
+            description: {
+                type: String,
+                required: true
+            },
+            // 최고의 궁합
+            perfectMatch: {
+                // 이름
+                resultName: String,
+                // 설명
+                description: String
+            },
+            // 최악의 궁합
+            worstMatch: {
+                // 이름
+                resultName: String,
+                // 설명
+                description: String
+            }
+        }]
+        ```
+2. User
+    * 별명
+    * 테스트 Array
+        - 해당 유저로 로그인하여 만들어진 테스트의 집합
+        ```js
+        tests: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Test"
+            }
+        ]
+        ```
+
 <br>
 <br>
 <br>
