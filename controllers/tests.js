@@ -16,10 +16,10 @@ module.exports.createTest = async (req, res) => {
     const test = new Test(req.body);
     const testId = test._id;
     const currentUser = res.locals.currentUser;
-    if(currentUser) {
+    if (currentUser) {
         test.author = currentUser._id;
         currentUser.tests.push(testId);
-        const updatedUser = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests});
+        const updatedUser = await User.findByIdAndUpdate(currentUser._id, { tests: currentUser.tests });
     }
     //pass the id to the cookie
     res.cookie('testId', { testId }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
@@ -50,74 +50,79 @@ module.exports.conductAxios = async (req, res) => {
 
 module.exports.renderTestResult = async (req, res) => {
     const result = JSON.parse(req.signedCookies.result.result);
+    console.log('renderTestResult result: ')
+    console.dir(result)
+    console.log('req.params: ', req.params)
     const test = await Test.findById(req.params.id)
+    console.log('renderTestResult test: ')
+    console.dir(test)
     res.render('tests/result', { result, test });
 }
 
 module.exports.cookieTestResult = async (req, res) => {
     console.log('req.body is: ');
     console.dir(req.body);
-    const result = JSON.stringify(req.body);
+    const result = JSON.stringify(req.body.result);
     console.log('stringified result: ', result)
     res.cookie('result', { result }, { signed: true, maxAge: 1000 * 60 * 60 * 24 });
-    res.redirect('/tests/:id/result')
+    res.redirect(`/tests/${req.body.testId}/result`)
 }
 
-module.exports.renderEditTitleDescription = async(req, res) => {
+module.exports.renderEditTitleDescription = async (req, res) => {
     const test = await Test.findById(req.params.id);
-    res.render('tests/editTitleDescription', {test})
+    res.render('tests/editTitleDescription', { test })
 }
 
-module.exports.editTitleDescription = async(req, res) => {
+module.exports.editTitleDescription = async (req, res) => {
     const { id } = req.params;
-    const test = await Test.findByIdAndUpdate(id, {...req.body.test})
+    const test = await Test.findByIdAndUpdate(id, { ...req.body.test })
     res.redirect(`/showTest/${test._id}`)
 }
 
-module.exports.renderEditCriteria = async(req, res) => {
+module.exports.renderEditCriteria = async (req, res) => {
     const test = await Test.findById(req.params.id);
-    res.render('tests/editCriteria', {test})
+    res.render('tests/editCriteria', { test })
 }
 
-module.exports.editCriteria = async(req, res) => {
+module.exports.editCriteria = async (req, res) => {
     const criteria = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {criteria}, {new: true});
+    const test = await Test.findByIdAndUpdate(req.params.id, { criteria }, { new: true });
     console.log('test: ', test);
     res.send('finished');
 }
 
-module.exports.renderEditQuestions = async(req, res) => {
+module.exports.renderEditQuestions = async (req, res) => {
     const test = await Test.findById(req.params.id)
-    res.render('tests/editQuestions', {test})
+    res.render('tests/editQuestions', { test })
 }
 
-module.exports.editQuestions = async(req, res) => {
+module.exports.editQuestions = async (req, res) => {
     const questions = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {questions}, {new: true});
+    const test = await Test.findByIdAndUpdate(req.params.id, { questions }, { new: true });
     console.log('test: ', test);
     res.send('finished')
 }
 
 module.exports.renderEditResult = async (req, res) => {
     const test = await Test.findById(req.params.id)
-    res.render('tests/editResults', {test});
+    res.render('tests/editResults', { test });
 }
 
-module.exports.editResult = async(req, res)=> {
+module.exports.editResult = async (req, res) => {
     const results = req.body;
-    const test = await Test.findByIdAndUpdate(req.params.id, {results}, {new: true});
+    const test = await Test.findByIdAndUpdate(req.params.id, { results }, { new: true });
     console.log('test: ', test);
     res.send('finished')
 }
 
-module.exports.deleteTest = async(req, res) => {
+module.exports.deleteTest = async (req, res) => {
     const test = await Test.findById(req.params.id)
     const currentUser = res.locals.currentUser
     for (let i = 0; i < currentUser.tests.length; i++) {
-        if(currentUser.tests[i]._id.equals(test._id)) {
+        if (currentUser.tests[i]._id.equals(test._id)) {
             console.log('found it!')
             currentUser.tests.splice(i, 1)
-            const user = await User.findByIdAndUpdate(currentUser._id, {tests: currentUser.tests}, {new: true})
+            const user = await User.findByIdAndUpdate(currentUser._id, { tests: currentUser.tests }, { new: true })
         }
     }
     const deletedTest = await Test.findByIdAndDelete(req.params.id)

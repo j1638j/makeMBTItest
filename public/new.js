@@ -103,15 +103,15 @@ finishButton.addEventListener('click', function (e) {
     const cArray = criteriaArray.filter(el => el)
     const qArray = questionsArray.filter(el => el)
     const rArray = resultsArray.filter(el => el)
-    
+
 
     const test = {
         title: testNameInput.value,
         description: testDescriptionInput.value,
         questions: questionsArray.filter(el => el),
         criteria: criteriaArray.filter(el => el),
-        results: resultsArray(el => el)
-    }    
+        results: resultsArray.filter(el => el)
+    }
     console.log('console.log(test) is: ' + test);
     console.log('console.dir(test) is: ');
     console.dir(test);
@@ -167,7 +167,7 @@ addCriteriaButton.addEventListener('click', function () {
         //show criteria in card
         const newFinishedCriteriaCard = document.createElement('div');
         newFinishedCriteriaCard.classList.add('card', 'border-2', 'my-2', 'finished-criteria-card')
-        newFinishedCriteriaCard.setAttribute('id', 'finished-criteria-card-'+numberOfCriteria)
+        newFinishedCriteriaCard.setAttribute('id', 'finished-criteria-card-' + numberOfCriteria)
         const newFinishedCriteriaCardBody = document.createElement('div');
         newFinishedCriteriaCardBody.classList.add('card-body', 'd-flex', 'justify-content-between')
         const textDiv = document.createElement('div')
@@ -179,11 +179,11 @@ addCriteriaButton.addEventListener('click', function () {
         scoreP.classList.add('card-text')
         const closeButton = document.createElement('button')
         closeButton.classList.add('btn-close', 'criteria-close-button')
-        closeButton.setAttribute('id', 'finished-criteria-card-close-button-'+numberOfCriteria)
+        closeButton.setAttribute('id', 'finished-criteria-card-close-button-' + numberOfCriteria)
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
         closeButton.setAttribute('style', 'display:block')
-        closeButton.onclick = function(){
+        closeButton.onclick = function () {
             newFinishedCriteriaCard.remove();
             delete criteriaArray[numberOfCriteria]
             newSelectOption.remove()
@@ -297,10 +297,10 @@ addQuestionButton.addEventListener('click', function () {
         closeButton.setAttribute('type', `button`)
         closeButton.setAttribute('aria-label', `Close`)
         closeButton.setAttribute('style', `display:block`)
-        closeButton.onclick = function(){
+        closeButton.onclick = function () {
             newFinishedQuestionCard.remove();
             delete questionsArray[numberOfQuestions]
-            console.log('questionsArray: ',questionsArray)
+            console.log('questionsArray: ', questionsArray)
             console.log('filtered questionsArray: ', questionsArray.filter(el => el))
         }
         finishedQuestionDiv.append(newFinishedQuestionCard);
@@ -326,7 +326,7 @@ addResultButton.addEventListener('click', function () {
     const resultTypeDOM = document.querySelectorAll('.result-criterion-select');
     const resultTypeArray = [];
     for (let i = 0; i < resultTypeDOM.length; i++) {
-        if(resultTypeDOM[i].value) {
+        if (resultTypeDOM[i].value) {
             resultTypeArray.push(resultTypeDOM[i].value);
         }
         console.log(resultTypeArray)
@@ -395,7 +395,7 @@ addResultButton.addEventListener('click', function () {
         resultEmptyInputAlert.style.display = 'none'
         resultSameInputAlert.innerText = '같은 별명의 결과를 여러 개 만들 수 없습니다.'
         resultSameInputAlert.style.display = 'block'
-    }  else {
+    } else {
         //add result to array
         resultsArray.push(result);
         console.log('resultsArray: ', resultsArray)
@@ -421,15 +421,15 @@ addResultButton.addEventListener('click', function () {
         worstMatchP.classList.add('card-text', 'mb-2')
         worstMatchP.innerText = `최악의 궁합: ${result.worstMatch.resultName} - ${result.worstMatch.description}`
         const closeButton = document.createElement('button')
-        closeButton.setAttribute('id', 'finished-result-card-close-button-'+numberOfResults)
+        closeButton.setAttribute('id', 'finished-result-card-close-button-' + numberOfResults)
         closeButton.setAttribute('type', 'button')
         closeButton.setAttribute('aria-label', 'Close')
         closeButton.setAttribute('style', 'display:block')
         closeButton.classList.add('btn-close', 'result-close-button')
-        closeButton.onclick = function() {
+        closeButton.onclick = function () {
             newFinishedResultCard.remove();
             delete resultsArray[numberOfResults]
-            console.log('resultsArray: ',resultsArray)
+            console.log('resultsArray: ', resultsArray)
             console.log('filtered resultsArray: ', resultsArray.filter(el => el))
         }
 

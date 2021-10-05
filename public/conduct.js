@@ -125,10 +125,11 @@ const calculateResult = function () {
 const goToNextPage = function (result) {
     console.log('inside of goToNextPage()')
     const url = `/tests/${testId}/result`
+    console.log('type of testId: ', typeof testId)
     console.log('url is: ', url)
     axios(url, {
         method: 'post',
-        data: result
+        data: { result, testId }
     }).then(function (res) {
         console.log('res.data is: ' + res.data);
         return window.location = url
